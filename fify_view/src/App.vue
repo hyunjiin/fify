@@ -1,25 +1,113 @@
 <template>
-  <div id="app">
-    <Camera></Camera>  
+  <div class="container">
+        <h2>Camera</h2>
+        <code v-if="device">{{ device.label }}</code>
+          <web-cam ref="webcam"
+                   :device-id="deviceId"
+                   width="100%"
+                   @started="onStarted" 
+                   @stopped="onStopped" 
+                   @error="onError"
+                   @cameras="onCameras"
+                   @camera-change="onCameraChange" />
+
+            <button type="button" 
+                    class="btn btn-primary" 
+                    @click="onCapture">Capture Photo</button>
+            <button type="button" 
+                    class="btn btn-danger" 
+                    @click="onStop">Stop Camera</button>
+            <button type="button" 
+                    class="btn btn-success" 
+                    @click="onStart">Start Camera</button>
+
+        <figure class="figure">
+          <img :src="img" class="img-responsive" >
+        </figure>
   </div>
 </template>
 
 <script>
-import Camera from './components/Camera.vue';
+import { WebCam } from "vue-web-cam";
+import { find, head } from "lodash";
 
 export default {
-  name: 'app',
+  name: "HelloWorld",
   components: {
-    Camera,
-  },  
-}
+    WebCam
+  },
+  data() {
+    return {
+      img: null,
+      camera: null,
+      deviceId: null,
+      devices: []
+    };
+  },
+  computed: {
+    device() {
+      return find(this.devices, n => n.deviceId == this.deviceId);
+    }
+  },
+   watch: {
+    camera: function(id) {
+      this.deviceId = id;
+    },
+    devices: function() {
+      // Once we have a list select the first one
+      let first = head(this.devices);
+      if (first) {
+        this.camera = first.deviceId;
+        this.deviceId = first.deviceId;
+      }
+    }
+  },
+  methods: {
+    onCapture() {
+      this.img = this.$refs.webcam.capture();
+    },
+    onStarted(stream) {
+      console.log("On Started Event", stream);
+    },
+    onStopped(stream) {
+      console.log("On Stopped Event", stream);
+    },
+    onStop() {
+      this.$refs.webcam.stop();
+    },
+    onStart() {
+      this.$refs.webcam.start();
+    },
+    onError(error) {
+      console.log("On Error Event", error);
+    },
+    onCameras(cameras) {
+      this.devices = cameras;
+      console.log("On Cameras Event", cameras);
+    },
+    onCameraChange(deviceId) {
+      this.deviceId = deviceId;
+      this.camera = deviceId;
+      console.log("On Camera Change Event", deviceId);
+    }
+  }
+};
 </script>
 
-<style lang="scss">
-body {
-  font-family: 'Avenir', Arial, Helvetica, sans-serif;
-  margin: 0;
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
   padding: 0;
-  background-color: #f3f3f3;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
 }
 </style>

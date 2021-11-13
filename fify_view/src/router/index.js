@@ -15,11 +15,7 @@ const routes = [
     name: 'About',
     component: () => import('../views/About.vue')
   },
-  {
-    path: '/camera',
-    name: 'Camera',
-    component: () => import('../views/Camera.vue')
-  },
+
 ]
 
 const router = new VueRouter({
