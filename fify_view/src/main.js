@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import Webcam from 'vue-web-cam'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -22,5 +21,3 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-
-Vue.use(Webcam)
