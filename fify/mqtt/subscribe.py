@@ -33,5 +33,5 @@ client.on_message = on_message
 
 client.connect('18.142.131.188', 1883)
 
-client.subscribe('common', 1)
-client.loop_forever()
+client.subscribe('common2', 1)
+# client.loop_forever()
