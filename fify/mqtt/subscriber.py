@@ -22,10 +22,7 @@ def on_message(client, userdata, msg):
 
 
 client = mqtt.Client()
-# 콜백 함수 설정 on_connect(브로커에 접속)
-# on_disconnect(브로커에 접속중료)
-# on_subscribe(topic 구독),
-# on_message(발행된 메세지가 들어왔을 때)
+
 client.on_connect = on_connect
 client.on_disconnect = on_disconnect
 client.on_subscribe = on_subscribe
@@ -33,5 +30,5 @@ client.on_message = on_message
 
 client.connect('18.142.131.188', 1883)
 
-client.subscribe('common11', 1)
-client.loop_forever()
+client.subscribe('common2', 1)
+# client.loop_forever()

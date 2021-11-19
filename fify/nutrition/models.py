@@ -1,13 +1,18 @@
 from django.db import models
 
 
-# Create your models here.
+class Yolo(models.Model):
+    objects = models.Manager()
+    index = models.IntegerField()
+    class_name = models.CharField(max_length=50)
+
+
 class Nutrition(models.Model):
     objects = models.Manager()
-
-    class_name = models.CharField(max_length=50)  # ai 정보와 매칭할 name
+    yolo_id = models.ForeignKey(Yolo, on_delete=models.CASCADE)
+    class_name = models.CharField(max_length=50)
     product_name = models.CharField(max_length=50)  # 제품이름
-    serving_size = models.CharField(max_length=10)  # 서빙 사이즈
+    serving_size = models.CharField(max_length=30)  # 서빙 사이즈
     calorie_kJ = models.CharField(max_length=10)  # 열량(kJ)
     calorie_kcal = models.CharField(max_length=10)  # 열량(kcal)
     carbohydrate = models.CharField(max_length=10)  # 탄수화물(g)
