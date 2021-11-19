@@ -1,14 +1,33 @@
 <template>
-        <!-- <h2>Camera</h2> -->
+  <div class="container">
+    <router-view/>
+        <h2>Camera</h2>
           <web-cam ref="webcam"
                    :device-id="deviceId"
-                   width="100%"
-                   height="auto"
+                   width="auto"
+                   height="100%"
                    @started="onStarted" 
                    @stopped="onStopped" 
                    @error="onError"
                    @cameras="onCameras"
                    @camera-change="onCameraChange" />
+
+            <button type="button" 
+                    class="btn btn-primary" 
+                    @click="onCapture">Capture Photo</button>
+            <button type="button" 
+                    class="btn btn-danger" 
+                    @click="onStop">Stop Camera</button>
+            <button type="button" 
+                    class="btn btn-success" 
+                    @click="onStart">Start Camera</button>
+            <button type="button"
+                    class="btn btn-primary"
+                    @click="$router.push({name:'Mqtt'})">Mqtt</button>
+        <figure class="figure">
+          <img :src="img" class="img-responsive" >
+        </figure>
+  </div>
 </template>
 
 <script>
@@ -16,7 +35,7 @@ import { WebCam } from "vue-web-cam";
 import { find, head } from "lodash";
 
 export default {
-  name: "HelloWorld",
+  name: "App",
   components: {
     WebCam
   },
@@ -78,6 +97,20 @@ export default {
 };
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
 </style>

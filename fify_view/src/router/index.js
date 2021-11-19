@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
@@ -15,7 +15,11 @@ const routes = [
     name: 'About',
     component: () => import('../views/About.vue')
   },
-
+  {
+    path: '/mqtt',
+    name: 'Mqtt',
+    component: () => import('../views/Mqtt.vue')
+  },
 ]
 
 const router = new VueRouter({

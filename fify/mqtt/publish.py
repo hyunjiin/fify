@@ -29,8 +29,9 @@ client.on_publish = on_publish
 client.connect('18.142.131.188', 1883)
 client.loop_start()
 
-# client.publish('common', json.dumps({"success": "FIFY"}), 1)
-client.publish('common', "123", 1)
+# client.publish('common', json.dumps({"name": "FIFY"}), 1)
+# client.publish('common', "123456", 1)
+client.publish('common123', "123456", 1)
 client.loop_stop()
 
 client.disconnect()
