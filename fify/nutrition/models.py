@@ -9,9 +9,9 @@ class Yolo(models.Model):
 
 class Nutrition(models.Model):
     objects = models.Manager()
-    # yolo_id = models.ForeignKey(Yolo, on_delete=models.CASCADE)
+    # yolo_id = models.CharField(max_length=10)
     # class_name = models.CharField(max_length=50)
-    class_name = models.ForeignKey(Yolo, to_field="class_name", db_column="class_name")
+    class_name = models.ForeignKey(Yolo, to_field="class_name", db_column="class_name", on_delete=models.CASCADE)
     product_name = models.CharField(max_length=50)  # 제품이름
     serving_size = models.CharField(max_length=30)  # 서빙 사이즈
     calorie_kJ = models.CharField(max_length=10)  # 열량(kJ)
