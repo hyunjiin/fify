@@ -3,14 +3,15 @@ from django.db import models
 
 class Yolo(models.Model):
     objects = models.Manager()
-    index = models.IntegerField()
-    class_name = models.CharField(max_length=50)
+    index = models.IntegerField(unique=True)
+    class_name = models.CharField(max_length=50, unique=True)
 
 
 class Nutrition(models.Model):
     objects = models.Manager()
-    yolo_id = models.ForeignKey(Yolo, on_delete=models.CASCADE)
-    class_name = models.CharField(max_length=50)
+    # yolo_id = models.ForeignKey(Yolo, on_delete=models.CASCADE)
+    # class_name = models.CharField(max_length=50)
+    class_name = models.ForeignKey(Yolo, to_field="class_name", db_column="class_name")
     product_name = models.CharField(max_length=50)  # 제품이름
     serving_size = models.CharField(max_length=30)  # 서빙 사이즈
     calorie_kJ = models.CharField(max_length=10)  # 열량(kJ)

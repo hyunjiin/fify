@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 
-from fify.nutrition import views
+from . import views
 
 urlpatterns = [
     path('', views.info, name='nutrition'),
