@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from mqtt import subscriber
 from rest_framework.decorators import api_view
@@ -29,5 +30,8 @@ def result():
     제품인식된 결과
     json 형태로 들어오면 처리하기
     """
+    subscriber.client.loop_start()
 
-    return None
+    message = subscriber.client.on_message
+
+    return HttpResponse(message)
