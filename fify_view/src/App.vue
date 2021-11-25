@@ -4,30 +4,23 @@
         <h2>Camera</h2>
           <web-cam ref="webcam"
                    :device-id="deviceId"
-                   width="auto"
-                   height="100%"
+                   width="100%"
+                   height="auto"
                    @started="onStarted" 
                    @stopped="onStopped" 
                    @error="onError"
                    @cameras="onCameras"
                    @camera-change="onCameraChange" />
-
-            <button type="button" 
-                    class="btn btn-primary" 
-                    @click="onCapture">Capture Photo</button>
-            <button type="button" 
-                    class="btn btn-danger" 
-                    @click="onStop">Stop Camera</button>
-            <button type="button" 
-                    class="btn btn-success" 
-                    @click="onStart">Start Camera</button>
             <button type="button"
-                    class="btn btn-primary"
-                    @click="$router.push({name:'Mqtt'})">Mqtt</button>
-        <figure class="figure">
-          <img :src="img" class="img-responsive" >
-        </figure>
+                    class="btn btn-success"
+                    @click="captureVideo">captureVideo</button>
+            <button type="button"
+                    class="btn btn-danger"
+                    @click="stopCaptureVideo">stopCaptureVideo</button>
+    
   </div>
+
+  
 </template>
 
 <script>
@@ -39,12 +32,13 @@ export default {
   components: {
     WebCam
   },
+  props: ['topic'],
   data() {
     return {
       img: null,
       camera: null,
       deviceId: null,
-      devices: []
+      devices: [],
     };
   },
   computed: {
@@ -58,10 +52,14 @@ export default {
     },
     devices: function() {
       // Once we have a list select the first one
+      
       let first = head(this.devices);
-      if (first) {
-        this.camera = first.deviceId;
-        this.deviceId = first.deviceId;
+      let second = this.devices[1]
+      console.log('.',this.devices)
+      console.log('.',first, second)
+      if (second) {
+        this.camera = second.deviceId;
+        this.deviceId = second.deviceId;
       }
     }
   },
@@ -92,25 +90,36 @@ export default {
       this.deviceId = deviceId;
       this.camera = deviceId;
       console.log("On Camera Change Event", deviceId);
-    }
-  }
+    },
+    // 1초에 6번
+    captureVideo() {
+      this.timerId = setInterval(()=>{
+        this.img = this.$refs.webcam.capture()
+        let temp = this.img.slice(23)
+        let jpg = this.base64ToArray(temp)
+        this.$mqtt.publish('fify/image', jpg)
+        console.log(this.img.length)
+      }, 160);
+      console.log('Start Publish')
+    },
+    stopCaptureVideo() {
+      clearInterval(this.timerId)
+      console.log('Stop Publish')
+    },
+    base64ToArray(base64) {
+      var binary_string = window.atob(base64)
+      var len = binary_string.length
+      var bytes = new Uint8Array(len)            
+      for (var i = 0; i < len; i++) {
+          bytes[i] = binary_string.charCodeAt(i)
+      }
+      return bytes
+    },
+  },
+  
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

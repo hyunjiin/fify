@@ -19,6 +19,7 @@ Vue.use(IconsPlugin)
 Vue.config.productionTip = false
 
 Vue.use(VueMqtt, 'ws://18.142.131.188:9001/ws', {clientID: "clientID-" + parseInt(Math.random() * 1000) });
+// Vue.use(VueMqtt, 'ws://192.168.35.200:9001/ws', {clientID: "clientID-" + parseInt(Math.random() * 1000) });
 
 new Vue({
   router,
