@@ -37,4 +37,4 @@ client.connect('18.142.131.188', 1883)
 # client.connect('192.168.35.200', 1883)
 
 client.subscribe('fify/image', 1)
-client.loop_forever()
+# client.loop_forever()
