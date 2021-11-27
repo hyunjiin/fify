@@ -21,4 +21,5 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('camera/', views.camera, name='camera'),
     path('result/', views.result, name='result'),
+    path('result2/', views.result2, name='result2'),
 ]
