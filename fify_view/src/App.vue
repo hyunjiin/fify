@@ -1,31 +1,38 @@
 <template>
   <div class="container">
     <router-view/>
-        <h2>Camera</h2>
-          <web-cam ref="webcam"
-                   :device-id="deviceId"
-                   width="100%"
-                   height="auto"
-                   @started="onStarted" 
-                   @stopped="onStopped" 
-                   @error="onError"
-                   @cameras="onCameras"
-                   @camera-change="onCameraChange" />
-            <button type="button"
-                    class="btn btn-success"
-                    @click="captureVideo">captureVideo</button>
-            <button type="button"
-                    class="btn btn-danger"
-                    @click="stopCaptureVideo">stopCaptureVideo</button>
-    
-  </div>
+    <div id="textInfo">12345687</div>
+    <h2>Camera</h2>
+    <div id="fifyCamera">
+      <web-cam ref="webcam"
+              id="fifyWebCam"
+              :device-id="deviceId"
+              width="100%"
+              height="auto"
+              @started="onStarted" 
+              @stopped="onStopped" 
+              @error="onError"
+              @cameras="onCameras"
+              @camera-change="onCameraChange" />
+      <canvas id="fifyCanvas"></canvas>
+    </div>
 
+
+    <button type="button"
+            class="btn btn-success"
+            @click="captureVideo">captureVideo</button>
+    <button type="button"
+            class="btn btn-danger"
+            @click="stopCaptureVideo">stopCaptureVideo</button>
+    <button @click="fifyAxios">123</button>
+  </div>
   
 </template>
 
 <script>
 import { WebCam } from "vue-web-cam";
 import { find, head } from "lodash";
+import axios from 'axios'
 
 export default {
   name: "App",
@@ -46,20 +53,18 @@ export default {
       return find(this.devices, n => n.deviceId == this.deviceId);
     }
   },
-   watch: {
+  watch: {
     camera: function(id) {
       this.deviceId = id;
     },
     devices: function() {
       // Once we have a list select the first one
-      
       let first = head(this.devices);
       let second = this.devices[1]
-      console.log('.',this.devices)
       console.log('.',first, second)
-      if (second) {
-        this.camera = second.deviceId;
-        this.deviceId = second.deviceId;
+      if (first) {
+        this.camera = first.deviceId;
+        this.deviceId = first.deviceId;
       }
     }
   },
@@ -99,6 +104,8 @@ export default {
         let jpg = this.base64ToArray(temp)
         this.$mqtt.publish('fify/image', jpg)
         console.log(this.img.length)
+        this.drawRectangle()
+
       }, 160);
       console.log('Start Publish')
     },
@@ -115,11 +122,62 @@ export default {
       }
       return bytes
     },
+    drawRectangle() {
+      let recX = ''
+      let recY = ''
+      let recWidth = ''
+      let recheight = ''
+      console.log("111111111111")
+      var canvas1 = document.getElementById("fifyCanvas")
+      var context = canvas1.getContext("2d")
+
+      context.beginPath();
+      context.linewidth = "5"
+      context.strokeStyle = "red"
+      context.rect(recX, recY, recWidth, recheight)
+      context.rect(180, 50, 80, 70)
+      context.stroke();
+    },
+    async fifyAxios() {
+      // let index = ''
+      // axios.get(`http://18.142.131.188/nutrition/${index}/`).then((Response)=>{
+      axios.get(`http://18.142.131.188/nutrition/5`).then((response)=>{
+      console.log(response.data, '111111');
+      })
+    }
+  },
+  mqtt: {
+    'topic': function(value, topic) {
+      console.log(value, topic)
+    }
+  },
+  mounted() {
+    // 구독신청
+    this.$mqtt.subscribe('topic') 
   },
   
 };
 </script>
 
 <style scoped>
+#fifyWebCam {
+  position: relative;
+}
 
+#fifyCamera {
+  position: relative;
+}
+
+#fifyCanvas {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 3;
+  transition: .9s ease;
+  background-color: transparent;
+  top: 0px;
+  bottom: 0;
+  left: 0px;
+  right: 0;
+}
 </style>
