@@ -20,6 +20,5 @@ from fify.mqtt import views
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('camera/', views.camera, name='camera'),
     path('result/', views.result, name='result'),
 ]
