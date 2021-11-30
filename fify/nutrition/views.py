@@ -6,13 +6,13 @@ from .serializers import NutritionSerializer
 
 
 @api_view(['GET'])
-def info(index):
+def info(request, index):
     """
     제품 index 받아서 db에서 불러오기
     vue로 넘기기
     """
 
-    yolo_index = 25  # index 파라미터 값, 임시로 할당
+    yolo_index = index  # index 파라미터 값, 임시로 할당
 
     yolo_model = Yolo.objects.get(index=yolo_index)  # 넘어온 index로 class_name 확인
     nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)  # class_name로 영양정보 검색

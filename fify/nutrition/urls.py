@@ -18,5 +18,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.info, name='nutrition'),
+    path('<int:index>', views.info, name='nutrition'),
 ]
