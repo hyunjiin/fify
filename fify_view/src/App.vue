@@ -147,13 +147,13 @@ export default {
     }
   },
   mqtt: {
-    'topic': function(value, topic) {
+    'common3': function(value, topic) {
       console.log(value, topic)
     }
   },
   mounted() {
     // 구독신청
-    this.$mqtt.subscribe('topic') 
+    this.$mqtt.subscribe('common3') 
   },
   
 };
