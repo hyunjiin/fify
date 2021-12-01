@@ -58,11 +58,7 @@ def result(request):
     else:
         count = 0
 
-    client.loop_start()
     client.publish('common3', json.dumps(zzz), 1)
-    client.loop_stop()
-
-    client.disconnect()
 
     return Response(zzz)
 
@@ -89,11 +85,7 @@ def result2(request):
     else:
         count = 0
 
-    client.loop_start()
     client.publish('common3', json.dumps(zzz), 1)
-    client.loop_stop()
-
-    client.disconnect()
 
     return Response(zzz)
 
