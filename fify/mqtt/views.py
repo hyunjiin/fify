@@ -47,9 +47,13 @@ def result(request):
     global count
     zzz = request.data
 
-    if request.data.get('exist') == 'n':
+    f = open('result.txt', 'w')
+    f.write(str(request.data['_content']['index']))
+    f.close()
+
+    if request.data['_content']['exist'] == 'n':
         zzz = {"message": "등록되지 않은 제품입니다."}
-    elif request.data.get('detact') == 'n':
+    elif request.data['_content']['detact'] == 'n':
         count += 1
         if count < 60:
             return Response(str(count))
