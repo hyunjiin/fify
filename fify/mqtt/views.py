@@ -73,6 +73,8 @@ def result2(result):
     json 형태로 들어오면 처리하기
     """
 
+    print(result)
+
     global count
     zzz = result
 
