@@ -41,11 +41,12 @@ def result(result):
     json 형태로 들어오면 처리하기
     """
 
-    print(result)
+    # f = open("test.txt", "w")
+    # f.write(result)
+    # f.close()
 
-    f = open("test.txt", "a")
-    f.write(result)
-    f.close()
+    with open("test.txt", "w") as f:
+        f.write(json.dump(result))
 
     global count
     zzz = result
