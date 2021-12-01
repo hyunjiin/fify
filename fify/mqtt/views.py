@@ -44,19 +44,15 @@ def result(request):
     {name: "test", type: 1}
     """
 
-    f = open("test.txt", "w")
-    f.write(request.data)
-    f.close()
-
     global count
-    zzz = result
+    zzz = request.data
 
-    if result['exist'] == 'n':
+    if request.data['exist'] == 'n':
         zzz = {"message": "등록되지 않은 제품입니다."}
-    elif result['detact'] == 'n':
+    elif request.data['detact'] == 'n':
         count += 1
         if count < 60:
-            return count
+            return Response(str(count))
         else:
             zzz = {"message": "매대를 비춰주세요."}
     else:
@@ -68,7 +64,7 @@ def result(request):
 
     publish.disconnect()
 
-    return Response("access success")
+    return Response(zzz)
 
 
 @api_view(['POST'])
@@ -79,17 +75,15 @@ def result2(request):
     json 형태로 들어오면 처리하기
     """
 
-    print(result)
-
     global count
-    zzz = result
+    zzz = request.data
 
-    if result.len > 1:
+    if request.data.len > 1:
         zzz = {"message": "하나의 제품만 비춰주세요."}
-    elif result['detact'] == 'n':
+    elif request.data['detact'] == 'n':
         count += 1
         if count < 60:
-            return count
+            return Response(str(count))
         else:
             zzz = {"message": "매대를 비춰주세요."}
     else:
@@ -101,4 +95,4 @@ def result2(request):
 
     publish.disconnect()
 
-    return Response("access success")
+    return Response(zzz)
