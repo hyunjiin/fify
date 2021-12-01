@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .subscriber import client as subscriber
 from .publish import client as publish
 from rest_framework.decorators import api_view
+import json
 
 count = 0
 
@@ -42,6 +43,10 @@ def result(result):
 
     print(result)
 
+    f = open("test.txt", "a")
+    f.write(result)
+    f.close()
+
     global count
     zzz = result
 
@@ -57,7 +62,7 @@ def result(result):
         count = 0
 
     publish.loop_start()
-    publish.publish('common3', zzz, 1)
+    publish.publish('common3', json.dumps(zzz), 1)
     publish.loop_stop()
 
     publish.disconnect()
@@ -90,7 +95,7 @@ def result2(result):
         count = 0
 
     publish.loop_start()
-    publish.publish('common3', zzz, 1)
+    publish.publish('common3', json.dumps(zzz), 1)
     publish.loop_stop()
 
     publish.disconnect()
