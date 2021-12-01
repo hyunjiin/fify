@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from rest_framework.response import Response
+
 from .subscriber import client as subscriber
 from .publish import client as publish
 from rest_framework.decorators import api_view
@@ -19,7 +21,7 @@ def index(request):
 
 
 @api_view(['GET'])
-def camera():
+def camera(request):
     """
     제품 인식 서비스 화면
     이미지 및 음성 정보 mqtt publish
@@ -34,19 +36,17 @@ def camera():
 
 
 @api_view(['POST'])
-def result(result):
+def result(request):
     """
     1번 기능
     제품인식 결과
     json 형태로 들어오면 처리하기
+    {name: "test", type: 1}
     """
 
-    # f = open("test.txt", "w")
-    # f.write(result)
-    # f.close()
-
-    with open("test.txt", "w") as f:
-        f.write(json.dump(result))
+    f = open("test.txt", "w")
+    f.write(request.data)
+    f.close()
 
     global count
     zzz = result
@@ -68,11 +68,11 @@ def result(result):
 
     publish.disconnect()
 
-    return count
+    return Response("access success")
 
 
 @api_view(['POST'])
-def result2(result):
+def result2(request):
     """
     2번기능
     제품인식 결과
@@ -101,4 +101,4 @@ def result2(result):
 
     publish.disconnect()
 
-    return count
+    return Response("access success")
