@@ -47,9 +47,9 @@ def result(request):
     global count
     zzz = request.data
 
-    if request.data['exist'] == 'n':
+    if request.data.get('exist') == 'n':
         zzz = {"message": "등록되지 않은 제품입니다."}
-    elif request.data['detact'] == 'n':
+    elif request.data.get('detact') == 'n':
         count += 1
         if count < 60:
             return Response(str(count))
@@ -76,7 +76,7 @@ def result2(request):
 
     if request.data.len > 1:
         zzz = {"message": "하나의 제품만 비춰주세요."}
-    elif request.data['detact'] == 'n':
+    elif request.data.get('detact') == 'n':
         count += 1
         if count < 60:
             return Response(str(count))
