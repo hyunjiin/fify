@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 
 from .subscriber import client as subscriber
-from .publish import client as publish
+import paho.mqtt.client as client
 from rest_framework.decorators import api_view
 import json
 
@@ -26,12 +26,12 @@ def camera(request):
     제품 인식 서비스 화면
     이미지 및 음성 정보 mqtt publish
     """
-    publish.loop_start()
-    publish.publish('common1', """촬영한 이미지 url""", 1)
-    publish.loop_stop()
-
-    publish.disconnect()
-    subscriber.loop_start()
+    # client.loop_start()
+    # client.publish('common1', """촬영한 이미지 url""", 1)
+    # client.loop_stop()
+    #
+    # client.disconnect()
+    # subscriber.loop_start()
     return None
 
 
@@ -58,11 +58,11 @@ def result(request):
     else:
         count = 0
 
-    publish.loop_start()
-    publish.publish('common3', json.dumps(zzz), 1)
-    publish.loop_stop()
+    client.loop_start()
+    client.publish('common3', json.dumps(zzz), 1)
+    client.loop_stop()
 
-    publish.disconnect()
+    client.disconnect()
 
     return Response(zzz)
 
@@ -89,10 +89,34 @@ def result2(request):
     else:
         count = 0
 
-    publish.loop_start()
-    publish.publish('common3', json.dumps(zzz), 1)
-    publish.loop_stop()
+    client.loop_start()
+    client.publish('common3', json.dumps(zzz), 1)
+    client.loop_stop()
 
-    publish.disconnect()
+    client.disconnect()
 
     return Response(zzz)
+
+
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code " + str(rc))
+    if rc == 0:
+        print("connected OK")
+    else:
+        print("Bad connection Returned code ", rc)
+
+
+def on_disconnect(client, userdata, flags, rc=0):
+    print(str(rc))
+
+
+def on_publish(client, userdata, mid):
+    print("In on_pub callback mid= ", mid)
+
+
+client = client.Client()
+client.on_connect = on_connect
+client.on_disconnect = on_disconnect
+client.on_publish = on_publish
+
+client.connect('18.142.131.188', 1883)
