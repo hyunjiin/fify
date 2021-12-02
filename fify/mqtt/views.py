@@ -46,23 +46,22 @@ def result(request):
     request_data = request.data
     print(request_data)
 
-    result_json = request_data
-
     if request_data['exist'] == 'n':
-        result_json = request_data.update({"message": "등록되지 않은 제품입니다."})
+        request_data["message"] = "등록되지 않은 제품입니다."
     elif request_data['detact'] == 'n':
         count += 1
         if count < 60:
             return Response(str(count))
         else:
-            result_json = request_data.update({"message": "매대를 비춰주세요."})
+            request_data["message"] = "매대를 비춰주세요."
     else:
         count = 0
 
-    print(json.dumps(result_json))
-    client.publish('common3', json.dumps(result_json), 1)
+    print(request_data)
+    print(json.dumps(request_data))
+    client.publish('common3', json.dumps(request_data), 1)
 
-    return Response(result_json)
+    return Response(request_data)
 
 
 @api_view(['POST'])
