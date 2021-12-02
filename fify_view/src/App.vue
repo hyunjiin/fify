@@ -157,8 +157,10 @@ export default {
   },
   mqtt: {
     'common3': function(value, topic) {
-      // value = msg.payload.decode()
-      console.log(value, topic)
+      let result = JSON.parse(value)
+      result.exist 
+      result.coord 
+      console.log(result, topic)
     }
   },
   mounted() {
