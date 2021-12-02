@@ -48,43 +48,22 @@ def result(request):
     """
 
     global count
-    f = open('result.txt', 'a')
-    f.write('1\n')
 
-    request_data = json.loads(request.POST['_content'])
-    f.write(str(request_data))
+    request_data = request.data
 
-    """
-('{\r\n'
- ' \t"exist" : "y",\r\n'
- ' \t"detact" : "y",\r\n'
- ' \t"index" : "2",\r\n'
- ' \t"coord" : "value4"\r\n'
- ' }')    
-    
-    
-    """
-    result_json = request_data
+    if request_data['exist'] == 'n':
+        result_json = {"message": "등록되지 않은 제품입니다."}
+    elif request_data['detact'] == 'n':
+        count += 1
+        if count < 60:
+            return Response(str(count))
+        else:
+            result_json = {"message": "매대를 비춰주세요."}
+    else:
+        count = 0
 
-    f.write('2\n')
-    f.write(request_data['exist'])
-
-    # if request_data['exist'] == 'n':
-    #     result_json = {"message": "등록되지 않은 제품입니다."}
-    # elif request_data['detact'] == 'n':
-    #     count += 1
-    #     if count < 60:
-    #         return Response(str(count))
-    #     else:
-    #         result_json = {"message": "매대를 비춰주세요."}
-    # else:
-    #     count = 0
-
-    f.write('3\n')
     client.publish('common3', result_json, 1)
-    f.write("success")
 
-    f.close()
 
     return Response(result_json)
 
