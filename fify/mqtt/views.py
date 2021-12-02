@@ -51,7 +51,10 @@ def result(request):
     request_data = json.loads(request.body)
     result_json = request_data
 
-    exist = request_data['exist']
+    f = open('result.txt', 'w')
+    f.write(str(request.data['_content']['index']))
+    f.close()
+
     if request_data['exist'] == 'n':
         result_json = {"message": "등록되지 않은 제품입니다."}
     elif request_data['detact'] == 'n':
