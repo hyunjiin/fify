@@ -2,6 +2,7 @@ import paho.mqtt.client as client
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+import json
 
 count = 0
 
@@ -45,6 +46,7 @@ def result(request):
     request_data = request.data
     print(request_data)
 
+    result_json = request_data
     if request_data['exist'] == 'n':
         result_json = {"message": "등록되지 않은 제품입니다."}
     elif request_data['detact'] == 'n':
@@ -55,9 +57,9 @@ def result(request):
             result_json = {"message": "매대를 비춰주세요."}
     else:
         count = 0
-    client.publish('common3', "테스트 텍스트1111", 1)
-    client.publish('common3', {"message": "테스트 json22222"}, 1)
-    client.publish('common3', result_json, 1)
+
+    print(json.dumps(result_json))
+    client.publish('common3', json.dumps(result_json), 1)
 
     return Response(result_json)
 
