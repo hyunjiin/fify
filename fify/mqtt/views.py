@@ -61,9 +61,9 @@ def result(request):
             result_json = {"message": "매대를 비춰주세요."}
     else:
         count = 0
-
+    client.publish('common3', "테스트 텍스트1111", 1)
+    client.publish('common3', {"message": "테스트 json22222"}, 1)
     client.publish('common3', result_json, 1)
-
 
     return Response(result_json)
 
@@ -77,22 +77,25 @@ def result2(request):
     """
 
     global count
-    zzz = request.data
+
+    request_data = request.data
 
     if request.data.len > 1:
-        zzz = {"message": "하나의 제품만 비춰주세요."}
-    elif request.data.get('detact') == 'n':
+        result_json = {"message": "하나의 제품만 비춰주세요."}
+    elif request_data['exist'] == 'n':
+        result_json = {"message": "등록되지 않은 제품입니다."}
+    elif request_data['detact'] == 'n':
         count += 1
         if count < 60:
             return Response(str(count))
         else:
-            zzz = {"message": "매대를 비춰주세요."}
+            result_json = {"message": "제품을 비춰주세요."}
     else:
         count = 0
 
-    client.publish('common3', json.dumps(zzz), 1)
+    client.publish('common3', result_json, 1)
 
-    return Response(zzz)
+    return Response(result_json)
 
 
 def on_connect(client, userdata, flags, rc):
