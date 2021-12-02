@@ -5,7 +5,8 @@
       TEXT_AREA
       <p>second line</p>
     </div>
-    <input type='text' v-model="message" placeholder="제품을 입력하세요">
+    <input id="inputProduct" type='text' v-model="message" placeholder="제품을 입력하세요">
+    <button @click="onProductPub">button</button>
     <p>메시지 : {{message}}</p>
     <h2>Camera</h2>
     <div id="fifyCamera">
@@ -51,6 +52,7 @@ export default {
       camera: null,
       deviceId: null,
       devices: [],
+      message: ""
     };
   },
   computed: {
@@ -101,11 +103,14 @@ export default {
       this.camera = deviceId;
       console.log("On Camera Change Event", deviceId);
     },
-    // 메시지 전송
-    onProductPub() {
 
+    // 입력받은 메시지 전송
+    onProductPub() {
+      console.log(this.message)
+      this.$mqtt.publish('fify/product', this.message)
     },
-    // 1초에 6번
+
+    // 1초에 6번 사진 전송
     captureVideo() {
       this.timerId = setInterval(()=>{
         this.img = this.$refs.webcam.capture()
