@@ -1,13 +1,17 @@
 <template>
   <div class="container">
     <router-view/>
-    <div id="textInfo">
+    <div id="textInfo" class="section section-basic">
+      <center>
       TEXT_AREA
       <p>second line</p>
+      </center>
     </div>
-    <input id="inputProduct" type='text' v-model="message" placeholder="제품을 입력하세요">
-    <button @click="onProductPub">button</button>
-    <p>메시지 : {{message}}</p>
+    <center>
+      <input id="inputProduct" type='text' v-model="message" placeholder="제품을 입력하세요">
+      <button @click="onProductPub">전송</button>
+    </center>
+    
     <h2>Camera</h2>
     <div id="fifyCamera">
       <web-cam ref="webcam"
@@ -193,6 +197,13 @@ export default {
 </script>
 
 <style scoped>
+.section-basic {
+  border-radius: 8px 8px 8px 8px / 8px 8px 8px 8px;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 12px -5px;
+  background-color: whitesmoke;
+  
+}
+
 #fifyWebCam {
   position: relative;
 }
@@ -213,7 +224,8 @@ export default {
   left: 0px;
   right: 0;
 }
-#textInfo {
-  background-color: blanchedalmond;
+
+#inputProduct {
+  margin: 0 auto;
 }
 </style>
