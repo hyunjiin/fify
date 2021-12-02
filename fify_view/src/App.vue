@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <router-view/>
-    <div id="textInfo">12345687</div>
+    <div id="textInfo">TEXT_AREA</div>
     <h2>Camera</h2>
     <div id="fifyCamera">
       <web-cam ref="webcam"
