@@ -2,7 +2,11 @@ import paho.mqtt.client as client
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from nutrition.models import Nutrition
+from nutrition.models import Yolo
 import json
+
+
 
 count = 0
 
@@ -57,6 +61,10 @@ def result(request):
     else:
         count = 0
 
+    yolo_model = Yolo.objects.get(request.data['index'][0])
+    nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
+    request_data['product_name'] = nutrition.product_name
+
     print(request_data)
     print(json.dumps(request_data))
     client.publish('common3', json.dumps(request_data), 1)
@@ -88,6 +96,10 @@ def result2(request):
             request_data["message"] = "매대를 비춰주세요."
     else:
         count = 0
+
+    yolo_model = Yolo.objects.get(request.data['index'][0])
+    nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
+    request_data['product_name'] = nutrition.product_name
 
     print(request_data)
     print(json.dumps(request_data))
