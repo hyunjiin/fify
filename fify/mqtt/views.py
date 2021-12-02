@@ -2,6 +2,7 @@ from io import StringIO
 
 from django.http import HttpResponse
 from django.shortcuts import render
+from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 
 from .subscriber import client as subscriber
@@ -48,16 +49,24 @@ def result(request):
 
     global count
     f = open('result.txt', 'a')
-    f.write(1)
-    f.write(request.data)
+    f.write('1\n')
 
-    request_data = json.loads(request.body)
-    f.write(2)
-    f.write(request_data)
+    request_data = json.loads(request.POST['_content'])
+    f.write(str(request_data))
 
+    """
+('{\r\n'
+ ' \t"exist" : "y",\r\n'
+ ' \t"detact" : "y",\r\n'
+ ' \t"index" : "2",\r\n'
+ ' \t"coord" : "value4"\r\n'
+ ' }')    
+    
+    
+    """
     result_json = request_data
 
-    f.write(3)
+    f.write('2\n')
     f.write(request_data['exist'])
 
     # if request_data['exist'] == 'n':
@@ -71,7 +80,7 @@ def result(request):
     # else:
     #     count = 0
 
-    f.write(4)
+    f.write('3\n')
     client.publish('common3', result_json, 1)
     f.write("success")
 
