@@ -102,7 +102,9 @@ export default {
       console.log("On Camera Change Event", deviceId);
     },
     // 메시지 전송
-  
+    onProductPub() {
+
+    },
     // 1초에 6번
     captureVideo() {
       this.timerId = setInterval(()=>{
@@ -155,7 +157,7 @@ export default {
   },
   mqtt: {
     'common3': function(value, topic) {
-      value = msg.payload.decode()
+      // value = msg.payload.decode()
       console.log(value, topic)
     }
   },
