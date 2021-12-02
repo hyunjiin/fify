@@ -50,10 +50,6 @@ def result(request):
     request_data = request.data
     print(request_data)
 
-    for index, value in enumerate(request_data['index']):
-
-
-
     if request_data['exist'] == 'n':
         request_data["message"] = "등록되지 않은 제품입니다."
     elif request_data['detact'] == 'n':
@@ -101,7 +97,7 @@ def result2(request):
     else:
         count = 0
 
-    yolo_model = Yolo.objects.get(request.data['index'][0])
+    yolo_model = Yolo.objects.get(index=request.data['index'][0])
     nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
     request_data['product_name'] = nutrition.product_name
 
