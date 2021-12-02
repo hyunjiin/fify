@@ -61,7 +61,7 @@ def result(request):
     else:
         count = 0
 
-    yolo_model = Yolo.objects.get(index=request.data['index'][0])
+    yolo_model = Yolo.objects.get(index=request.data['index']['first'])
     nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
     request_data['product_name'] = nutrition.product_name
 
@@ -97,7 +97,7 @@ def result2(request):
     else:
         count = 0
 
-    yolo_model = Yolo.objects.get(index=request.data['index'][0])
+    yolo_model = Yolo.objects.get(index=request.data['index']['first'])
     nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
     request_data['product_name'] = nutrition.product_name
 
