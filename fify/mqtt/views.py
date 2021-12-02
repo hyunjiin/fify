@@ -1,3 +1,5 @@
+from io import StringIO
+
 from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework.response import Response
@@ -45,24 +47,20 @@ def result(request):
     """
 
     global count
-    zzz = request.data
+    zzz = StringIO(request.data)
 
-    f = open('result.txt', 'w')
-    f.write(str(request.data['_content']['index']))
-    f.close()
+    # if request.data['_content']['exist'] == 'n':
+    #     zzz = {"message": "등록되지 않은 제품입니다."}
+    # elif request.data['_content']['detact'] == 'n':
+    #     count += 1
+    #     if count < 60:
+    #         return Response(str(count))
+    #     else:
+    #         zzz = {"message": "매대를 비춰주세요."}
+    # else:
+    #     count = 0
 
-    if request.data['_content']['exist'] == 'n':
-        zzz = {"message": "등록되지 않은 제품입니다."}
-    elif request.data['_content']['detact'] == 'n':
-        count += 1
-        if count < 60:
-            return Response(str(count))
-        else:
-            zzz = {"message": "매대를 비춰주세요."}
-    else:
-        count = 0
-
-    client.publish('common3', json.dumps(zzz), 1)
+    client.publish('common3', zzz, 1)
 
     return Response(zzz)
 
