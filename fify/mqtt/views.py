@@ -47,22 +47,25 @@ def result(request):
     """
 
     global count
-    zzz = StringIO(request.data)
 
-    # if request.data['_content']['exist'] == 'n':
-    #     zzz = {"message": "등록되지 않은 제품입니다."}
-    # elif request.data['_content']['detact'] == 'n':
-    #     count += 1
-    #     if count < 60:
-    #         return Response(str(count))
-    #     else:
-    #         zzz = {"message": "매대를 비춰주세요."}
-    # else:
-    #     count = 0
+    request_data = json.loads(request.body)
+    result_json = request_data
 
-    client.publish('common3', zzz, 1)
+    exist = request_data['exist']
+    if request_data['exist'] == 'n':
+        result_json = {"message": "등록되지 않은 제품입니다."}
+    elif request_data['detact'] == 'n':
+        count += 1
+        if count < 60:
+            return Response(str(count))
+        else:
+            result_json = {"message": "매대를 비춰주세요."}
+    else:
+        count = 0
 
-    return Response(zzz)
+    client.publish('common3', result_json, 1)
+
+    return Response(result_json)
 
 
 @api_view(['POST'])
