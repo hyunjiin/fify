@@ -1,14 +1,7 @@
-from io import StringIO
-
-from django.http import HttpResponse
-from django.shortcuts import render
-from rest_framework.parsers import JSONParser
-from rest_framework.response import Response
-
-from .subscriber import client as subscriber
 import paho.mqtt.client as client
+from django.shortcuts import render
 from rest_framework.decorators import api_view
-import json
+from rest_framework.response import Response
 
 count = 0
 
@@ -50,6 +43,7 @@ def result(request):
     global count
 
     request_data = request.data
+    print(request_data)
 
     if request_data['exist'] == 'n':
         result_json = {"message": "등록되지 않은 제품입니다."}
