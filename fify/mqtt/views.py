@@ -47,14 +47,15 @@ def result(request):
     print(request_data)
 
     result_json = request_data
+
     if request_data['exist'] == 'n':
-        result_json = {"message": "등록되지 않은 제품입니다."}
+        result_json = request_data.update({"message": "등록되지 않은 제품입니다."})
     elif request_data['detact'] == 'n':
         count += 1
         if count < 60:
             return Response(str(count))
         else:
-            result_json = {"message": "매대를 비춰주세요."}
+            result_json = request_data.update({"message": "매대를 비춰주세요."})
     else:
         count = 0
 
