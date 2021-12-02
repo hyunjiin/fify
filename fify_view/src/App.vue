@@ -123,10 +123,14 @@ export default {
       }, 160);
       console.log('Start Publish')
     },
+
+    // 사진 전송 멈추기
     stopCaptureVideo() {
       clearInterval(this.timerId)
       console.log('Stop Publish')
     },
+
+    // 사진 전송을 위해 데이터변경
     base64ToArray(base64) {
       var binary_string = window.atob(base64)
       var len = binary_string.length
@@ -136,6 +140,8 @@ export default {
       }
       return bytes
     },
+
+    // 네모 그리기
     drawRectangle() {
       let recX = ''
       let recY = ''
@@ -152,6 +158,8 @@ export default {
       context.rect(180, 50, 80, 70)
       context.stroke();
     },
+
+    // 클라우드로 인덱스 전송
     async fifyAxios() {
       // let index = ''
       // axios.get(`http://18.142.131.188/nutrition/${index}/`).then((Response)=>{
@@ -160,11 +168,19 @@ export default {
       })
     }
   },
+
+  // MQTT통신
   mqtt: {
     'common3': function(value, topic) {
       let result = JSON.parse(value)
-      result.exist 
-      result.coord 
+      console.log('index : ', result.index)
+      console.log('index : ', result.index.first)
+      console.log('index : ', result.index.second)
+      
+      console.log('exist', result.exist)
+      console.log('detact', result.detact)
+      console.log('coord', result.coord)
+      console.log('center', result.center) 
       console.log(result, topic)
     }
   },
