@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <router-view/>
-    <div id="textInfo">TEXT_AREA</div>
+    <div id="textInfo">
+      TEXT_AREA
+      <p>second line</p>
+    </div>
+    <input type='text' v-model="message" placeholder="제품을 입력하세요">
+    <p>메시지 : {{message}}</p>
     <h2>Camera</h2>
     <div id="fifyCamera">
       <web-cam ref="webcam"
@@ -179,5 +184,8 @@ export default {
   bottom: 0;
   left: 0px;
   right: 0;
+}
+#textInfo {
+  background-color: blanchedalmond;
 }
 </style>

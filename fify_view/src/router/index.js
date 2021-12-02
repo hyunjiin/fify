@@ -16,9 +16,9 @@ const routes = [
     component: () => import('../views/About.vue')
   },
   {
-    path: '/mqtt',
-    name: 'Mqtt',
-    component: () => import('../views/Mqtt.vue')
+    path: '/side',
+    name: 'SideBar',
+    component: () => import('../views/SideBar')
   },
 ]
 
