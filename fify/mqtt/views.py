@@ -6,8 +6,6 @@ from nutrition.models import Nutrition
 from nutrition.models import Yolo
 import json
 
-
-
 count = 0
 
 
@@ -51,8 +49,6 @@ def result(request):
     request_data = request.data
     print(request_data)
 
-    if request_data['index'] is None:
-        request_data['product_name'] = ''
     if request_data['exist'] == 'n':
         request_data["message"] = "등록되지 않은 제품입니다."
     elif request_data['detact'] == 'n':
@@ -64,9 +60,12 @@ def result(request):
     else:
         count = 0
 
-    yolo_model = Yolo.objects.get(index=request.data['index']['first'])
-    nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
-    request_data['product_name'] = nutrition.product_name
+    if request_data['index'] is None:
+        request_data['product_name'] = ""
+    else:
+        yolo_model = Yolo.objects.get(index=request.data['index']['first'])
+        nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
+        request_data['product_name'] = nutrition.product_name
 
     print(request_data)
     print(json.dumps(request_data))
@@ -87,11 +86,8 @@ def result2(request):
 
     request_data = request.data
 
-
     if len(request.data['index']) > 1:
         request_data["message"] = "하나의 제품만 비춰주세요."
-    if request_data['index'] is None:
-        request_data['product_name'] = ''
     elif request_data['exist'] == 'n':
         request_data["message"] = "등록되지 않은 제품입니다."
     elif request_data['detact'] == 'n':
@@ -103,9 +99,12 @@ def result2(request):
     else:
         count = 0
 
-    yolo_model = Yolo.objects.get(index=request.data['index']['first'])
-    nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
-    request_data['product_name'] = nutrition.product_name
+    if request_data['index'] is None:
+        request_data['product_name'] = ''
+    else:
+        yolo_model = Yolo.objects.get(index=request.data['index']['first'])
+        nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
+        request_data['product_name'] = nutrition.product_name
 
     print(request_data)
     print(json.dumps(request_data))
