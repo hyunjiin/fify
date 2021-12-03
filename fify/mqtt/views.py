@@ -49,9 +49,9 @@ def result(request):
     request_data = request.data
     print(request_data)
 
-    if request_data['exist'] == 'n':  # 화면에 잡히는데 여러개 잡힐 경우
+    if request_data['exist'] == 'n':
         request_data["message"] = "등록되지 않은 제품입니다."
-    elif request_data['detact'] == 'n':  # 등록된 제품인데 화면에 잡히지 않는 경우
+    elif request_data['detact'] == 'n':
         count += 1
         if count < 60:
             return Response(str(count))
@@ -60,7 +60,7 @@ def result(request):
     else:
         count = 0
 
-    if request_data['index'] is None:  # index가 None인 경우 (등록된 제품이 아닌 경우)
+    if request_data['index'] is None:
         request_data['product_name'] = ''
 
     else:
