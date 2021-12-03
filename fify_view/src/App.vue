@@ -6,9 +6,7 @@
       <v-toolbar-title>FIFY PROJECT</v-toolbar-title>
       <!-- 배치하고 남은 공간을 차지 -->
       <v-spacer></v-spacer>
-      <v-btn icon @click="$router.push({name:'Home'})">
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
+
       <!-- 버튼 모양이 아니라 icon만 표시하겠다 -->
       <v-btn icon>
         <!-- v-icon이 아이콘의 이름 -->

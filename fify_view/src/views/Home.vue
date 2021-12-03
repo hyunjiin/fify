@@ -35,6 +35,13 @@
             class="btn btn-danger"
             @click="stopCaptureVideo">stopCaptureVideo</button>
     <button @click="fifyAxios">123</button>
+
+    <p></p>
+
+    <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
+    <button type='button' class="btn btn-success">기능 1</button>
+    <button type='button' class="btn btn-success">기능 2</button>
+
   </div>
   
 </template>
@@ -147,7 +154,7 @@ export default {
 
     // 네모 그리기
     drawRectangle() {
-      var this = that
+      var that = this
       
       console.log("111111111111")
       var canvas1 = document.getElementById("fifyCanvas")
@@ -184,10 +191,11 @@ export default {
       console.log('exist', result.exist)
       console.log('detact', result.detact)
       console.log('coord', result.coord)
-      console.log('center', result.center) 
+      console.log('center', result.center)
+      console.log('product_name', result.product_name)
       console.log(result, topic)
       
-      // ㅂㅕㄴㅅㅜㅈㅣㅈㅓㅇ - if index is not NULL
+      // 변수 - if index is not NULL
       let recX1 = result.coord.first[0]
       let recY1 = result.coord.first[1]
       let recW1 = result.coord.first[2]
@@ -217,6 +225,7 @@ export default {
       this.recY3 = recY3
       this.recW3 = recW3
       this.recH3 = recH3
+
     }
   },
   mounted() {
@@ -228,6 +237,10 @@ export default {
 </script>
 
 <style scoped>
+.containet {
+  margin-top: auto;
+}
+
 .section-basic {
   border-radius: 8px 8px 8px 8px / 8px 8px 8px 8px;
   box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 12px -5px;
