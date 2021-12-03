@@ -51,6 +51,8 @@ def result(request):
     request_data = request.data
     print(request_data)
 
+    if request_data['index'] == 'None':
+        request_data['product_name'] = ''
     if request_data['exist'] == 'n':
         request_data["message"] = "등록되지 않은 제품입니다."
     elif request_data['detact'] == 'n':
