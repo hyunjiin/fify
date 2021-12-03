@@ -147,10 +147,8 @@ export default {
 
     // 네모 그리기
     drawRectangle() {
-      let recX = ''
-      let recY = ''
-      let recWidth = ''
-      let recheight = ''
+      var this = that
+      
       console.log("111111111111")
       var canvas1 = document.getElementById("fifyCanvas")
       var context = canvas1.getContext("2d")
@@ -158,7 +156,9 @@ export default {
       context.beginPath();
       context.linewidth = "5"
       context.strokeStyle = "red"
-      context.rect(recX, recY, recWidth, recheight)
+      context.rect(that.recX1, that.rec1Y, that.recW1, that.recH1)
+      context.rect(that.recX2, that.recY2, that.recW2, that.recH2)
+      context.rect(that.recX3, that.recY3, that.recW3, that.recH3)
       context.rect(180, 50, 80, 70)
       context.stroke();
     },
@@ -186,6 +186,37 @@ export default {
       console.log('coord', result.coord)
       console.log('center', result.center) 
       console.log(result, topic)
+      
+      // ㅂㅕㄴㅅㅜㅈㅣㅈㅓㅇ - if index is not NULL
+      let recX1 = result.coord.first[0]
+      let recY1 = result.coord.first[1]
+      let recW1 = result.coord.first[2]
+      let recH1 = result.coord.first[3]
+      
+      let recX2 = result.coord.second[0]
+      let recY2 = result.coord.second[1]
+      let recW2 = result.coord.second[2]
+      let recH2 = result.coord.second[3]
+      
+      let recX3 = result.coord.third[0]
+      let recY3 = result.coord.third[1]
+      let recW3 = result.coord.third[2]
+      let recH3 = result.coord.third[3]
+      
+      this.recX1 = recX1
+      this.recY1 = recY1
+      this.recW1 = recW1
+      this.recH1 = recH1
+      
+      this.recX2 = recX2
+      this.recY2 = recY2
+      this.recW2 = recW2
+      this.recH2 = recH2
+      
+      this.recX3 = recX3
+      this.recY3 = recY3
+      this.recW3 = recW3
+      this.recH3 = recH3
     }
   },
   mounted() {
