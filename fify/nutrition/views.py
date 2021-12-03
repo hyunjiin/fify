@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from .models import Nutrition, Yolo
 from .serializers import NutritionSerializer
@@ -21,4 +22,4 @@ def info(request, index):
     print(serializer.data['product_name'])
     print(nutrition.product_name)
 
-    return HttpResponse(serializer.data)
+    return Response(serializer.data)
