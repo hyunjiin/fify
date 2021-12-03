@@ -1,6 +1,17 @@
 <template>
   <div class="container">
-    <div id="textInfo">12345687</div>
+    <router-view/>
+    <div id="textInfo" class="section section-basic">
+      <center>
+      TEXT_AREA
+      <p>second line</p>
+      </center>
+    </div>
+    <center>
+      <input id="inputProduct" type='text' v-model="message" placeholder="제품을 입력하세요">
+      <button @click="onProductPub">전송</button>
+    </center>
+    
     <h2>Camera</h2>
     <div id="fifyCamera">
       <web-cam ref="webcam"
@@ -25,6 +36,7 @@
             @click="stopCaptureVideo">stopCaptureVideo</button>
     <button @click="fifyAxios">123</button>
   </div>
+  
 </template>
 
 <script>
@@ -44,6 +56,7 @@ export default {
       camera: null,
       deviceId: null,
       devices: [],
+      message: ""
     };
   },
   computed: {
@@ -94,7 +107,14 @@ export default {
       this.camera = deviceId;
       console.log("On Camera Change Event", deviceId);
     },
-    // 1초에 6번
+
+    // 입력받은 메시지 전송
+    onProductPub() {
+      console.log(this.message)
+      this.$mqtt.publish('fify/product', this.message)
+    },
+
+    // 1초에 6번 사진 전송
     captureVideo() {
       this.timerId = setInterval(()=>{
         this.img = this.$refs.webcam.capture()
@@ -107,10 +127,14 @@ export default {
       }, 160);
       console.log('Start Publish')
     },
+
+    // 사진 전송 멈추기
     stopCaptureVideo() {
       clearInterval(this.timerId)
       console.log('Stop Publish')
     },
+
+    // 사진 전송을 위해 데이터변경
     base64ToArray(base64) {
       var binary_string = window.atob(base64)
       var len = binary_string.length
@@ -120,6 +144,8 @@ export default {
       }
       return bytes
     },
+
+    // 네모 그리기
     drawRectangle() {
       let recX = ''
       let recY = ''
@@ -136,6 +162,8 @@ export default {
       context.rect(180, 50, 80, 70)
       context.stroke();
     },
+
+    // 클라우드로 인덱스 전송
     async fifyAxios() {
       // let index = ''
       // axios.get(`http://18.142.131.188/nutrition/${index}/`).then((Response)=>{
@@ -144,9 +172,20 @@ export default {
       })
     }
   },
+
+  // MQTT통신
   mqtt: {
     'common3': function(value, topic) {
-      console.log(value, topic)
+      let result = JSON.parse(value)
+      console.log('index : ', result.index)
+      console.log('index : ', result.index.first)
+      console.log('index : ', result.index.second)
+      
+      console.log('exist', result.exist)
+      console.log('detact', result.detact)
+      console.log('coord', result.coord)
+      console.log('center', result.center) 
+      console.log(result, topic)
     }
   },
   mounted() {
@@ -158,6 +197,13 @@ export default {
 </script>
 
 <style scoped>
+.section-basic {
+  border-radius: 8px 8px 8px 8px / 8px 8px 8px 8px;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 12px -5px;
+  background-color: darkgray;
+  
+}
+
 #fifyWebCam {
   position: relative;
 }
@@ -177,5 +223,9 @@ export default {
   bottom: 0;
   left: 0px;
   right: 0;
+}
+
+#inputProduct {
+  margin: 0 auto;
 }
 </style>
