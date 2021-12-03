@@ -154,8 +154,9 @@ export default {
 
     // 네모 그리기
     drawRectangle() {
+
       var that = this
-      
+
       console.log("111111111111")
       var canvas1 = document.getElementById("fifyCanvas")
       var context = canvas1.getContext("2d")
