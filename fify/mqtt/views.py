@@ -87,6 +87,8 @@ def result2(request):
 
     request_data = request.data
 
+    if request_data['index'] == 'None':
+        request_data['product_name'] = ''
     if len(request.data['index']) > 1:
         request_data["message"] = "하나의 제품만 비춰주세요."
     elif request_data['exist'] == 'n':
