@@ -51,7 +51,7 @@ def result(request):
     request_data = request.data
     print(request_data)
 
-    if request_data['index'] == 'None':
+    if request_data['index'] is None:
         request_data['product_name'] = ''
     if request_data['exist'] == 'n':
         request_data["message"] = "등록되지 않은 제품입니다."
@@ -87,10 +87,11 @@ def result2(request):
 
     request_data = request.data
 
-    if request_data['index'] == 'None':
-        request_data['product_name'] = ''
+
     if len(request.data['index']) > 1:
         request_data["message"] = "하나의 제품만 비춰주세요."
+    if request_data['index'] is None:
+        request_data['product_name'] = ''
     elif request_data['exist'] == 'n':
         request_data["message"] = "등록되지 않은 제품입니다."
     elif request_data['detact'] == 'n':
