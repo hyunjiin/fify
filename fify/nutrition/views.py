@@ -21,4 +21,4 @@ def info(request, index):
     print(serializer.data['product_name'])
     print(nutrition.product_name)
 
-    return HttpResponse(serializer.data['product_name'])
+    return HttpResponse(serializer.data)
