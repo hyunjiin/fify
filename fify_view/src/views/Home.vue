@@ -117,7 +117,7 @@ export default {
 
     // 사용자에게 입력받은 메시지 전송
     onProductPub() {
-      console.log(this.message)
+      console.log('사용자 입력 메시지 : ',this.message)
       this.$mqtt.publish('fify/product', this.message)
     },
 
@@ -128,7 +128,7 @@ export default {
         let temp = this.img.slice(23)
         let jpg = this.base64ToArray(temp)
         this.$mqtt.publish('fify/image', jpg)
-        console.log(this.img.length)
+        console.log('이미지 사이즈 : ', this.img.length)
         this.drawRectangle()
 
       }, 160);
@@ -155,25 +155,28 @@ export default {
     // 네모 그리기
     drawRectangle() {
 
-      console.log("111111111111")
       var canvas1 = document.getElementById("fifyCanvas")
       var context = canvas1.getContext("2d")
+      console.log("1번째 네모", this.recX1, this.recY1, this.recW1, this.recH1)
+      console.log("2번째 네모", this.recX2, this.recY2, this.recW2, this.recH2)
+      console.log("3번째 네모", this.recX3, this.recY3, this.recW3, this.recH3)
+
 
       context.beginPath();
       context.linewidth = "5"
       context.strokeStyle = "red"
-      context.rect(this.recX1, this.rec1Y, this.recW1, this.recH1)
+      context.rect(this.recX1, this.recY1, this.recW1, this.recH1)
       context.rect(this.recX2, this.recY2, this.recW2, this.recH2)
       context.rect(this.recX3, this.recY3, this.recW3, this.recH3)
-      context.rect(180, 50, 80, 70)
+      // context.rect(180, 50, 80, 70)
       context.stroke();
     },
 
     // 클라우드로 인덱스 전송
     async fifyAxios() {
       // let index = ''
-      axios.get(`http://18.142.131.188/nutrition/${this.index}/`).then((response)=>{
-      // axios.get(`http://18.142.131.188/nutrition/5`).then((response)=>{
+      // axios.get(`http://18.142.131.188/nutrition/${this.index}/`).then((response)=>{
+      axios.get(`http://18.142.131.188/nutrition/5`).then((response)=>{
       console.log(response.data, '111111');
       })
     }
@@ -196,7 +199,8 @@ export default {
 
       
       // 변수 - if index is not NULL
-      if(!result.index && !result.index.first && !result.index.second && !result.index.third) {
+      if(result.index.first != null && result.index.second != null && result.index.third != null) {
+        console.log('if 1')
         let index = result.index
 
         let recX1 = result.coord.first[0]
@@ -231,8 +235,10 @@ export default {
         this.recW3 = recW3
         this.recH3 = recH3
 
-      } else if(!result.index && !result.index.first && !result.index.second) {
-        let index = result.index
+      } else if(result.index.first != null && result.index.second != null) {
+        console.log('if 2')
+        let index1 = result.index.first
+        let index2 = result.index.second
 
         let recX1 = result.coord.first[0]
         let recY1 = result.coord.first[1]
@@ -249,7 +255,9 @@ export default {
         let recW3 = ''
         let recH3 = ''
 
-        this.index = index
+        this.index[0] = index1
+        this.index[1] = index2
+        this.index[2] = ''
 
         this.recX1 = recX1
         this.recY1 = recY1
@@ -266,8 +274,11 @@ export default {
         this.recW3 = recW3
         this.recH3 = recH3
 
-      } else if(!result.index && !result.index.first) {
-        let index = result.index
+      } else if(result.index.first != null) {
+        console.log('if 3')
+        console.log(result.coord.first[0])
+
+        let index1 = result.index.first
 
         let recX1 = result.coord.first[0]
         let recY1 = result.coord.first[1]
@@ -284,7 +295,9 @@ export default {
         let recW3 = ''
         let recH3 = ''
 
-        this.index = index
+        this.index1 = index1
+        this.index2 = ''
+        this.index3 = ''
 
         this.recX1 = recX1
         this.recY1 = recY1
@@ -300,6 +313,9 @@ export default {
         this.recY3 = recY3
         this.recW3 = recW3
         this.recH3 = recH3
+      } else {
+        console.log('else')
+        // console.log(result.index.first, result.index.second, result.index.third)
       }
 
       
