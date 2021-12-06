@@ -49,9 +49,9 @@ def result(request):
     request_data = request.data
     print(request_data)
 
-    if request_data["0"]['exist'] == 'n':
+    if request_data["0"]['exist'] == 'n' or request_data["0"]['exist'] == 'N':
         request_data["0"]["message"] = "등록되지 않은 제품입니다."
-    elif request_data["0"]['detect'] == 'n':
+    elif request_data["0"]['detect'] == 'n' or request_data["0"]['detect'] == 'N':
         count += 1
         if count < 60:
             return Response(str(count))
@@ -62,7 +62,6 @@ def result(request):
 
     if request_data["0"]['index'] is None:
         request_data["0"]['product_name'] = ''
-
     else:
         yolo_model = Yolo.objects.get(index=request.data["0"]['index'])
         nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
@@ -90,9 +89,9 @@ def result2(request):
 
     if len(request.data) > 1:
         request_data["0"]["message"] = "하나의 제품만 비춰주세요."
-    elif request_data["0"]['exist'] == 'n':
+    elif request_data["0"]['exist'] == 'n' or request_data["0"]['detect'] == 'N':
         request_data["0"]["message"] = "등록되지 않은 제품입니다."
-    elif request_data["0"]['detect'] == 'n':
+    elif request_data["0"]['detect'] == 'n' or request_data["0"]['detect'] == 'N':
         count += 1
         if count < 60:
             return Response(str(count))
