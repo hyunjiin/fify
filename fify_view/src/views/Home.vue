@@ -426,7 +426,7 @@ export default {
 #fifyCanvas {
   position: absolute;
   width: 100%;
-  height: auto;
+  height: 100%;
   opacity: 3;
   transition: .9s ease;
   background-color: transparent;
