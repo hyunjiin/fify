@@ -203,7 +203,7 @@ export default {
       
       // 변수 - if index is not NULL
       if(result[4] != null){
-        console.log('if 4')
+        console.log('if - 5')
 
         let index = result[0].index
 
@@ -260,7 +260,7 @@ export default {
         this.recH5 = recH5
 
       } else if(result[3] != null){
-        console.log('if 3')
+        console.log('if - 4')
 
         let index = result[0].index
 
@@ -307,7 +307,7 @@ export default {
         this.recH4 = recH4
 
       } else if(result[2] != null) {
-        console.log('if 2')
+        console.log('if - 3')
 
         let index = result[0].index
 
@@ -344,7 +344,7 @@ export default {
         this.recH3 = recH3
 
       } else if(result[1] != null) {
-        console.log('if 1')
+        console.log('if - 2')
 
         let index = result[0].index
 
@@ -372,7 +372,7 @@ export default {
         
 
       } else if(result[0] != null) {
-        console.log('if 0')
+        console.log('if - 1')
 
         let index = result[0].index
 
