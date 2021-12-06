@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <!-- 툴바테마를 primary(파랑색)로 설정 -->
+    <!-- 툴바테마를 violet로 설정 -->
     <v-app-bar app color="violet" dark>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>FIFY PROJECT</v-toolbar-title>
