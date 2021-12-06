@@ -49,24 +49,24 @@ def result(request):
     request_data = request.data
     print(request_data)
 
-    if request_data[0]['exist'] == 'n':
-        request_data[0]["message"] = "등록되지 않은 제품입니다."
-    elif request_data[0]['detect'] == 'n':
+    if request_data["0"]['exist'] == 'n':
+        request_data["0"]["message"] = "등록되지 않은 제품입니다."
+    elif request_data["0"]['detect'] == 'n':
         count += 1
         if count < 60:
             return Response(str(count))
         else:
-            request_data[0]["message"] = "매대를 비춰주세요."
+            request_data["0"]["message"] = "매대를 비춰주세요."
     else:
         count = 0
 
-    if request_data[0]['index'] is None:
-        request_data[0]['product_name'] = ''
+    if request_data["0"]['index'] is None:
+        request_data["0"]['product_name'] = ''
 
     else:
-        yolo_model = Yolo.objects.get(index=request.data[0]['index'])
+        yolo_model = Yolo.objects.get(index=request.data["0"]['index'])
         nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
-        request_data[0]['product_name'] = nutrition.product_name
+        request_data["0"]['product_name'] = nutrition.product_name
 
     print(request_data)
     print(json.dumps(request_data))
@@ -89,24 +89,24 @@ def result2(request):
     request_data = request.data
 
     if len(request.data) > 1:
-        request_data[0]["message"] = "하나의 제품만 비춰주세요."
-    elif request_data[0]['exist'] == 'n':
-        request_data[0]["message"] = "등록되지 않은 제품입니다."
-    elif request_data[0]['detect'] == 'n':
+        request_data["0"]["message"] = "하나의 제품만 비춰주세요."
+    elif request_data["0"]['exist'] == 'n':
+        request_data["0"]["message"] = "등록되지 않은 제품입니다."
+    elif request_data["0"]['detect'] == 'n':
         count += 1
         if count < 60:
             return Response(str(count))
         else:
-            request_data[0]["message"] = "매대를 비춰주세요."
+            request_data["0"]["message"] = "매대를 비춰주세요."
     else:
         count = 0
 
-    if request_data[0]['index'] is None:
-        request_data[0]['product_name'] = ''
+    if request_data["0"]['index'] is None:
+        request_data["0"]['product_name'] = ''
     else:
-        yolo_model = Yolo.objects.get(index=request.data[0]['index'])
+        yolo_model = Yolo.objects.get(index=request.data["0"]['index'])
         nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
-        request_data[0]['product_name'] = nutrition.product_name
+        request_data["0"]['product_name'] = nutrition.product_name
 
     print(request_data)
     print(json.dumps(request_data))
