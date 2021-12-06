@@ -80,9 +80,9 @@ export default {
       let first = head(this.devices);
       let second = this.devices[1]
       console.log('.',first, second)
-      if (first) {
-        this.camera = first.deviceId;
-        this.deviceId = first.deviceId;
+      if (second) {
+        this.camera = second.deviceId;
+        this.deviceId = second.deviceId;
       }
     }
   },
@@ -189,7 +189,7 @@ export default {
     'common3': function(value, topic) {
       let result = JSON.parse(value)
       console.log('index : ', result[0].index)
-      console.log('index : ', result[1].index)
+      // console.log('index : ', result[1].index)
       // console.log('index : ', result[2].index)
       // console.log('index : ', result[3].index)
       // console.log('index : ', result[4].index)
@@ -373,7 +373,6 @@ export default {
 
       } else if(result[0] != null) {
         console.log('if 0')
-        console.log(result.coord.first[0])
 
         let index = result[0].index
 
@@ -426,8 +425,8 @@ export default {
 
 #fifyCanvas {
   position: absolute;
-  height: 100%;
   width: 100%;
+  height: auto;
   opacity: 3;
   transition: .9s ease;
   background-color: transparent;
