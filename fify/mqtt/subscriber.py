@@ -17,7 +17,7 @@ def on_subscribe(client, userdata, mid, granted_qos):
 
 
 def on_message(client, userdata, msg):
-    print("이미지 도착")
+    # print("이미지 도착")
     print(msg)
     image_result = open('fify_image.jpeg', 'wb')
     image_result.write(msg.payload)

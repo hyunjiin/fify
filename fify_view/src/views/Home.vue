@@ -161,6 +161,8 @@ export default {
       console.log("2번째 네모", this.recX2, this.recY2, this.recW2, this.recH2)
       console.log("3번째 네모", this.recX3, this.recY3, this.recW3, this.recH3)
 
+      context.clearRect(0, 0, 300, 150)
+
 
       context.beginPath();
       context.linewidth = "5"
@@ -168,15 +170,15 @@ export default {
       context.rect(this.recX1, this.recY1, this.recW1, this.recH1)
       context.rect(this.recX2, this.recY2, this.recW2, this.recH2)
       context.rect(this.recX3, this.recY3, this.recW3, this.recH3)
-      // context.rect(180, 50, 80, 70)
+      context.rect(0, 0, 300, 150)
       context.stroke();
     },
 
     // 클라우드로 인덱스 전송
     async fifyAxios() {
       // let index = ''
-      // axios.get(`http://18.142.131.188/nutrition/${this.index}/`).then((response)=>{
-      axios.get(`http://18.142.131.188/nutrition/5`).then((response)=>{
+      axios.get(`http://18.142.131.188/nutrition/${this.index}/`).then((response)=>{
+      // axios.get(`http://18.142.131.188/nutrition/5`).then((response)=>{
       console.log(response.data, '111111');
       })
     }
