@@ -11,6 +11,7 @@ def info(request, index):
     """
     제품 index 받아서 db에서 불러오기
     vue로 넘기기
+    자동배포 테스트합니당!!!!
     """
 
     yolo_index = index  # index 파라미터 값, 임시로 할당
