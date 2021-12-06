@@ -44,6 +44,8 @@ def result(request):
 
     global count
 
+    print(type(request.data))
+
     request_data = request.data
     print(request_data)
 
