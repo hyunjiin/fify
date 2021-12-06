@@ -51,7 +51,7 @@ def result(request):
 
     if request_data['exist'] == 'n':
         request_data["message"] = "등록되지 않은 제품입니다."
-    elif request_data['detact'] == 'n':
+    elif request_data['detect'] == 'n':
         count += 1
         if count < 60:
             return Response(str(count))
@@ -91,7 +91,7 @@ def result2(request):
         request_data["message"] = "하나의 제품만 비춰주세요."
     elif request_data['exist'] == 'n':
         request_data["message"] = "등록되지 않은 제품입니다."
-    elif request_data['detact'] == 'n':
+    elif request_data['detect'] == 'n':
         count += 1
         if count < 60:
             return Response(str(count))
