@@ -19,4 +19,6 @@ def info(request, index):
     nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)  # class_name로 영양정보 검색
     serializer = NutritionSerializer(nutrition, many=False)  # 혹시 몰라서 하긴 했는데 굳이 안해도 될 듯한 기분
 
+    # 젠킨스 빌드 테스트
+
     return Response(serializer.data)
