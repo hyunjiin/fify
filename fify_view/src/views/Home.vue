@@ -3,7 +3,7 @@
     <router-view/>
     <div id="textInfo" class="section section-basic">
       <center>
-      {{result.product_name}}
+      <!-- {{result.product_name}} -->aa
       <p>second line</p>
       </center>
     </div>
@@ -188,15 +188,15 @@ export default {
   mqtt: {
     'common3': function(value, topic) {
       let result = JSON.parse(value)
-      console.log('index : ', result.index)
-      console.log('index : ', result.index.first)
-      console.log('index : ', result.index.second)
+      // console.log('index : ', result.index)
+      // console.log('index : ', result.index.first)
+      // console.log('index : ', result.index.second)
       
-      console.log('exist', result.exist)
-      console.log('detact', result.detact)
-      console.log('coord', result.coord)
-      console.log('center', result.center)
-      console.log('product_name', result.product_name)
+      // console.log('exist', result.exist)
+      // console.log('detact', result.detact)
+      // console.log('coord', result.coord)
+      // console.log('center', result.center)
+      // console.log('product_name', result.product_name)
       console.log(result, topic)
 
       
