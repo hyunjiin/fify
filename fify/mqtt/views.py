@@ -81,6 +81,7 @@ def result2(request):
     2번기능
     제품인식 결과
     json 형태로 들어오면 처리하기
+    젠킨스 테스트!!!
     """
 
     global count
