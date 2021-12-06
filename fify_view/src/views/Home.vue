@@ -3,7 +3,7 @@
     <router-view/>
     <div id="textInfo" class="section section-basic">
       <center>
-      TEXT_AREA
+      {{result.product_name}}
       <p>second line</p>
       </center>
     </div>
