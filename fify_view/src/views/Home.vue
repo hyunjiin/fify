@@ -262,10 +262,8 @@ export default {
       // axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
       axios.get(`http://18.142.131.188/nutrition/1`).then((response)=>{
       console.log(response.data, 'index전송, 영양정보 받아오기');
-      })
 
-      let nutritionResult = JSON.parse()
-
+      let nutritionResult = response.data
       this.nutritionResult = nutritionResult
 
       this.serving_size = nutritionResult.serving_size
@@ -283,6 +281,10 @@ export default {
       this.fat_5 = nutritionResult.fat_5
       this.dietary_fiber = nutritionResult.dietary_fiber
       this.potassium = nutritionResult.potassium
+
+      console.log(this.potassium, '111111');
+
+      })
     },
 
     open_inputProduct_Modal() {
