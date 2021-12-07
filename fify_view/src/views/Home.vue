@@ -173,7 +173,7 @@ export default {
       console.log("2번째 네모", this.recX2, this.recY2, this.recW2, this.recH2)
       console.log("3번째 네모", this.recX3, this.recY3, this.recW3, this.recH3)
 
-      context.clearRect(0, 0, 300, 150)
+      context.clearRect(0, 0, canvas1.width, canvas1.height)
 
 
       context.beginPath();
@@ -188,7 +188,7 @@ export default {
       // context.rect(0, 0, 300, 150)
       context.stroke();
 
-      // this.findIndex(this.index)
+      this.findIndex(this.index)
 
 
     },
