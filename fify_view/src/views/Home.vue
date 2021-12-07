@@ -282,7 +282,7 @@ export default {
       this.dietary_fiber = nutritionResult.dietary_fiber
       this.potassium = nutritionResult.potassium
 
-      console.log(this.potassium, '111111');
+      console.log('potassium', this.potassium, response.data.potassium);
 
       })
     },
