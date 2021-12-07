@@ -195,7 +195,7 @@ export default {
       this.$mqtt.publish('fify/product', this.inputProduct)
     },
 
-    // 1초에 6번 사진 전송
+    // 1초에 1번 사진 전송
     captureVideo() {
       this.timerId = setInterval(()=>{
         this.img = this.$refs.webcam.capture()
@@ -245,6 +245,8 @@ export default {
       context.rect(this.recX1, this.recY1, this.recW1, this.recH1)
       context.rect(this.recX2, this.recY2, this.recW2, this.recH2)
       context.rect(this.recX3, this.recY3, this.recW3, this.recH3)
+      context.rect(this.recX4, this.recY4, this.recW4, this.recH4)
+      context.rect(this.recX5, this.recY5, this.recW5, this.recH5)
       // context.rect(180, 50, 80, 70)
       context.stroke();
 
@@ -284,6 +286,9 @@ export default {
 
     open_inputProduct_Modal() {
       this.is_show = !this.is_show
+      // 제품 미등록 시 'message'출력
+      // 제품 미등록 시 퍼블리시 안하기
+      // 이건 mqtt로 온다
     },
 
     // 첫 번째 기능
@@ -307,11 +312,6 @@ export default {
 
     },
 
-    // 영양정보
-    info() {
-
-    },
-
     // 제품 이름 또는 메시지
   },
 
@@ -332,24 +332,33 @@ export default {
 
       
       // 변수 - if index is not NULL
-      if(result.index.first != null && result.index.second != null && result.index.third != null) {
-        console.log('if 1')
-        let index = result.index
+      if(result[4].index != null) {
+        let index = result[0].index
 
-        let recX1 = result.coord.first[0]
-        let recY1 = result.coord.first[1]
-        let recW1 = result.coord.first[2]
-        let recH1 = result.coord.first[3]
+        let recX1 = result[0]
+        let recY1 = result[0]
+        let recW1 = result[0]
+        let recH1 = result[0]
         
-        let recX2 = result.coord.second[0]
-        let recY2 = result.coord.second[1]
-        let recW2 = result.coord.second[2]
-        let recH2 = result.coord.second[3]
+        let recX2 = result[1]
+        let recY2 = result[1]
+        let recW2 = result[1]
+        let recH2 = result[1]
         
-        let recX3 = result.coord.third[0]
-        let recY3 = result.coord.third[1]
-        let recW3 = result.coord.third[2]
-        let recH3 = result.coord.third[3]
+        let recX3 = result[2]
+        let recY3 = result[2]
+        let recW3 = result[2]
+        let recH3 = result[2]
+
+        let recX4 = result[3]
+        let recY4 = result[3]
+        let recW4 = result[3]
+        let recH4 = result[3]
+
+        let recX5 = result[4]
+        let recY5 = result[4]
+        let recW5 = result[4]
+        let recH5 = result[4]
 
         this.index = index
 
@@ -368,29 +377,82 @@ export default {
         this.recW3 = recW3
         this.recH3 = recH3
 
-      } else if(result.index.first != null && result.index.second != null) {
+        this.recX4 = recX4
+        this.recY4 = recY4
+        this.recW4 = recW4
+        this.recH4 = recH4
+
+        this.recX5 = recX5
+        this.recY5 = recY5
+        this.recW5 = recW5
+        this.recH5 = recH5
+      } else if(result[3].index != null) {
+        console.log('if 1')
+
+        let index = result[0].index
+
+        let recX1 = result[0]
+        let recY1 = result[0]
+        let recW1 = result[0]
+        let recH1 = result[0]
+        
+        let recX2 = result[1]
+        let recY2 = result[1]
+        let recW2 = result[1]
+        let recH2 = result[1]
+        
+        let recX3 = result[2]
+        let recY3 = result[2]
+        let recW3 = result[2]
+        let recH3 = result[2]
+
+        let recX4 = result[3]
+        let recY4 = result[3]
+        let recW4 = result[3]
+        let recH4 = result[3]
+
+        this.index = index
+
+        this.recX1 = recX1
+        this.recY1 = recY1
+        this.recW1 = recW1
+        this.recH1 = recH1
+        
+        this.recX2 = recX2
+        this.recY2 = recY2
+        this.recW2 = recW2
+        this.recH2 = recH2
+        
+        this.recX3 = recX3
+        this.recY3 = recY3
+        this.recW3 = recW3
+        this.recH3 = recH3
+
+        this.recX4 = recX4
+        this.recY4 = recY4
+        this.recW4 = recW4
+        this.recH4 = recH4
+      } else if(result[2].index != null) {
         console.log('if 2')
-        let index1 = result.index.first
-        let index2 = result.index.second
 
-        let recX1 = result.coord.first[0]
-        let recY1 = result.coord.first[1]
-        let recW1 = result.coord.first[2]
-        let recH1 = result.coord.first[3]
-        
-        let recX2 = result.coord.second[0]
-        let recY2 = result.coord.second[1]
-        let recW2 = result.coord.second[2]
-        let recH2 = result.coord.second[3]
-        
-        let recX3 = ''
-        let recY3 = ''
-        let recW3 = ''
-        let recH3 = ''
+        let index = result[0].index
 
-        this.index[0] = index1
-        this.index[1] = index2
-        this.index[2] = ''
+        let recX1 = result[0]
+        let recY1 = result[0]
+        let recW1 = result[0]
+        let recH1 = result[0]
+        
+        let recX2 = result[1]
+        let recY2 = result[1]
+        let recW2 = result[1]
+        let recH2 = result[1]
+        
+        let recX3 = result[2]
+        let recY3 = result[2]
+        let recW3 = result[2]
+        let recH3 = result[2]
+
+        this.index = index
 
         this.recX1 = recX1
         this.recY1 = recY1
@@ -406,31 +468,21 @@ export default {
         this.recY3 = recY3
         this.recW3 = recW3
         this.recH3 = recH3
+      } else if(result[1].index != null) {
+        console.log('if 1')
+        let index = result[0].index
 
-      } else if(result.index.first != null) {
-        console.log('if 3')
-        console.log(result.coord.first[0])
-
-        let index1 = result.index.first
-
-        let recX1 = result.coord.first[0]
-        let recY1 = result.coord.first[1]
-        let recW1 = result.coord.first[2]
-        let recH1 = result.coord.first[3]
+        let recX1 = result[0]
+        let recY1 = result[0]
+        let recW1 = result[0]
+        let recH1 = result[0]
         
-        let recX2 = ''
-        let recY2 = ''
-        let recW2 = ''
-        let recH2 = ''
-        
-        let recX3 = ''
-        let recY3 = ''
-        let recW3 = ''
-        let recH3 = ''
+        let recX2 = result[1]
+        let recY2 = result[1]
+        let recW2 = result[1]
+        let recH2 = result[1]
 
-        this.index1 = index1
-        this.index2 = ''
-        this.index3 = ''
+        this.index = index
 
         this.recX1 = recX1
         this.recY1 = recY1
@@ -441,11 +493,20 @@ export default {
         this.recY2 = recY2
         this.recW2 = recW2
         this.recH2 = recH2
-        
-        this.recX3 = recX3
-        this.recY3 = recY3
-        this.recW3 = recW3
-        this.recH3 = recH3
+      } else if(result[0].index != null){
+        let index = result[0].index
+
+        let recX1 = result[0]
+        let recY1 = result[0]
+        let recW1 = result[0]
+        let recH1 = result[0]
+
+        this.index = index
+
+        this.recX1 = recX1
+        this.recY1 = recY1
+        this.recW1 = recW1
+        this.recH1 = recH1
       } else {
         console.log('else')
         // console.log(result.index.first, result.index.second, result.index.third)
