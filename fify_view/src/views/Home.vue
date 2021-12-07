@@ -40,20 +40,31 @@
       <canvas id="fifyCanvas"></canvas>
     </div>
 
-    <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
+    <!-- 1번기능, 2번기능, 영양정보 표시 기능 -->
     <div style="margin-bottom:15px;" id="button_box">
         <button style="margin-right:20px;" 
                 type='button' class="my_btn"
-                @click="showModal">검색</button>
+                @click="showModal = true">검색</button>
+        <modal v-if="showModal" @close="showModal = false">
+          <center>
+            <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
+            <button @click="onProductPub">전송</button>
+          </center>
+          <button class="modal-default-button"
+                    @click="showModal = false">
+                    OK
+          </button>
+        </modal>
+
         <button type='button' class="my_btn"
                 @click="secondFunction">확인</button>
     </div>
-
     <div style="display: flex; justify-content: center; align-items: center;">
       <button style="margin-bottom:20px; width: 360px"
               type='button' class="my_btn"
               @click="info">성분표</button>
     </div>
+
     <button type="button"
             class="btn btn-success"
             @click="captureVideo">captureVideo</button>
@@ -62,16 +73,7 @@
             @click="stopCaptureVideo">stopCaptureVideo</button>
 
 
-    <modal v-if="showModal" @close="showModal = false">
-      <center>
-        <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
-        <button @click="onProductPub">전송</button>
-      </center>
-      <button class="modal-default-button"
-                @click="showModal = false">
-                OK
-      </button>
-    </modal>
+    
 
 
   </div>
