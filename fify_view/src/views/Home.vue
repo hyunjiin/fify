@@ -231,6 +231,10 @@ export default {
 
       var canvas1 = document.getElementById("fifyCanvas")
       var context = canvas1.getContext("2d")
+
+      canvas1.width = window.innerWidth
+      canvas1.height = window.innerHeight
+
       console.log("1번째 네모", this.recX1, this.recY1, this.recW1, this.recH1)
       console.log("2번째 네모", this.recX2, this.recY2, this.recW2, this.recH2)
       console.log("3번째 네모", this.recX3, this.recY3, this.recW3, this.recH3)
@@ -284,16 +288,12 @@ export default {
       })
     },
 
-    open_inputProduct_Modal() {
-      this.is_show = !this.is_show
-      // 제품 미등록 시 'message'출력
-      // 제품 미등록 시 퍼블리시 안하기
-      // 이건 mqtt로 온다
-    },
-
     // 첫 번째 기능
     firstFunction() {
       this.captureVideo()
+      // 제품 미등록 시 'message'출력
+      // 제품 미등록 시 퍼블리시 안하기
+      // 이건 mqtt로 온다
     },
 
 
@@ -321,16 +321,14 @@ export default {
       let result = JSON.parse(value)
       console.log('index : ', result[0].index)
       this.index = result[0].index
-      // this.findIndex(this.index)
-      
-      console.log('exist', result.exist)
-      console.log('detact', result.detact)
-      console.log('coord', result.coord)
-      console.log('center', result.center)
-      console.log('product_name', result.product_name)
+
+      console.log('message :', result[0].message)
       console.log(result, topic)
 
-      
+      if(result[0].message != null)
+        let aaa = bbb
+
+        this.aaa = aaa
       // 변수 - if index is not NULL
       if(result[4].index != null) {
         let index = result[0].index
@@ -509,7 +507,6 @@ export default {
         this.recH1 = recH1
       } else {
         console.log('else')
-        // console.log(result.index.first, result.index.second, result.index.third)
       }
 
       
