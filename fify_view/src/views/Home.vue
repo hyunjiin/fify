@@ -204,7 +204,7 @@ export default {
 
     async findIndex(index) {
       // let index = ''
-      axios.get(`http://18.142.131.188/nutrition/${index}/`).then((response)=>{
+      axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
       // axios.get(`http://18.142.131.188/nutrition/5`).then((response)=>{
       console.log(response.data, '111111');
       })
