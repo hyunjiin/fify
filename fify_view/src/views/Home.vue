@@ -486,10 +486,10 @@ export default {
 	cursor:pointer;
 	color:white;
 	font-family:Pretendard;
-	font-size:40px;
-	padding:0px 50px;
+	font-size:1.7rem;
+	padding:0px 0.5rem;
 	text-decoration:none;
-	width: 170px;
+	width: 7rem;
 }
 .my_btn:hover {
 	background-color:#f6f6f6;
@@ -503,18 +503,11 @@ export default {
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
 
 .container {
-  position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%); text-align: center;
+  position: absolute; left: 50%;
+  transform: translateX(-50%); text-align: center;
   font-family: Pretendard;
   font-weight: 600;
   font-display: swap;
-}
-
-.section-basic {
-  border-radius: 8px 8px 8px 8px / 8px 8px 8px 8px;
-  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 12px -5px;
-  background-color: darkgray;
-
 }
 
 #fifyWebCam {
@@ -569,18 +562,6 @@ nav li:last-child a{
     border-right: 0;
 }
 
-
-nav a#pull{
-    display: none;
-}
-
-html {
-    -webkit-touch-callout:none;
-    -webkit-user-select:none;
-            user-select: none;
-    -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
-}
-
 ul{
     /*list-style-type: none;*/
     margin: 0;
@@ -616,11 +597,5 @@ li a:hover{
     background-size: cover;
     background-color: #3767FF;color: white;
     position: absolute;z-index: 1;
-}
-@media screen and (max-width:560px) {
-    .menu #expand-menu:not(:checked) ~ ul {
-        display: none;
-    }
-
 }
 </style>
