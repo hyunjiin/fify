@@ -56,7 +56,7 @@
     <div style="display: flex; justify-content: center; align-items: center;">
       <button style="margin-bottom:20px; width: 360px"
               type='button' class="my_btn"
-              @click="showNutritionModal = true">성분표</button>  
+              @click="showNutritionModal = true">성분표{{salt}}</button>  
     </div>
     <NutritionModal v-if="showNutritionModal" @close="showNutritionModal = false">
       <div slot="head" v-text="bold">영양정보</div>
