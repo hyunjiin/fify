@@ -11,6 +11,7 @@ def info(request, index):
     """
     제품 index 받아서 db에서 불러오기
     vue로 넘기기
+    자동배포 테스트합니당!!!!
     """
 
     yolo_index = index  # index 파라미터 값, 임시로 할당
@@ -19,7 +20,6 @@ def info(request, index):
     nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)  # class_name로 영양정보 검색
     serializer = NutritionSerializer(nutrition, many=False)  # 혹시 몰라서 하긴 했는데 굳이 안해도 될 듯한 기분
 
-    print(serializer.data['product_name'])
-    print(nutrition.product_name)
+    # 젠킨스 빌드 테스트2222
 
     return Response(serializer.data)

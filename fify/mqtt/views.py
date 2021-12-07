@@ -39,34 +39,33 @@ def result(request):
     """
     1번 기능
     제품인식 결과
-    {'index': {'first': 0}, 'exist': 'y', 'detact': 'y',
-            'coord': {'first': [0.5661057692307693, 0.4519230769230769, 0.5204326923076923, 0.7944711538461539]},
-            'center': [0.5661057692307693, 0.4519230769230769]}
+    젠킨스 테스트 합니당!!!!
     """
 
     global count
 
+    print(type(request.data))
+
     request_data = request.data
     print(request_data)
 
-    if request_data['exist'] == 'n':
-        request_data["message"] = "등록되지 않은 제품입니다."
-    elif request_data['detact'] == 'n':
+    if request_data["0"]['exist'] == 'n' or request_data["0"]['exist'] == 'N':
+        request_data["0"]["message"] = "등록되지 않은 제품입니다."
+    elif request_data["0"]['detect'] == 'n' or request_data["0"]['detect'] == 'N':
         count += 1
         if count < 60:
             return Response(str(count))
         else:
-            request_data["message"] = "매대를 비춰주세요."
+            request_data["0"]["message"] = "매대를 비춰주세요."
     else:
         count = 0
 
-    if request_data['index'] is None:
-        request_data['product_name'] = ''
-
+    if request_data["0"]['index'] is None:
+        request_data["0"]['product_name'] = ''
     else:
-        yolo_model = Yolo.objects.get(index=request.data['index']['first'])
+        yolo_model = Yolo.objects.get(index=request.data["0"]['index'])
         nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
-        request_data['product_name'] = nutrition.product_name
+        request_data["0"]['product_name'] = nutrition.product_name
 
     print(request_data)
     print(json.dumps(request_data))
@@ -81,31 +80,32 @@ def result2(request):
     2번기능
     제품인식 결과
     json 형태로 들어오면 처리하기
+    젠킨스 테스트!!!555555
     """
 
     global count
 
     request_data = request.data
 
-    if len(request.data['index']) > 1:
-        request_data["message"] = "하나의 제품만 비춰주세요."
-    elif request_data['exist'] == 'n':
-        request_data["message"] = "등록되지 않은 제품입니다."
-    elif request_data['detact'] == 'n':
+    if len(request.data) > 1:
+        request_data["0"]["message"] = "하나의 제품만 비춰주세요."
+    elif request_data["0"]['exist'] == 'n' or request_data["0"]['detect'] == 'N':
+        request_data["0"]["message"] = "등록되지 않은 제품입니다."
+    elif request_data["0"]['detect'] == 'n' or request_data["0"]['detect'] == 'N':
         count += 1
         if count < 60:
             return Response(str(count))
         else:
-            request_data["message"] = "매대를 비춰주세요."
+            request_data["0"]["message"] = "매대를 비춰주세요."
     else:
         count = 0
 
-    if request_data['index'] is None:
-        request_data['product_name'] = ''
+    if request_data["0"]['index'] is None:
+        request_data["0"]['product_name'] = ''
     else:
-        yolo_model = Yolo.objects.get(index=request.data['index']['first'])
+        yolo_model = Yolo.objects.get(index=request.data["0"]['index'])
         nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
-        request_data['product_name'] = nutrition.product_name
+        request_data["0"]['product_name'] = nutrition.product_name
 
     print(request_data)
     print(json.dumps(request_data))
