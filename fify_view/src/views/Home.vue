@@ -14,23 +14,17 @@
           <li><v-btn icon @click="$router.push({path:'about', name:'About'})"></v-btn></li>
       </ul>
     </div>
+
     <div style="float:left;">
       <center>
         <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
           <center>
             {{message1}} {{message2}}
             <p>second line</p>
-            <p>width : {{canvasW}}, height : {{canvasH}}</p>
           </center>
         </span>
       </center>
     </div>
-    <center>
-      <input id="inputProduct" type='text' v-model="message" placeholder="제품을 입력하세요">
-      <button @click="onProductPub">전송</button>
-    </center>
-
-    <center>Camera</center>
 
     <div id="fifyCamera">
       <web-cam ref="webcam"
@@ -102,8 +96,6 @@ export default {
       deviceId: null,
       devices: [],
       inputProduct: "",
-      canvasW: "",
-      canvasH: "",
       message1: "",
       message2: "",
       showModal: false
