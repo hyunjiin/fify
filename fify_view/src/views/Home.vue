@@ -1,23 +1,25 @@
 <template>
+  <div class="container">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
 
-<header>
-    <h1>FIFY</h1>
-    <nav>
-        <ul>
-            <li><v-btn icon @click="$router.push({name:'Home'})"></v-btn></li>
-            <li><v-btn icon @click="$router.push({path:'/about', name:'About'})"></v-btn></li>
-        </ul>
-    </nav>
-</header>
+    <div class="menu" style="margin-top:20px; float:left;">
+      <label for="expand-menu"><div></div></label><input type="checkbox" id="expand-menu" name="expand-menu">
+      <ul>
+          <li><v-btn icon @click="$router.push({name:'Home'})"></v-btn></li>
+          <li><v-btn icon @click="$router.push({path:'about', name:'About'})"></v-btn></li>
+      </ul>
+    </div>
 
-
-<div class="container">
     <div style="float:left;">
       <center>
         <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
           <center>
-            {{message1}} {{message2}}
-            <p>second line</p>
+            {{message1}}
+            <p>{{message2}}</p> 
           </center>
         </span>
       </center>
@@ -29,28 +31,42 @@
               :device-id="deviceId"
               width="100%"
               height="auto"
-              @started="onStarted"
-              @stopped="onStopped"
+              @started="onStarted" 
+              @stopped="onStopped" 
               @error="onError"
               @cameras="onCameras"
               @camera-change="onCameraChange" />
       <canvas id="fifyCanvas"></canvas>
     </div>
 
-    <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
-    <div style="margin-bottom:10px;" id="button_box">
-        <button style="margin-right:20px;"
+    <!-- 1번기능, 2번기능, 영양정보 표시 기능 -->
+    <div style="margin-bottom:15px;" id="button_box">
+        <button style="margin-right:20px;" name="firstFunction"
                 type='button' class="my_btn"
-                @click="showModal">검색</button>
+                @click="showModal = true">검색</button>
         <button type='button' class="my_btn"
                 @click="secondFunction">확인</button>
     </div>
-
+    <Modal v-if="showModal" @close="showModal = false">
+      <div slot="body">
+        <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
+        <button @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
+      </div>
+    </Modal>
     <div style="display: flex; justify-content: center; align-items: center;">
       <button style="margin-bottom:20px; width: 360px"
               type='button' class="my_btn"
-              @click="info">성분표</button>
+              @click="showNutritionModal = true">성분표</button>  
     </div>
+    <NutritionModal v-if="showNutritionModal" @close="showNutritionModal = false">
+      <div slot="head" v-text="bold">영양정보</div>
+      <div slot="body">
+        <div>
+          <b-table striped hover :items="items"></b-table>
+        </div>
+      </div>
+    </NutritionModal>
+
     <button type="button"
             class="btn btn-success"
             @click="captureVideo">captureVideo</button>
@@ -59,29 +75,27 @@
             @click="stopCaptureVideo">stopCaptureVideo</button>
 
 
-    <modal v-if="showModal" @close="showModal = false">
-      <center>
-        <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
-        <button @click="onProductPub">전송</button>
-      </center>
-      <button class="modal-default-button"
-                @click="showModal = false">
-                OK
-      </button>
-    </modal>
-  </div>
+    
 
+
+  </div>
+  
 </template>
 
 <script>
 import { WebCam } from "vue-web-cam";
 import { find, head } from "lodash";
-import axios from 'axios'
+import axios from 'axios';
+import Modal from '../components/Modal.vue';
+import NutritionModal from '../components/NutritionModal.vue';
+
 
 export default {
   name: "App",
   components: {
-    WebCam
+    WebCam,
+    Modal,
+    NutritionModal
   },
   props: ['topic'],
   data() {
@@ -91,9 +105,44 @@ export default {
       deviceId: null,
       devices: [],
       inputProduct: "",
-      message1: "",
-      message2: "",
-      showModal: false
+      message1: "message",
+      message2: "message",
+      showModal: false,
+      showNutritionModal: false,
+
+      serving_size: '',
+      calorie_kJ: '',
+      calorie_kcal: '',
+      carbohydrate: '',
+      sugar: '',
+      protein: '',
+      fat: '',
+      fat_2: '',
+      fat_3: '',
+      cholesterol: '',
+      salt: '',
+      fat_4: '',
+      fat_5: '',
+      dietary_fiber: '',
+      potassium: '',
+
+      items: [
+        {기준 : 'serving_size', 양 : this.serving_size},
+        {기준 : 'calorie_kJ', 양 : this.calorie_kJ},
+        {기준 : 'calorie_kcal', 양 : this.calorie_kcal},
+        {기준 : 'carbohydrate', 양 : this.carbohydrate},
+        {기준 : 'sugar', 양 : this.sugar},
+        {기준 : 'protein', 양 : this.protein},
+        {기준 : 'fat', 양 : this.fat},
+        {기준 : 'fat_2', 양 : this.fat_2},
+        {기준 : 'fat_3', 양 : this.fat_3},
+        {기준 : 'fat_4', 양 : this.fat_4},
+        {기준 : 'fat_5', 양 : this.fat_5},
+        {기준 : 'cholesterol', 양 : this.cholesterol},
+        {기준 : 'salt', 양 : this.salt},
+        {기준 : 'dietary_fiber', 양 : this.dietary_fiber},
+        {기준 : 'potassium', 양 : this.potassium}
+      ]
     };
   },
   computed: {
@@ -161,7 +210,7 @@ export default {
         console.log('이미지 사이즈 : ', this.img.length)
         this.drawRectangle()
 
-      }, 160);
+      }, 1000);
       console.log('Start Publish')
     },
 
@@ -190,6 +239,8 @@ export default {
       console.log("1번째 네모", this.recX1, this.recY1, this.recW1, this.recH1)
       console.log("2번째 네모", this.recX2, this.recY2, this.recW2, this.recH2)
       console.log("3번째 네모", this.recX3, this.recY3, this.recW3, this.recH3)
+      console.log("4번째 네모", this.recX4, this.recY4, this.recW4, this.recH4)
+      console.log("5번째 네모", this.recX5, this.recY5, this.recW5, this.recH5)
 
       context.clearRect(0, 0, canvas1.width, canvas1.height)
 
@@ -206,10 +257,33 @@ export default {
     },
 
     // 클라우드로 인덱스 전송
-    async findIndex(index) {
+    async findIndex() {
       // let index = ''
-      axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
+      // axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
+      axios.get(`http://18.142.131.188/nutrition/1`).then((response)=>{
       console.log(response.data, 'index전송, 영양정보 받아오기');
+
+      let nutritionResult = response.data
+      this.nutritionResult = nutritionResult
+
+      this.serving_size = nutritionResult.serving_size
+      this.calorie_kJ = nutritionResult.calorie_kJ
+      this.calorie_kcal = nutritionResult.calorie_kcal
+      this.carbohydrate = nutritionResult.carbohydrate
+      this.sugar = nutritionResult.sugar
+      this.protein = nutritionResult.protein
+      this.fat = nutritionResult.fat
+      this.fat_2 = nutritionResult.fat_2
+      this.fat_3 = nutritionResult.fat_3
+      this.cholesterol = nutritionResult.cholesterol
+      this.salt = nutritionResult.salt
+      this.fat_4 = nutritionResult.fat_4
+      this.fat_5 = nutritionResult.fat_5
+      this.dietary_fiber = nutritionResult.dietary_fiber
+      this.potassium = nutritionResult.potassium
+
+      console.log(this.potassium, '111111');
+
       })
     },
 
@@ -219,14 +293,31 @@ export default {
 
     // 첫 번째 기능
     firstFunction() {
-      this.open_inputProduct_Modal()
+      this.captureVideo()
     },
 
 
     // 두 번째 기능
     secondFunction() {
+      // this.findIndex()
+      this.$mqtt.publish('fify/product', null)
+      this.captureVideo()
+      if(this.nutritionResult.voice_1 == null && this.nutritionResult.voice_2 == null) {
+        this.message1 = this.nutritionResult.product_name
+        this.message2 = null
+      } else if(this.nutritionResult.voice_1 != null) {
+        this.message1 = this.nutritionResult.voice_1
+        this.message2 = this.nutritionResult.voice_2
+      }
 
     },
+
+    // 영양정보
+    info() {
+
+    },
+
+    // 제품 이름 또는 메시지
   },
 
   // MQTT통신
@@ -378,15 +469,6 @@ export default {
 
 <style scoped>
 
-header {
-  height: 30px;
-  padding: 1rem;
-  color: white;
-  background: #3767FF;
-  font-weight: bold;
-}
-
-
 #textInfo {
     font-size: 20px;
     box-shadow: inset 0 -10px #3767FF; line-height:21px;
@@ -409,7 +491,7 @@ header {
 	cursor:pointer;
 	color:white;
 	font-family:Pretendard;
-	font-size:1.5rem;
+	font-size:40px;
 	padding:0px 50px;
 	text-decoration:none;
 	width: 170px;
@@ -431,6 +513,13 @@ header {
   font-family: Pretendard;
   font-weight: 600;
   font-display: swap;
+}
+
+.section-basic {
+  border-radius: 8px 8px 8px 8px / 8px 8px 8px 8px;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 12px -5px;
+  background-color: darkgray;
+
 }
 
 #fifyWebCam {
@@ -458,4 +547,71 @@ header {
   margin: 0 auto;
 }
 
+.menu {
+    display: block;
+    overflow: hidden;
+    width: 60px;
+    background-color: #3767FF;
+    color: #fff;
+    transition: all 0.5s ease;
+    border-radius: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.menu a, .menu > label {
+    display: block;
+    height: 25px;
+    padding: 8px;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    color: #000;
+}
+
+.menu div {
+    position: absolute;
+    left: 50px;
+    line-height: 1.5;
+    font-size: 1em;
+    font-family: Pretendard;
+    padding: 0 0 0 20px;
+}
+
+#expand-menu {
+    display: none;
+}
+#expand-menu:checked ~ ul {
+    display: block;
+    height: auto;
+}
+
+.menu ::before {
+    font-family: 'Material Icons';
+    font-size: 1.5em;
+    float: left;
+    clear: left;
+}
+.menu label::before{ content: '\e5d2'; }
+.menu li:nth-child(1) a::before{ content: '\f02e'; }
+.menu li:nth-child(2) a::before{ content: '\e8d6'; }
+
+@media screen and (max-width:1023px) {
+    .menu {
+        width: 60px;
+    }
+}
+@media screen and (max-width:560px) {
+    .menu #expand-menu:not(:checked) ~ ul {
+        display: none;
+    }
+
+} 
 </style>
