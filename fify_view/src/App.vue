@@ -43,11 +43,7 @@
         <router-view></router-view>
       </v-slide-x-transition>
     </v-main>
-    
-    <!-- 푸터 테마를 secondary로 설정 -->
-    <v-footer color="secondary" fixed dark>
-      <div class="mx-auto">created by iot class</div>
-    </v-footer>
+  
   </v-app>
 </template>
 
