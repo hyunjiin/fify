@@ -1,37 +1,27 @@
 <template>
-<!-- dd -->
-  <div class="container">
-    <head>
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    </head>
 
-    <div class="menu" style="margin-top:20px; float:left;">
-      <label for="expand-menu"><div></div></label><input type="checkbox" id="expand-menu" name="expand-menu">
-      <ul>
-          <li><v-btn icon @click="$router.push({name:'Home'})"></v-btn></li>
-          <li><v-btn icon @click="$router.push({path:'about', name:'About'})"></v-btn></li>
-      </ul>
-    </div>
+<header>
+    <h1>FIFY</h1>
+    <nav>
+        <ul>
+            <li><v-btn icon @click="$router.push({name:'Home'})"></v-btn></li>
+            <li><v-btn icon @click="$router.push({path:'/about', name:'About'})"></v-btn></li>
+        </ul>
+    </nav>
+</header>
+
+
+<div class="container">
     <div style="float:left;">
       <center>
         <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
           <center>
             {{message1}} {{message2}}
             <p>second line</p>
-            <p>width : {{canvasW}}, height : {{canvasH}}</p>
           </center>
-        <p>제품을 탐지할 수 없습니다</p>
         </span>
       </center>
     </div>
-    <center>
-      <input id="inputProduct" type='text' v-model="message" placeholder="제품을 입력하세요">
-      <button @click="onProductPub">전송</button>
-    </center>
-
-    <center>Camera</center>
 
     <div id="fifyCamera">
       <web-cam ref="webcam"
@@ -39,8 +29,8 @@
               :device-id="deviceId"
               width="100%"
               height="auto"
-              @started="onStarted" 
-              @stopped="onStopped" 
+              @started="onStarted"
+              @stopped="onStopped"
               @error="onError"
               @cameras="onCameras"
               @camera-change="onCameraChange" />
@@ -48,18 +38,18 @@
     </div>
 
     <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
-    <div style="margin-bottom:15px;" id="button_box">
-      <div>
-        <button style="margin-right:20px;" type='button' class="my_btn">검색</button>
-      </div>
-      <div>
-        <button type='button' class="my_btn">확인</button>
-      </div>
+    <div style="margin-bottom:10px;" id="button_box">
+        <button style="margin-right:20px;"
+                type='button' class="my_btn"
+                @click="showModal">검색</button>
+        <button type='button' class="my_btn"
+                @click="secondFunction">확인</button>
     </div>
 
     <div style="display: flex; justify-content: center; align-items: center;">
-    <button type='button' class="my_btn" style="margin-bottom:20px; width: 360px;">
-    성분표</button>
+      <button style="margin-bottom:20px; width: 360px"
+              type='button' class="my_btn"
+              @click="info">성분표</button>
     </div>
     <button type="button"
             class="btn btn-success"
@@ -68,9 +58,6 @@
             class="btn btn-danger"
             @click="stopCaptureVideo">stopCaptureVideo</button>
 
-    <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
-    <button type='button' class="btn btn-success"
-            @click="showModal = true">기능 1</button>
 
     <modal v-if="showModal" @close="showModal = false">
       <center>
@@ -82,17 +69,8 @@
                 OK
       </button>
     </modal>
-
-
-    <!-- 지금 화면에 잡힌 물건이 무엇인지 알려줌 -->
-    <button type='button' class="btn btn-success"
-            @click="secondFunction">기능 2</button>
-    <!-- 탐지된 물건의 영양정보 알려주기 -->
-    <button type='button' class="btn btn-success">info button</button>
-
-
   </div>
-  
+
 </template>
 
 <script>
@@ -113,8 +91,6 @@ export default {
       deviceId: null,
       devices: [],
       inputProduct: "",
-      canvasW: "",
-      canvasH: "",
       message1: "",
       message2: "",
       showModal: false
@@ -134,9 +110,9 @@ export default {
       let first = head(this.devices);
       let second = this.devices[1]
       console.log('.',first, second)
-      if (first) {
-        this.camera = first.deviceId;
-        this.deviceId = first.deviceId;
+      if (second) {
+        this.camera = second.deviceId;
+        this.deviceId = second.deviceId;
       }
     }
   },
@@ -402,6 +378,15 @@ export default {
 
 <style scoped>
 
+header {
+  height: 30px;
+  padding: 1rem;
+  color: white;
+  background: #3767FF;
+  font-weight: bold;
+}
+
+
 #textInfo {
     font-size: 20px;
     box-shadow: inset 0 -10px #3767FF; line-height:21px;
@@ -424,7 +409,7 @@ export default {
 	cursor:pointer;
 	color:white;
 	font-family:Pretendard;
-	font-size:40px;
+	font-size:1.5rem;
 	padding:0px 50px;
 	text-decoration:none;
 	width: 170px;
@@ -446,13 +431,6 @@ export default {
   font-family: Pretendard;
   font-weight: 600;
   font-display: swap;
-}
-
-.section-basic {
-  border-radius: 8px 8px 8px 8px / 8px 8px 8px 8px;
-  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 12px -5px;
-  background-color: darkgray;
-
 }
 
 #fifyWebCam {
@@ -480,70 +458,4 @@ export default {
   margin: 0 auto;
 }
 
-.menu {
-    display: block;
-    overflow: hidden;
-    width: 60px;
-    background-color: #3767FF;
-    color: #fff;
-    transition: all 0.5s ease;
-    border-radius: 20px;
-    padding: 10px;
-    box-sizing: border-box;
-}
-.menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.menu a, .menu > label {
-    display: block;
-    height: 25px;
-    padding: 8px;
-    cursor: pointer;
-    color: #fff;
-    text-decoration: none;
-}
-
-.menu a:hover {
-    color: #000;
-}
-
-.menu div {
-    position: absolute;
-    left: 50px;
-    line-height: 1.5;
-    font-size: 1em;
-    font-family: Pretendard;
-    padding: 0 0 0 20px;
-}
-
-#expand-menu {
-    display: none;
-}
-#expand-menu:checked ~ ul {
-    display: block;
-    height: auto;
-}
-
-.menu ::before {
-    font-family: 'Material Icons';
-    font-size: 1.5em;
-    float: left;
-    clear: left;
-}
-.menu label::before{ content: '\e5d2'; }
-.menu li:nth-child(1) a::before{ content: '\f02e'; }
-.menu li:nth-child(2) a::before{ content: '\e8d6'; }
-
-@media screen and (max-width:1023px) {
-    .menu {
-        width: 60px;
-    }
-}
-@media screen and (max-width:560px) {
-    .menu #expand-menu:not(:checked) ~ ul {
-        display: none;
-    }
-}
 </style>
