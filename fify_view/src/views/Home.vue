@@ -196,7 +196,7 @@ export default {
     // 클라우드로 인덱스 전송
     async fifyAxios() {
       // let index = ''
-      axios.get(`http://18.142.131.188/nutrition/${this.index}/`).then((response)=>{
+      axios.get(`http://18.142.131.188/nutrition/${this.index}`).then((response)=>{
       // axios.get(`http://18.142.131.188/nutrition/5`).then((response)=>{
       console.log(response.data, '111111');
       })
