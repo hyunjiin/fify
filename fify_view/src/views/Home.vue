@@ -1,18 +1,33 @@
 <template>
   <div class="container">
     <router-view/>
-    <div id="textInfo" class="section section-basic">
-      <center>
-      TEXT_AREA
-      <p>second line</p>
-      </center>
+    <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+
+    <div class="menu" style="margin-top:20px; float:left;">
+    <label for="expand-menu"><div></div></label><input type="checkbox" id="expand-menu" name="expand-menu">
+    <ul>
+        <li><v-btn icon @click="$router.push({name:'Home'})"></v-btn></li>
+        <li><v-btn icon @click="$router.push({path:'about', name:'About'})"></v-btn></li>
+    </ul>
     </div>
+    <div style="float:left;">
+      <center>
+      <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
+      TEXT_AREA
+      <p>제품을 탐지할 수 없습니다</p>
+      </span>
+      </center>
+
     <center>
       <input id="inputProduct" type='text' v-model="message" placeholder="제품을 입력하세요">
       <button @click="onProductPub">전송</button>
     </center>
-    
-    <h2>Camera</h2>
+
+    <center>Camera</center>
     <div id="fifyCamera">
       <web-cam ref="webcam"
               id="fifyWebCam"
@@ -27,7 +42,16 @@
       <canvas id="fifyCanvas"></canvas>
     </div>
 
+    <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
+    <div style="margin-bottom:15px;" id="button_box">
+    <button style="margin-right:20px;" type='button' class="my_btn">검색</button>
+    <div><button type='button' class="my_btn">확인</button></div>
+    </div>
 
+    <div style="display: flex; justify-content: center; align-items: center;">
+    <button type='button' class="my_btn" style="margin-bottom:20px; width: 360px;">
+    성분표</button>
+    </div>
     <button type="button"
             class="btn btn-success"
             @click="captureVideo">captureVideo</button>
@@ -35,12 +59,10 @@
             class="btn btn-danger"
             @click="stopCaptureVideo">stopCaptureVideo</button>
     <button @click="fifyAxios">123</button>
+    </div>
 
-    <p></p>
 
-    <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
-    <button type='button' class="btn btn-success">기능 1</button>
-    <button type='button' class="btn btn-success">기능 2</button>
+
 
   </div>
   
@@ -330,15 +352,58 @@ export default {
 </script>
 
 <style scoped>
-.containet {
-  margin-top: auto;
+
+#textInfo {
+    font-size: 20px;
+    box-shadow: inset 0 -10px #3767FF; line-height:21px;
+}
+
+
+#button_box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+.my_btn {
+	background-color: #3767FF;
+	border-radius:20px;
+	border:0px solid black;
+	box-shadow: 0 0px 0px rgba(0,79,255,0.3);
+	cursor:pointer;
+	color:white;
+	font-family:Pretendard;
+	font-size:40px;
+	padding:0px 50px;
+	text-decoration:none;
+	width: 170px;
+}
+.my_btn:hover {
+	background-color:#f6f6f6;
+	color: #3767FF;
+}
+.my_btn:active {
+	position:relative;
+	top:1px;
+}
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
+.container {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%); text-align: center;
+  font-family: Pretendard;
+  font-weight: 600;
+  font-display: swap;
 }
 
 .section-basic {
   border-radius: 8px 8px 8px 8px / 8px 8px 8px 8px;
   box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 12px -5px;
   background-color: darkgray;
-  
+
 }
 
 #fifyWebCam {
@@ -364,5 +429,72 @@ export default {
 
 #inputProduct {
   margin: 0 auto;
+}
+
+.menu {
+    display: block;
+    overflow: hidden;
+    width: 60px;
+    background-color: #3767FF;
+    color: #fff;
+    transition: all 0.5s ease;
+    border-radius: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.menu a, .menu > label {
+    display: block;
+    height: 25px;
+    padding: 8px;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    color: #000;
+}
+
+.menu div {
+    position: absolute;
+    left: 50px;
+    line-height: 1.5;
+    font-size: 1em;
+    font-family: Pretendard;
+    padding: 0 0 0 20px;
+}
+
+#expand-menu {
+    display: none;
+}
+#expand-menu:checked ~ ul {
+    display: block;
+    height: auto;
+}
+
+.menu ::before {
+    font-family: 'Material Icons';
+    font-size: 1.5em;
+    float: left;
+    clear: left;
+}
+.menu label::before{ content: '\e5d2'; }
+.menu li:nth-child(1) a::before{ content: '\f02e'; }
+.menu li:nth-child(2) a::before{ content: '\e8d6'; }
+
+@media screen and (max-width:1023px) {
+    .menu {
+        width: 60px;
+    }
+}
+@media screen and (max-width:560px) {
+    .menu #expand-menu:not(:checked) ~ ul {
+        display: none;
+    }
 }
 </style>
