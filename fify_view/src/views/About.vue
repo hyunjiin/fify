@@ -94,14 +94,14 @@ nav li a{
 nav li:last-child a{
     border-right: 0;
     }
-nav a:hover, nav a:active{
-}
+
 nav a#pull{
     display: none;
 }
   html {
   -webkit-touch-callout:none;
   -webkit-user-select:none;
+        user-select: none;
   -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
   }
 
