@@ -1,5 +1,4 @@
 <template>
-<!-- dd -->
   <div class="container">
     <head>
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,23 +41,18 @@
 
     <!-- 1번기능, 2번기능, 영양정보 표시 기능 -->
     <div style="margin-bottom:15px;" id="button_box">
-        <button style="margin-right:20px;" 
+        <button style="margin-right:20px;" name="firstFunction"
                 type='button' class="my_btn"
                 @click="showModal = true">검색</button>
-        <modal v-if="showModal" @close="showModal = false">
-          <center>
-            <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
-            <button @click="onProductPub">전송</button>
-          </center>
-          <button class="modal-default-button"
-                    @click="showModal = false">
-                    OK
-          </button>
-        </modal>
-
         <button type='button' class="my_btn"
                 @click="secondFunction">확인</button>
     </div>
+    <Modal v-if="showModal" @close="showModal = false">
+      <div slot="body">
+        <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
+        <button @click="[onProductPub(), showModal = false]">전송</button>
+      </div>
+    </Modal>
     <div style="display: flex; justify-content: center; align-items: center;">
       <button style="margin-bottom:20px; width: 360px"
               type='button' class="my_btn"
@@ -83,12 +77,14 @@
 <script>
 import { WebCam } from "vue-web-cam";
 import { find, head } from "lodash";
-import axios from 'axios'
+import axios from 'axios';
+import Modal from '@/components/Modal'
 
 export default {
   name: "App",
   components: {
-    WebCam
+    WebCam,
+    Modal,
   },
   props: ['topic'],
   data() {
@@ -100,7 +96,7 @@ export default {
       inputProduct: "",
       message1: "",
       message2: "",
-      showModal: false
+      showModal: false,
     };
   },
   computed: {
@@ -213,11 +209,17 @@ export default {
     },
 
     // 클라우드로 인덱스 전송
-    async findIndex(index) {
+    async findIndex() {
       // let index = ''
-      axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
+      // axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
+      axios.get(`http://18.142.131.188/nutrition/1`).then((response)=>{
       console.log(response.data, 'index전송, 영양정보 받아오기');
       })
+
+      let nutritionResult = JSON.parse()
+      this.message1 = nutritionResult.voice1
+      this.message2 = nutritionResult.voice2
+
     },
 
     open_inputProduct_Modal() {
@@ -226,12 +228,17 @@ export default {
 
     // 첫 번째 기능
     firstFunction() {
-      this.open_inputProduct_Modal()
+      this.onProductPub()
     },
 
 
     // 두 번째 기능
     secondFunction() {
+      this.findIndex()
+    },
+
+    // 영양정보
+    info() {
 
     },
   },
@@ -528,5 +535,6 @@ export default {
     .menu #expand-menu:not(:checked) ~ ul {
         display: none;
     }
-}
+
+} 
 </style>
