@@ -161,8 +161,13 @@ export default {
 
       var canvas1 = document.getElementById("fifyCanvas")
       var context = canvas1.getContext("2d")
+      
+      canvas1.width = window.innerWidth
+      canvas1.height = window.innerHeight
+
       this.canvasW = canvas1.width
       this.canvasH = canvas1.height
+
       
       console.log("1번째 네모", this.recX1, this.recY1, this.recW1, this.recH1)
       console.log("2번째 네모", this.recX2, this.recY2, this.recW2, this.recH2)
@@ -183,7 +188,7 @@ export default {
       // context.rect(0, 0, 300, 150)
       context.stroke();
 
-      this.findIndex(this.index)
+      // this.findIndex(this.index)
 
 
     },
