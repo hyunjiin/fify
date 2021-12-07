@@ -167,7 +167,7 @@ export default {
     base64ToArray(base64) {
       var binary_string = window.atob(base64)
       var len = binary_string.length
-      var bytes = new Uint8Array(len)            
+      var bytes = new Uint8Array(len)
       for (var i = 0; i < len; i++) {
           bytes[i] = binary_string.charCodeAt(i)
       }
@@ -211,7 +211,7 @@ export default {
       console.log('index : ', result.index)
       console.log('index : ', result.index.first)
       console.log('index : ', result.index.second)
-      
+
       console.log('exist', result.exist)
       console.log('detact', result.detact)
       console.log('coord', result.coord)
@@ -219,7 +219,7 @@ export default {
       console.log('product_name', result.product_name)
       console.log(result, topic)
 
-      
+
       // 변수 - if index is not NULL
       if(result.index.first != null && result.index.second != null && result.index.third != null) {
         console.log('if 1')
@@ -229,12 +229,12 @@ export default {
         let recY1 = result.coord.first[1]
         let recW1 = result.coord.first[2]
         let recH1 = result.coord.first[3]
-        
+
         let recX2 = result.coord.second[0]
         let recY2 = result.coord.second[1]
         let recW2 = result.coord.second[2]
         let recH2 = result.coord.second[3]
-        
+
         let recX3 = result.coord.third[0]
         let recY3 = result.coord.third[1]
         let recW3 = result.coord.third[2]
@@ -246,12 +246,12 @@ export default {
         this.recY1 = recY1
         this.recW1 = recW1
         this.recH1 = recH1
-        
+
         this.recX2 = recX2
         this.recY2 = recY2
         this.recW2 = recW2
         this.recH2 = recH2
-        
+
         this.recX3 = recX3
         this.recY3 = recY3
         this.recW3 = recW3
@@ -266,12 +266,12 @@ export default {
         let recY1 = result.coord.first[1]
         let recW1 = result.coord.first[2]
         let recH1 = result.coord.first[3]
-        
+
         let recX2 = result.coord.second[0]
         let recY2 = result.coord.second[1]
         let recW2 = result.coord.second[2]
         let recH2 = result.coord.second[3]
-        
+
         let recX3 = ''
         let recY3 = ''
         let recW3 = ''
@@ -285,12 +285,12 @@ export default {
         this.recY1 = recY1
         this.recW1 = recW1
         this.recH1 = recH1
-        
+
         this.recX2 = recX2
         this.recY2 = recY2
         this.recW2 = recW2
         this.recH2 = recH2
-        
+
         this.recX3 = recX3
         this.recY3 = recY3
         this.recW3 = recW3
@@ -306,12 +306,12 @@ export default {
         let recY1 = result.coord.first[1]
         let recW1 = result.coord.first[2]
         let recH1 = result.coord.first[3]
-        
+
         let recX2 = ''
         let recY2 = ''
         let recW2 = ''
         let recH2 = ''
-        
+
         let recX3 = ''
         let recY3 = ''
         let recW3 = ''
@@ -325,12 +325,12 @@ export default {
         this.recY1 = recY1
         this.recW1 = recW1
         this.recH1 = recH1
-        
+
         this.recX2 = recX2
         this.recY2 = recY2
         this.recW2 = recW2
         this.recH2 = recH2
-        
+
         this.recX3 = recX3
         this.recY3 = recY3
         this.recW3 = recW3
@@ -340,14 +340,14 @@ export default {
         // console.log(result.index.first, result.index.second, result.index.third)
       }
 
-      
+
     }
   },
   mounted() {
     // 구독신청
-    this.$mqtt.subscribe('common3') 
+    this.$mqtt.subscribe('common3')
   },
-  
+
 };
 </script>
 
