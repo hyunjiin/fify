@@ -50,7 +50,7 @@
     <Modal v-if="showModal" @close="showModal = false">
       <div slot="body">
         <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
-        <button @click="[onProductPub(), showModal = false]">전송</button>
+        <button @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
       </div>
     </Modal>
     <div style="display: flex; justify-content: center; align-items: center;">
@@ -291,7 +291,7 @@ export default {
 
     // 첫 번째 기능
     firstFunction() {
-      this.onProductPub()
+      this.captureVideo()
     },
 
 
