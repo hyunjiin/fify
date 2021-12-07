@@ -1,29 +1,28 @@
 <template>
   <div class="container">
-    <router-view/>
     <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
 
     <div class="menu" style="margin-top:20px; float:left;">
-    <label for="expand-menu"><div></div></label><input type="checkbox" id="expand-menu" name="expand-menu">
-    <ul>
-        <li><v-btn icon @click="$router.push({name:'Home'})"></v-btn></li>
-        <li><v-btn icon @click="$router.push({path:'about', name:'About'})"></v-btn></li>
-    </ul>
+      <label for="expand-menu"><div></div></label><input type="checkbox" id="expand-menu" name="expand-menu">
+      <ul>
+          <li><v-btn icon @click="$router.push({name:'Home'})"></v-btn></li>
+          <li><v-btn icon @click="$router.push({path:'about', name:'About'})"></v-btn></li>
+      </ul>
     </div>
     <div style="float:left;">
       <center>
-      <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
-        <center>
-          {{message1}} {{message2}}
-          <p>second line</p>
-          <p>width : {{canvasW}}, height : {{canvasH}}</p>
-        </center>
-      <p>제품을 탐지할 수 없습니다</p>
-      </span>
+        <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
+          <center>
+            {{message1}} {{message2}}
+            <p>second line</p>
+            <p>width : {{canvasW}}, height : {{canvasH}}</p>
+          </center>
+        <p>제품을 탐지할 수 없습니다</p>
+        </span>
       </center>
     </div>
     <center>
@@ -49,8 +48,12 @@
 
     <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
     <div style="margin-bottom:15px;" id="button_box">
-    <button style="margin-right:20px;" type='button' class="my_btn">검색</button>
-    <div><button type='button' class="my_btn">확인</button></div>
+      <div>
+        <button style="margin-right:20px;" type='button' class="my_btn">검색</button>
+      </div>
+      <div>
+        <button type='button' class="my_btn">확인</button>
+      </div>
     </div>
 
     <div style="display: flex; justify-content: center; align-items: center;">
