@@ -1,86 +1,64 @@
 <template>
-
-<header>
-    <h1>FIFY</h1>
-    <nav>
-        <ul>
-            <li><v-btn icon @click="$router.push({name:'Home'})"></v-btn></li>
-            <li><v-btn icon @click="$router.push({path:'/about', name:'About'})"></v-btn></li>
+<div>
+    <div class="menu">
+        <nav class="clearfix">
+        <ul class="clearfix">
+            <li><v-btn icon @click="$router.push({name:'Home'})"><v-icon color="white"></v-icon></v-btn></li>
+            <li><v-btn icon @click="$router.push({path:'about', name:'About'})"><v-icon color="white">info</v-icon></v-btn></li>
         </ul>
-    </nav>
-</header>
-
-
-<div class="container">
-    <div style="float:left;">
-      <center>
-        <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
-          <center>
-            {{message1}} {{message2}}
-            <p>second line</p>
-            <p>width : {{canvasW}}, height : {{canvasH}}</p>
-          </center>
-        <p>제품을 탐지할 수 없습니다</p>
-        </span>
-      </center>
-    </div>
-    <center>
-      <input id="inputProduct" type='text' v-model="message" placeholder="제품을 입력하세요">
-      <button @click="onProductPub">전송</button>
-    </center>
-
-    <center>Camera</center>
-
-    <div id="fifyCamera">
-      <web-cam ref="webcam"
-              id="fifyWebCam"
-              :device-id="deviceId"
-              width="100%"
-              height="auto"
-              @started="onStarted" 
-              @stopped="onStopped" 
-              @error="onError"
-              @cameras="onCameras"
-              @camera-change="onCameraChange" />
-      <canvas id="fifyCanvas"></canvas>
+        </nav>
     </div>
 
-    <!-- 1번기능, 2번기능, 영양정보 표시 기능 -->
-    <div style="margin-bottom:15px;" id="button_box">
-        <button style="margin-right:20px;" name="firstFunction"
-                type='button' class="my_btn"
-                @click="showModal = true">검색</button>
-        <button type='button' class="my_btn"
-                @click="secondFunction">확인</button>
+    <div class="container">
+        <div style="margin-top:3rem;">
+            <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
+                {{message1}} {{message2}}
+                second line
+            </span>
+        </div>
+
+        <div id="fifyCamera">
+          <web-cam ref="webcam"
+                  id="fifyWebCam"
+                  :device-id="deviceId"
+                  width="100%"
+                  height="auto"
+                  @started="onStarted"
+                  @stopped="onStopped"
+                  @error="onError"
+                  @cameras="onCameras"
+                  @camera-change="onCameraChange" />
+          <canvas id="fifyCanvas"></canvas>
+        </div>
+
+        <!-- 1번기능, 2번기능, 영양정보 표시 기능 -->
+        <div style="margin-bottom:0.5rem;" id="button_box">
+            <button style="margin-right:0.5rem;" name="firstFunction"
+                    type='button' class="my_btn"
+                    @click="showModal = true">검색</button>
+            <button type='button' class="my_btn"
+                    @click="secondFunction">확인</button>
+        </div>
+        <Modal v-if="showModal" @close="showModal = false">
+          <div slot="body">
+            <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
+            <button @click="[onProductPub(), showModal = false]">전송</button>
+          </div>
+        </Modal>
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <button style="margin-bottom:0.5rem; width: 14.5rem;"
+                  type='button' class="my_btn"
+                  @click="info">성분표</button>
+        </div>
+
+        <button type="button"
+                class="btn btn-success"
+                @click="captureVideo">captureVideo</button>
+        <button type="button"
+                class="btn btn-danger"
+                @click="stopCaptureVideo">stopCaptureVideo</button>
     </div>
-    <Modal v-if="showModal" @close="showModal = false">
-      <div slot="body">
-        <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
-        <button @click="[onProductPub(), showModal = false]">전송</button>
-      </div>
-    </Modal>
-    <div style="display: flex; justify-content: center; align-items: center;">
-      <button style="margin-bottom:20px; width: 360px"
-              type='button' class="my_btn"
-              @click="info">성분표</button>
-    </div>
-
-    <button type="button"
-            class="btn btn-success"
-            @click="captureVideo">captureVideo</button>
-    <button type="button"
-            class="btn btn-danger"
-            @click="stopCaptureVideo">stopCaptureVideo</button>
-
-    <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
-    <button type='button' class="btn btn-success"
-            @click="showModal = true">기능 1</button>
-
-
-
-
-  </div>
-  
+</div>
 </template>
 
 <script>
@@ -403,7 +381,7 @@ export default {
 <style scoped>
 
 #textInfo {
-    font-size: 20px;
+    font-size: 1.5rem;
     box-shadow: inset 0 -10px #3767FF; line-height:21px;
 }
 
@@ -415,7 +393,6 @@ export default {
 }
 
 
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 .my_btn {
 	background-color: #3767FF;
 	border-radius:20px;
@@ -424,10 +401,10 @@ export default {
 	cursor:pointer;
 	color:white;
 	font-family:Pretendard;
-	font-size:40px;
-	padding:0px 50px;
+	font-size:1.7rem;
+	padding:0px 0.5rem;
 	text-decoration:none;
-	width: 170px;
+	width: 7rem;
 }
 .my_btn:hover {
 	background-color:#f6f6f6;
@@ -439,10 +416,9 @@ export default {
 }
 
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
-
 .container {
-  position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%); text-align: center;
+  position: absolute; left: 50%;
+  transform: translateX(-50%); text-align: center;
   font-family: Pretendard;
   font-weight: 600;
   font-display: swap;
@@ -480,4 +456,80 @@ export default {
   margin: 0 auto;
 }
 
+nav{
+    font-size: 12pt;
+    font-family: Pretendard;
+    position: relative;
+}
+
+nav ul{
+    padding: 0;
+    margin: 0 auto;
+    width: auto;
+}
+
+nav a{
+    line-height: 50px;
+  height: 50px;
+}
+
+nav li a{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+nav li:last-child a{
+    border-right: 0;
+}
+
+nav a:hover, nav a:active{
+}
+
+nav a#pull{
+    display: none;
+}
+
+html {
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+}
+
+ul{
+    /*list-style-type: none;*/
+    margin: 0;
+    padding: 0;
+    background-color: #3767FF;
+    text-align: center;
+}
+
+li{
+    /*position: relative;*/
+    display: inline-block;
+}
+
+li a{
+    color: #FFFFFF;
+    text-align: center;
+    padding: 14.5px 16px;
+    text-decoration: none;
+}
+
+li a:hover{
+    /*color: #597812;*/
+    color: #FFD400;
+    font-weight:normal;
+}
+
+.menu {
+    width: 5000px;
+    height: 0px;
+    text-align: center;
+    max-width: 100%;
+    background-position: center;
+    background-size: cover;
+    background-color: #3767FF;color: white;
+    position: absolute;z-index: 1;
+}
 </style>
