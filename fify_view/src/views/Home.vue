@@ -17,17 +17,22 @@
     <div style="float:left;">
       <center>
       <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
-      TEXT_AREA
+        <center>
+          {{message1}} {{message2}}
+          <p>second line</p>
+          <p>width : {{canvasW}}, height : {{canvasH}}</p>
+        </center>
       <p>제품을 탐지할 수 없습니다</p>
       </span>
       </center>
-
+    </div>
     <center>
       <input id="inputProduct" type='text' v-model="message" placeholder="제품을 입력하세요">
       <button @click="onProductPub">전송</button>
     </center>
 
     <center>Camera</center>
+
     <div id="fifyCamera">
       <web-cam ref="webcam"
               id="fifyWebCam"
@@ -58,10 +63,28 @@
     <button type="button"
             class="btn btn-danger"
             @click="stopCaptureVideo">stopCaptureVideo</button>
-    <button @click="fifyAxios">123</button>
-    </div>
+
+    <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
+    <button type='button' class="btn btn-success"
+            @click="showModal = true">기능 1</button>
+
+    <modal v-if="showModal" @close="showModal = false">
+      <center>
+        <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
+        <button @click="onProductPub">전송</button>
+      </center>
+      <button class="modal-default-button"
+                @click="showModal = false">
+                OK
+      </button>
+    </modal>
 
 
+    <!-- 지금 화면에 잡힌 물건이 무엇인지 알려줌 -->
+    <button type='button' class="btn btn-success"
+            @click="secondFunction">기능 2</button>
+    <!-- 탐지된 물건의 영양정보 알려주기 -->
+    <button type='button' class="btn btn-success">info button</button>
 
 
   </div>
@@ -85,7 +108,12 @@ export default {
       camera: null,
       deviceId: null,
       devices: [],
-      message: ""
+      inputProduct: "",
+      canvasW: "",
+      canvasH: "",
+      message1: "",
+      message2: "",
+      showModal: false
     };
   },
   computed: {
@@ -139,8 +167,8 @@ export default {
 
     // 사용자에게 입력받은 메시지 전송
     onProductPub() {
-      console.log('사용자 입력 메시지 : ',this.message)
-      this.$mqtt.publish('fify/product', this.message)
+      console.log('사용자 입력 메시지 : ',this.inputProduct)
+      this.$mqtt.publish('fify/product', this.inputProduct)
     },
 
     // 1초에 6번 사진 전송
@@ -167,7 +195,7 @@ export default {
     base64ToArray(base64) {
       var binary_string = window.atob(base64)
       var len = binary_string.length
-      var bytes = new Uint8Array(len)
+      var bytes = new Uint8Array(len)            
       for (var i = 0; i < len; i++) {
           bytes[i] = binary_string.charCodeAt(i)
       }
@@ -183,6 +211,7 @@ export default {
       console.log("2번째 네모", this.recX2, this.recY2, this.recW2, this.recH2)
       console.log("3번째 네모", this.recX3, this.recY3, this.recW3, this.recH3)
 
+      context.clearRect(0, 0, canvas1.width, canvas1.height)
 
       context.beginPath();
       context.linewidth = "5"
@@ -192,26 +221,42 @@ export default {
       context.rect(this.recX3, this.recY3, this.recW3, this.recH3)
       // context.rect(180, 50, 80, 70)
       context.stroke();
+
+      this.findIndex(this.index)
     },
 
     // 클라우드로 인덱스 전송
-    async fifyAxios() {
+    async findIndex(index) {
       // let index = ''
-      // axios.get(`http://18.142.131.188/nutrition/${this.index}/`).then((response)=>{
-      axios.get(`http://18.142.131.188/nutrition/5`).then((response)=>{
-      console.log(response.data, '111111');
+      axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
+      console.log(response.data, 'index전송, 영양정보 받아오기');
       })
-    }
+    },
+
+    open_inputProduct_Modal() {
+      this.is_show = !this.is_show
+    },
+
+    // 첫 번째 기능
+    firstFunction() {
+      this.open_inputProduct_Modal()
+    },
+
+
+    // 두 번째 기능
+    secondFunction() {
+
+    },
   },
 
   // MQTT통신
   mqtt: {
     'common3': function(value, topic) {
       let result = JSON.parse(value)
-      console.log('index : ', result.index)
-      console.log('index : ', result.index.first)
-      console.log('index : ', result.index.second)
-
+      console.log('index : ', result[0].index)
+      this.index = result[0].index
+      // this.findIndex(this.index)
+      
       console.log('exist', result.exist)
       console.log('detact', result.detact)
       console.log('coord', result.coord)
@@ -219,7 +264,7 @@ export default {
       console.log('product_name', result.product_name)
       console.log(result, topic)
 
-
+      
       // 변수 - if index is not NULL
       if(result.index.first != null && result.index.second != null && result.index.third != null) {
         console.log('if 1')
@@ -229,12 +274,12 @@ export default {
         let recY1 = result.coord.first[1]
         let recW1 = result.coord.first[2]
         let recH1 = result.coord.first[3]
-
+        
         let recX2 = result.coord.second[0]
         let recY2 = result.coord.second[1]
         let recW2 = result.coord.second[2]
         let recH2 = result.coord.second[3]
-
+        
         let recX3 = result.coord.third[0]
         let recY3 = result.coord.third[1]
         let recW3 = result.coord.third[2]
@@ -246,12 +291,12 @@ export default {
         this.recY1 = recY1
         this.recW1 = recW1
         this.recH1 = recH1
-
+        
         this.recX2 = recX2
         this.recY2 = recY2
         this.recW2 = recW2
         this.recH2 = recH2
-
+        
         this.recX3 = recX3
         this.recY3 = recY3
         this.recW3 = recW3
@@ -266,12 +311,12 @@ export default {
         let recY1 = result.coord.first[1]
         let recW1 = result.coord.first[2]
         let recH1 = result.coord.first[3]
-
+        
         let recX2 = result.coord.second[0]
         let recY2 = result.coord.second[1]
         let recW2 = result.coord.second[2]
         let recH2 = result.coord.second[3]
-
+        
         let recX3 = ''
         let recY3 = ''
         let recW3 = ''
@@ -285,12 +330,12 @@ export default {
         this.recY1 = recY1
         this.recW1 = recW1
         this.recH1 = recH1
-
+        
         this.recX2 = recX2
         this.recY2 = recY2
         this.recW2 = recW2
         this.recH2 = recH2
-
+        
         this.recX3 = recX3
         this.recY3 = recY3
         this.recW3 = recW3
@@ -306,12 +351,12 @@ export default {
         let recY1 = result.coord.first[1]
         let recW1 = result.coord.first[2]
         let recH1 = result.coord.first[3]
-
+        
         let recX2 = ''
         let recY2 = ''
         let recW2 = ''
         let recH2 = ''
-
+        
         let recX3 = ''
         let recY3 = ''
         let recW3 = ''
@@ -325,12 +370,12 @@ export default {
         this.recY1 = recY1
         this.recW1 = recW1
         this.recH1 = recH1
-
+        
         this.recX2 = recX2
         this.recY2 = recY2
         this.recW2 = recW2
         this.recH2 = recH2
-
+        
         this.recX3 = recX3
         this.recY3 = recY3
         this.recW3 = recW3
@@ -340,14 +385,14 @@ export default {
         // console.log(result.index.first, result.index.second, result.index.third)
       }
 
-
+      
     }
   },
   mounted() {
     // 구독신청
-    this.$mqtt.subscribe('common3')
+    this.$mqtt.subscribe('common3') 
   },
-
+  
 };
 </script>
 
