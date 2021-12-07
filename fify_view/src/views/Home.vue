@@ -18,10 +18,18 @@
           <center>
             {{message1}} {{message2}}
             <p>second line</p>
+            <p>width : {{canvasW}}, height : {{canvasH}}</p>
           </center>
+        <p>제품을 탐지할 수 없습니다</p>
         </span>
       </center>
     </div>
+    <center>
+      <input id="inputProduct" type='text' v-model="message" placeholder="제품을 입력하세요">
+      <button @click="onProductPub">전송</button>
+    </center>
+
+    <center>Camera</center>
 
     <div id="fifyCamera">
       <web-cam ref="webcam"
@@ -29,28 +37,34 @@
               :device-id="deviceId"
               width="100%"
               height="auto"
-              @started="onStarted"
-              @stopped="onStopped"
+              @started="onStarted" 
+              @stopped="onStopped" 
               @error="onError"
               @cameras="onCameras"
               @camera-change="onCameraChange" />
       <canvas id="fifyCanvas"></canvas>
     </div>
 
-    <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
-    <div style="margin-bottom:10px;" id="button_box">
-        <button style="margin-right:20px;"
+    <!-- 1번기능, 2번기능, 영양정보 표시 기능 -->
+    <div style="margin-bottom:15px;" id="button_box">
+        <button style="margin-right:20px;" name="firstFunction"
                 type='button' class="my_btn"
-                @click="showModal">검색</button>
+                @click="showModal = true">검색</button>
         <button type='button' class="my_btn"
                 @click="secondFunction">확인</button>
     </div>
-
+    <Modal v-if="showModal" @close="showModal = false">
+      <div slot="body">
+        <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
+        <button @click="[onProductPub(), showModal = false]">전송</button>
+      </div>
+    </Modal>
     <div style="display: flex; justify-content: center; align-items: center;">
       <button style="margin-bottom:20px; width: 360px"
               type='button' class="my_btn"
               @click="info">성분표</button>
     </div>
+
     <button type="button"
             class="btn btn-success"
             @click="captureVideo">captureVideo</button>
@@ -58,30 +72,28 @@
             class="btn btn-danger"
             @click="stopCaptureVideo">stopCaptureVideo</button>
 
+    <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
+    <button type='button' class="btn btn-success"
+            @click="showModal = true">기능 1</button>
 
-    <modal v-if="showModal" @close="showModal = false">
-      <center>
-        <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
-        <button @click="onProductPub">전송</button>
-      </center>
-      <button class="modal-default-button"
-                @click="showModal = false">
-                OK
-      </button>
-    </modal>
+
+
+
   </div>
-
+  
 </template>
 
 <script>
 import { WebCam } from "vue-web-cam";
 import { find, head } from "lodash";
-import axios from 'axios'
+import axios from 'axios';
+import Modal from '@/components/Modal'
 
 export default {
   name: "App",
   components: {
-    WebCam
+    WebCam,
+    Modal,
   },
   props: ['topic'],
   data() {
@@ -91,9 +103,11 @@ export default {
       deviceId: null,
       devices: [],
       inputProduct: "",
+      canvasW: "",
+      canvasH: "",
       message1: "",
       message2: "",
-      showModal: false
+      showModal: false,
     };
   },
   computed: {
@@ -110,9 +124,9 @@ export default {
       let first = head(this.devices);
       let second = this.devices[1]
       console.log('.',first, second)
-      if (second) {
-        this.camera = second.deviceId;
-        this.deviceId = second.deviceId;
+      if (first) {
+        this.camera = first.deviceId;
+        this.deviceId = first.deviceId;
       }
     }
   },
@@ -211,6 +225,11 @@ export default {
       axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
       console.log(response.data, 'index전송, 영양정보 받아오기');
       })
+
+      let nutritionResult = JSON.parse()
+      this.message1 = nutritionResult.voice1
+      this.message2 = nutritionResult.voice2
+
     },
 
     open_inputProduct_Modal() {
@@ -225,6 +244,11 @@ export default {
 
     // 두 번째 기능
     secondFunction() {
+      this.findIndex()
+    },
+
+    // 영양정보
+    info() {
 
     },
   },
@@ -378,15 +402,6 @@ export default {
 
 <style scoped>
 
-header {
-  height: 30px;
-  padding: 1rem;
-  color: white;
-  background: #3767FF;
-  font-weight: bold;
-}
-
-
 #textInfo {
     font-size: 20px;
     box-shadow: inset 0 -10px #3767FF; line-height:21px;
@@ -409,7 +424,7 @@ header {
 	cursor:pointer;
 	color:white;
 	font-family:Pretendard;
-	font-size:1.5rem;
+	font-size:40px;
 	padding:0px 50px;
 	text-decoration:none;
 	width: 170px;
@@ -431,6 +446,13 @@ header {
   font-family: Pretendard;
   font-weight: 600;
   font-display: swap;
+}
+
+.section-basic {
+  border-radius: 8px 8px 8px 8px / 8px 8px 8px 8px;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 12px -5px;
+  background-color: darkgray;
+
 }
 
 #fifyWebCam {
