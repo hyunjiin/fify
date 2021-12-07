@@ -1,19 +1,16 @@
 <template>
   <div class="container">
-    <router-view/>
+
     <div id="textInfo" class="section section-basic">
       <center>
-      <!-- {{result.product_name}} -->aa
+      {{message1}} {{message2}}
       <p>second line</p>
       <p>width : {{canvasW}}, height : {{canvasH}}</p>
       </center>
     </div>
-    <center>
-      <input id="inputProduct" type='text' v-model="message" placeholder="제품을 입력하세요">
-      <button @click="onProductPub">전송</button>
-    </center>
     
     <h2>Camera</h2>
+
     <div id="fifyCamera">
       <web-cam ref="webcam"
               id="fifyWebCam"
@@ -35,14 +32,31 @@
     <button type="button"
             class="btn btn-danger"
             @click="stopCaptureVideo">stopCaptureVideo</button>
-    <button @click="fifyAxios">123</button>
 
     <p></p>
 
     <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
     <button type='button' class="btn btn-success"
-            @click="drawRectangle">기능 1</button>
-    <button type='button' class="btn btn-success">기능 2</button>
+            @click="showModal = true">기능 1</button>
+
+    <modal v-if="showModal" @close="showModal = false">
+      <center>
+        <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
+        <button @click="onProductPub">전송</button>
+      </center>
+      <button class="modal-default-button"
+                @click="showModal = false">
+                OK
+      </button>
+    </modal>
+
+
+    <!-- 지금 화면에 잡힌 물건이 무엇인지 알려줌 -->
+    <button type='button' class="btn btn-success"
+            @click="secondFunction">기능 2</button>
+    <!-- 탐지된 물건의 영양정보 알려주기 -->
+    <button type='button' class="btn btn-success">info button</button>
+
 
   </div>
   
@@ -65,9 +79,12 @@ export default {
       camera: null,
       deviceId: null,
       devices: [],
-      message: "",
+      inputProduct: "",
       canvasW: "",
-      canvasH: ""
+      canvasH: "",
+      message1: "",
+      message2: "",
+      showModal: false
     };
   },
   computed: {
@@ -121,8 +138,8 @@ export default {
 
     // 사용자에게 입력받은 메시지 전송
     onProductPub() {
-      console.log('사용자 입력 메시지 : ',this.message)
-      this.$mqtt.publish('fify/product', this.message)
+      console.log('사용자 입력 메시지 : ',this.inputProduct)
+      this.$mqtt.publish('fify/product', this.inputProduct)
     },
 
     // 1초에 6번 사진 전송
@@ -175,7 +192,6 @@ export default {
 
       context.clearRect(0, 0, canvas1.width, canvas1.height)
 
-
       context.beginPath();
       context.linewidth = "5"
       context.strokeStyle = "red"
@@ -189,25 +205,29 @@ export default {
       context.stroke();
 
       this.findIndex(this.index)
-
-
     },
 
     // 클라우드로 인덱스 전송
-    async fifyAxios() {
-      // let index = ''
-      axios.get(`http://18.142.131.188/nutrition/${this.index}`).then((response)=>{
-      // axios.get(`http://18.142.131.188/nutrition/5`).then((response)=>{
-      console.log(response.data, '111111');
-      })
-    },
-
     async findIndex(index) {
       // let index = ''
       axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
-      // axios.get(`http://18.142.131.188/nutrition/5`).then((response)=>{
-      console.log(response.data, '111111');
+      console.log(response.data, 'index전송, 영양정보 받아오기');
       })
+    },
+
+    open_inputProduct_Modal() {
+      this.is_show = !this.is_show
+    },
+
+    // 첫 번째 기능
+    firstFunction() {
+      this.open_inputProduct_Modal()
+    },
+
+
+    // 두 번째 기능
+    secondFunction() {
+
     },
   },
 
@@ -218,11 +238,6 @@ export default {
       console.log('index : ', result[0].index)
       this.index = result[0].index
       // this.findIndex(this.index)
-
-      // console.log('index : ', result[1].index)
-      // console.log('index : ', result[2].index)
-      // console.log('index : ', result[3].index)
-      // console.log('index : ', result[4].index)
       
       console.log('exist', result[0].exist)
       console.log('detect', result[0].detact)
