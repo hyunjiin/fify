@@ -1,4 +1,13 @@
 <template>
+<div>
+    <div class="menu" >
+        <nav class="clearfix">
+        <ul class="clearfix">
+            <li><v-btn icon @click="$router.push({name:'Home'})"><v-icon color="white">home</v-icon></v-btn></li>
+            <li><v-btn icon @click="$router.push({path:'about', name:'About'})"><v-icon color="white">info</v-icon></v-btn></li>
+        </ul>
+        </nav>
+    </div>
     <div id="template">
         <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -6,14 +15,9 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         </head>
 
-        <div class="menu" style="float:left; margin-left:20px;">
-        <label for="expand-menu"><div></div></label><input type="checkbox" id="expand-menu" name="expand-menu">
-        <ul>
-            <li><v-btn icon @click="$router.push({name:'Home'})"></v-btn></li>
-            <li><v-btn icon @click="$router.push({path:'about', name:'About'})"></v-btn></li>
-        </ul>
-        </div>
-        <div class="about" style="padding-left:30px; padding-top:30px; float:left;">
+
+
+        <div class="about" style="padding-top:30px; float:left;">
         <div id="title">
         <img src="@/logo.png" height="120">
         <div style = "font-weight:900; font-size:2rem; margin:0px;">Find It For You : 대신 찾고, 알려드릴게요</div>
@@ -38,14 +42,16 @@
         </div>
         </div>
     </div>
+</div>
 </template>
 
 <style>
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
 
 #template {
-	position: absolute; left: 50%; top: 50%;
-    transform: translate(-50%, -50%); text-align: center;
+    margin-top: 2rem;
+	position: absolute; left: 50%;
+    transform: translateX(-50%); text-align: center;
 	justify-content: left;
 	align-items: left;
 }
@@ -63,71 +69,72 @@
 	font-size: 1rem;
 }
 
-.menu {
-    display: block;
-    overflow: hidden;
-    width: 60px;
-    background-color: #3767FF;
-    color: #fff;
-    transition: all 0.5s ease;
-    border-radius: 20px;
-    padding: 10px;
-    box-sizing: border-box;
-}
-.menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.menu a, .menu > label {
-    display: block;
-    height: 25px;
-    padding: 8px;
-    cursor: pointer;
-    color: #fff;
-    text-decoration: none;
-}
 
-.menu a:hover {
-    color: #000;
-}
-
-.menu div {
-    position: absolute;
-    left: 50px;
-    line-height: 1.5;
-    font-size: 1em;
+nav{
+    font-size: 12pt;
     font-family: Pretendard;
-    padding: 0 0 0 20px;
+    position: relative;
 }
-
-#expand-menu {
+nav ul{
+    padding: 0;
+    margin: 0 auto;
+    width: auto;
+}
+nav li{
+}
+nav a{
+    line-height: 50px;
+  height: 50px;
+}
+nav li a{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+nav li:last-child a{
+    border-right: 0;
+    }
+nav a:hover, nav a:active{
+}
+nav a#pull{
     display: none;
 }
-#expand-menu:checked ~ ul {
-    display: block;
-    height: auto;
-}
+  html {
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+  }
 
-.menu ::before {
-    font-family: 'Material Icons';
-    font-size: 1.5em;
-    float: left;
-    clear: left;
-}
-.menu label::before{ content: '\e5d2'; }
-.menu li:nth-child(1) a::before{ content: '\f02e'; }
-.menu li:nth-child(2) a::before{ content: '\e8d6'; }
-
-@media screen and (max-width:1023px) {
-    .menu {
-        width: 60px;
-    }
-}
-
-@media screen and (max-width:560px) {
-    .menu #expand-menu:not(:checked) ~ ul {
-        display: none;
-    }
-}
+  ul{
+    /*list-style-type: none;*/
+    margin: 0;
+    padding: 0;
+    background-color: #3767FF;
+    text-align: center;
+  }
+  li{
+    /*position: relative;*/
+    display: inline-block;
+  }
+  li a{
+    color: #FFFFFF;
+    text-align: center;
+    padding: 14.5px 16px;
+    text-decoration: none;
+  }
+  li a:hover{
+    /*color: #597812;*/
+    color: #FFD400;
+    font-weight:normal;
+  }
+  .menu {
+   width: 5000px;
+   height: 0px;
+   text-align: center;
+   max-width: 100%;
+   background-position: center;
+   background-size: cover;
+   background-color: #3767FF;color: white;
+   position: absolute;z-index: 1;
+ }
 </style>

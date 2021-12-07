@@ -1,29 +1,22 @@
 <template>
-  <div class="container">
-    <head>
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    </head>
-
-    <div class="menu" style="margin-top:20px; float:left;">
-      <label for="expand-menu"><div></div></label><input type="checkbox" id="expand-menu" name="expand-menu">
-      <ul>
-          <li><v-btn icon @click="$router.push({name:'Home'})"></v-btn></li>
-          <li><v-btn icon @click="$router.push({path:'about', name:'About'})"></v-btn></li>
-      </ul>
+<div>
+    <div class="menu">
+        <nav class="clearfix">
+        <ul class="clearfix">
+            <li><v-btn icon @click="$router.push({name:'Home'})"><v-icon color="white"></v-icon></v-btn></li>
+            <li><v-btn icon @click="$router.push({path:'about', name:'About'})"><v-icon color="white">info</v-icon></v-btn></li>
+        </ul>
+        </nav>
     </div>
 
-    <div style="float:left;">
-      <center>
-        <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
-          <center>
-            {{message1}}
-            <p>{{message2}}</p> 
-          </center>
-        </span>
-      </center>
-    </div>
+    <div class="container">
+        <div style="margin-top:3rem;">
+            <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
+                {{message1}}
+                <p>{{message2}}</p>
+            </span>
+        </div>
+
 
     <div id="fifyCamera">
       <web-cam ref="webcam"
@@ -31,8 +24,8 @@
               :device-id="deviceId"
               width="100%"
               height="auto"
-              @started="onStarted" 
-              @stopped="onStopped" 
+              @started="onStarted"
+              @stopped="onStopped"
               @error="onError"
               @cameras="onCameras"
               @camera-change="onCameraChange" />
@@ -40,24 +33,24 @@
     </div>
 
     <!-- 1번기능, 2번기능, 영양정보 표시 기능 -->
-    <div style="margin-bottom:15px;" id="button_box">
-        <button style="margin-right:20px;" name="firstFunction"
-                type='button' class="my_btn"
-                @click="showModal = true">검색</button>
-        <button type='button' class="my_btn"
-                @click="secondFunction">확인</button>
-    </div>
+        <div style="margin-bottom:0.5rem;" id="button_box">
+            <button style="margin-right:0.5rem;" name="firstFunction"
+                    type='button' class="my_btn"
+                    @click="showModal = true">검색</button>
+            <button type='button' class="my_btn"
+                    @click="secondFunction">확인</button>
+        </div>
     <Modal v-if="showModal" @close="showModal = false">
       <div slot="body">
         <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
         <button @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
       </div>
     </Modal>
-    <div style="display: flex; justify-content: center; align-items: center;">
-      <button style="margin-bottom:20px; width: 360px"
-              type='button' class="my_btn"
-              @click="showNutritionModal = true">성분표</button>  
-    </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <button style="margin-bottom:0.5rem; width: 14.5rem;"
+                  type='button' class="my_btn"
+                  @click="info">성분표</button>
+        </div>
     <NutritionModal v-if="showNutritionModal" @close="showNutritionModal = false">
       <div slot="head" v-text="bold">영양정보</div>
       <div slot="body">
@@ -75,11 +68,13 @@
             @click="stopCaptureVideo">stopCaptureVideo</button>
 
 
-    
+
 
 
   </div>
-  
+</div>
+
+
 </template>
 
 <script>
@@ -470,7 +465,7 @@ export default {
 <style scoped>
 
 #textInfo {
-    font-size: 20px;
+    font-size: 1.5rem;
     box-shadow: inset 0 -10px #3767FF; line-height:21px;
 }
 
@@ -482,7 +477,6 @@ export default {
 }
 
 
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 .my_btn {
 	background-color: #3767FF;
 	border-radius:20px;
@@ -491,10 +485,10 @@ export default {
 	cursor:pointer;
 	color:white;
 	font-family:Pretendard;
-	font-size:40px;
-	padding:0px 50px;
+	font-size:1.7rem;
+	padding:0px 0.5rem;
 	text-decoration:none;
-	width: 170px;
+	width: 7rem;
 }
 .my_btn:hover {
 	background-color:#f6f6f6;
@@ -506,10 +500,9 @@ export default {
 }
 
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
-
 .container {
-  position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%); text-align: center;
+  position: absolute; left: 50%;
+  transform: translateX(-50%); text-align: center;
   font-family: Pretendard;
   font-weight: 600;
   font-display: swap;
@@ -547,71 +540,86 @@ export default {
   margin: 0 auto;
 }
 
-.menu {
-    display: block;
-    overflow: hidden;
-    width: 60px;
-    background-color: #3767FF;
-    color: #fff;
-    transition: all 0.5s ease;
-    border-radius: 20px;
-    padding: 10px;
-    box-sizing: border-box;
+nav{
+    font-size: 12pt;
+    font-family: Pretendard;
+    position: relative;
 }
-.menu ul {
-    list-style: none;
+
+nav ul{
+    padding: 0;
+    margin: 0 auto;
+    width: auto;
+}
+
+nav a{
+    line-height: 50px;
+  height: 50px;
+}
+
+nav li a{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+nav li:last-child a{
+    border-right: 0;
+}
+
+nav a:hover, nav a:active{
+}
+
+nav a#pull{
+    display: none;
+}
+
+html {
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+}
+
+ul{
+    /*list-style-type: none;*/
     margin: 0;
     padding: 0;
+    background-color: #3767FF;
+    text-align: center;
 }
-.menu a, .menu > label {
-    display: block;
-    height: 25px;
-    padding: 8px;
-    cursor: pointer;
-    color: #fff;
+
+li{
+    /*position: relative;*/
+    display: inline-block;
+}
+
+li a{
+    color: #FFFFFF;
+    text-align: center;
+    padding: 14.5px 16px;
     text-decoration: none;
 }
 
-.menu a:hover {
-    color: #000;
+li a:hover{
+    /*color: #597812;*/
+    color: #FFD400;
+    font-weight:normal;
 }
 
-.menu div {
-    position: absolute;
-    left: 50px;
-    line-height: 1.5;
-    font-size: 1em;
-    font-family: Pretendard;
-    padding: 0 0 0 20px;
-}
-
-#expand-menu {
-    display: none;
-}
-#expand-menu:checked ~ ul {
-    display: block;
-    height: auto;
-}
-
-.menu ::before {
-    font-family: 'Material Icons';
-    font-size: 1.5em;
-    float: left;
-    clear: left;
-}
-.menu label::before{ content: '\e5d2'; }
-.menu li:nth-child(1) a::before{ content: '\f02e'; }
-.menu li:nth-child(2) a::before{ content: '\e8d6'; }
-
-@media screen and (max-width:1023px) {
-    .menu {
-        width: 60px;
-    }
+.menu {
+    width: 5000px;
+    height: 0px;
+    text-align: center;
+    max-width: 100%;
+    background-position: center;
+    background-size: cover;
+    background-color: #3767FF;color: white;
+    position: absolute;z-index: 1;
 }
 @media screen and (max-width:560px) {
     .menu #expand-menu:not(:checked) ~ ul {
         display: none;
     }
 
-} 
+}
 </style>
