@@ -46,11 +46,11 @@
         <button @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
       </div>
     </Modal>
-        <div style="display: flex; justify-content: center; align-items: center;">
-          <button style="margin-bottom:0.5rem; width: 14.5rem;"
-                  type='button' class="my_btn"
-                  @click="info">성분표</button>
-        </div>
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <button style="margin-bottom:0.5rem; width: 14.5rem;"
+              type='button' class="my_btn"
+              @click="showNutritionModal = true">성분표{{salt}}</button>
+    </div>
     <NutritionModal v-if="showNutritionModal" @close="showNutritionModal = false">
       <div slot="head" v-text="bold">영양정보</div>
       <div slot="body">
@@ -68,7 +68,7 @@
             @click="stopCaptureVideo">stopCaptureVideo</button>
 
 
-
+    
 
 
   </div>
@@ -465,7 +465,7 @@ export default {
 <style scoped>
 
 #textInfo {
-    font-size: 1.5rem;
+    font-size: 20px;
     box-shadow: inset 0 -10px #3767FF; line-height:21px;
 }
 
@@ -477,6 +477,7 @@ export default {
 }
 
 
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 .my_btn {
 	background-color: #3767FF;
 	border-radius:20px;
@@ -485,10 +486,10 @@ export default {
 	cursor:pointer;
 	color:white;
 	font-family:Pretendard;
-	font-size:1.7rem;
-	padding:0px 0.5rem;
+	font-size:40px;
+	padding:0px 50px;
 	text-decoration:none;
-	width: 7rem;
+	width: 170px;
 }
 .my_btn:hover {
 	background-color:#f6f6f6;
@@ -500,9 +501,10 @@ export default {
 }
 
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
 .container {
-  position: absolute; left: 50%;
-  transform: translateX(-50%); text-align: center;
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%); text-align: center;
   font-family: Pretendard;
   font-weight: 600;
   font-display: swap;
