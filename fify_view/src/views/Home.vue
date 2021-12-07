@@ -5,6 +5,7 @@
       <center>
       <!-- {{result.product_name}} -->aa
       <p>second line</p>
+      <p>width : {{canvasW}}, height : {{canvasH}}</p>
       </center>
     </div>
     <center>
@@ -39,7 +40,8 @@
     <p></p>
 
     <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
-    <button type='button' class="btn btn-success">기능 1</button>
+    <button type='button' class="btn btn-success"
+            @click="drawRectangle">기능 1</button>
     <button type='button' class="btn btn-success">기능 2</button>
 
   </div>
@@ -63,7 +65,9 @@ export default {
       camera: null,
       deviceId: null,
       devices: [],
-      message: ""
+      message: "",
+      canvasW: "",
+      canvasH: ""
     };
   },
   computed: {
@@ -157,6 +161,9 @@ export default {
 
       var canvas1 = document.getElementById("fifyCanvas")
       var context = canvas1.getContext("2d")
+      this.canvasW = canvas1.width
+      this.canvasH = canvas1.height
+      
       console.log("1번째 네모", this.recX1, this.recY1, this.recW1, this.recH1)
       console.log("2번째 네모", this.recX2, this.recY2, this.recW2, this.recH2)
       console.log("3번째 네모", this.recX3, this.recY3, this.recW3, this.recH3)
@@ -167,11 +174,18 @@ export default {
       context.beginPath();
       context.linewidth = "5"
       context.strokeStyle = "red"
+
+      context.beginPath();
+
       context.rect(this.recX1, this.recY1, this.recW1, this.recH1)
       context.rect(this.recX2, this.recY2, this.recW2, this.recH2)
       context.rect(this.recX3, this.recY3, this.recW3, this.recH3)
       // context.rect(0, 0, 300, 150)
       context.stroke();
+
+      this.findIndex(this.index)
+
+
     },
 
     // 클라우드로 인덱스 전송
@@ -181,7 +195,15 @@ export default {
       // axios.get(`http://18.142.131.188/nutrition/5`).then((response)=>{
       console.log(response.data, '111111');
       })
-    }
+    },
+
+    async findIndex(index) {
+      // let index = ''
+      axios.get(`http://18.142.131.188/nutrition/${index}/`).then((response)=>{
+      // axios.get(`http://18.142.131.188/nutrition/5`).then((response)=>{
+      console.log(response.data, '111111');
+      })
+    },
   },
 
   // MQTT통신
@@ -189,6 +211,9 @@ export default {
     'common3': function(value, topic) {
       let result = JSON.parse(value)
       console.log('index : ', result[0].index)
+      this.index = result[0].index
+      // this.findIndex(this.index)
+
       // console.log('index : ', result[1].index)
       // console.log('index : ', result[2].index)
       // console.log('index : ', result[3].index)
