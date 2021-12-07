@@ -22,7 +22,6 @@
             <p>second line</p>
             <p>width : {{canvasW}}, height : {{canvasH}}</p>
           </center>
-        <p>제품을 탐지할 수 없습니다</p>
         </span>
       </center>
     </div>
@@ -49,17 +48,17 @@
 
     <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
     <div style="margin-bottom:15px;" id="button_box">
-      <div>
-        <button style="margin-right:20px;" type='button' class="my_btn">검색</button>
-      </div>
-      <div>
-        <button type='button' class="my_btn">확인</button>
-      </div>
+        <button style="margin-right:20px;" 
+                type='button' class="my_btn"
+                @click="showModal">검색</button>
+        <button type='button' class="my_btn"
+                @click="secondFunction">확인</button>
     </div>
 
     <div style="display: flex; justify-content: center; align-items: center;">
-    <button type='button' class="my_btn" style="margin-bottom:20px; width: 360px;">
-    성분표</button>
+      <button style="margin-bottom:20px; width: 360px"
+              type='button' class="my_btn"
+              @click="info">성분표</button>
     </div>
     <button type="button"
             class="btn btn-success"
@@ -68,9 +67,6 @@
             class="btn btn-danger"
             @click="stopCaptureVideo">stopCaptureVideo</button>
 
-    <!-- 버튼 누르면 팝엄창 뜨면서 검색 할 수 있게 함 -->
-    <button type='button' class="btn btn-success"
-            @click="showModal = true">기능 1</button>
 
     <modal v-if="showModal" @close="showModal = false">
       <center>
@@ -82,13 +78,6 @@
                 OK
       </button>
     </modal>
-
-
-    <!-- 지금 화면에 잡힌 물건이 무엇인지 알려줌 -->
-    <button type='button' class="btn btn-success"
-            @click="secondFunction">기능 2</button>
-    <!-- 탐지된 물건의 영양정보 알려주기 -->
-    <button type='button' class="btn btn-success">info button</button>
 
 
   </div>
