@@ -18,8 +18,8 @@
       <center>
         <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
           <center>
-            {{message1}} {{message2}}
-            <p>second line</p>
+            {{message1}}
+            <p>{{message2}}</p> 
           </center>
         </span>
       </center>
@@ -56,8 +56,16 @@
     <div style="display: flex; justify-content: center; align-items: center;">
       <button style="margin-bottom:20px; width: 360px"
               type='button' class="my_btn"
-              @click="info">성분표</button>
+              @click="showNutritionModal = true">성분표</button>  
     </div>
+    <NutritionModal v-if="showNutritionModal" @close="showNutritionModal = false">
+      <div slot="head" v-text="bold">영양정보</div>
+      <div slot="body">
+        <div>
+          <b-table striped hover :items="items"></b-table>
+        </div>
+      </div>
+    </NutritionModal>
 
     <button type="button"
             class="btn btn-success"
@@ -78,13 +86,16 @@
 import { WebCam } from "vue-web-cam";
 import { find, head } from "lodash";
 import axios from 'axios';
-import Modal from '@/components/Modal'
+import Modal from '../components/Modal.vue';
+import NutritionModal from '../components/NutritionModal.vue';
+
 
 export default {
   name: "App",
   components: {
     WebCam,
     Modal,
+    NutritionModal
   },
   props: ['topic'],
   data() {
@@ -94,9 +105,44 @@ export default {
       deviceId: null,
       devices: [],
       inputProduct: "",
-      message1: "",
-      message2: "",
+      message1: "message",
+      message2: "message",
       showModal: false,
+      showNutritionModal: false,
+
+      serving_size: '',
+      calorie_kJ: '',
+      calorie_kcal: '',
+      carbohydrate: '',
+      sugar: '',
+      protein: '',
+      fat: '',
+      fat_2: '',
+      fat_3: '',
+      cholesterol: '',
+      salt: '',
+      fat_4: '',
+      fat_5: '',
+      dietary_fiber: '',
+      potassium: '',
+
+      items: [
+        {기준 : 'serving_size', 양 : this.serving_size},
+        {기준 : 'calorie_kJ', 양 : this.calorie_kJ},
+        {기준 : 'calorie_kcal', 양 : this.calorie_kcal},
+        {기준 : 'carbohydrate', 양 : this.carbohydrate},
+        {기준 : 'sugar', 양 : this.sugar},
+        {기준 : 'protein', 양 : this.protein},
+        {기준 : 'fat', 양 : this.fat},
+        {기준 : 'fat_2', 양 : this.fat_2},
+        {기준 : 'fat_3', 양 : this.fat_3},
+        {기준 : 'fat_4', 양 : this.fat_4},
+        {기준 : 'fat_5', 양 : this.fat_5},
+        {기준 : 'cholesterol', 양 : this.cholesterol},
+        {기준 : 'salt', 양 : this.salt},
+        {기준 : 'dietary_fiber', 양 : this.dietary_fiber},
+        {기준 : 'potassium', 양 : this.potassium}
+      ]
     };
   },
   computed: {
@@ -193,6 +239,8 @@ export default {
       console.log("1번째 네모", this.recX1, this.recY1, this.recW1, this.recH1)
       console.log("2번째 네모", this.recX2, this.recY2, this.recW2, this.recH2)
       console.log("3번째 네모", this.recX3, this.recY3, this.recW3, this.recH3)
+      console.log("4번째 네모", this.recX4, this.recY4, this.recW4, this.recH4)
+      console.log("5번째 네모", this.recX5, this.recY5, this.recW5, this.recH5)
 
       context.clearRect(0, 0, canvas1.width, canvas1.height)
 
@@ -217,9 +265,24 @@ export default {
       })
 
       let nutritionResult = JSON.parse()
-      this.message1 = nutritionResult.voice1
-      this.message2 = nutritionResult.voice2
 
+      this.nutritionResult = nutritionResult
+
+      this.serving_size = nutritionResult.serving_size
+      this.calorie_kJ = nutritionResult.calorie_kJ
+      this.calorie_kcal = nutritionResult.calorie_kcal
+      this.carbohydrate = nutritionResult.carbohydrate
+      this.sugar = nutritionResult.sugar
+      this.protein = nutritionResult.protein
+      this.fat = nutritionResult.fat
+      this.fat_2 = nutritionResult.fat_2
+      this.fat_3 = nutritionResult.fat_3
+      this.cholesterol = nutritionResult.cholesterol
+      this.salt = nutritionResult.salt
+      this.fat_4 = nutritionResult.fat_4
+      this.fat_5 = nutritionResult.fat_5
+      this.dietary_fiber = nutritionResult.dietary_fiber
+      this.potassium = nutritionResult.potassium
     },
 
     open_inputProduct_Modal() {
@@ -234,13 +297,25 @@ export default {
 
     // 두 번째 기능
     secondFunction() {
-      this.findIndex()
+      // this.findIndex()
+      this.$mqtt.publish('fify/product', null)
+      this.captureVideo()
+      if(this.nutritionResult.voice_1 == null && this.nutritionResult.voice_2 == null) {
+        this.message1 = this.nutritionResult.product_name
+        this.message2 = null
+      } else if(this.nutritionResult.voice_1 != null) {
+        this.message1 = this.nutritionResult.voice_1
+        this.message2 = this.nutritionResult.voice_2
+      }
+
     },
 
     // 영양정보
     info() {
 
     },
+
+    // 제품 이름 또는 메시지
   },
 
   // MQTT통신
