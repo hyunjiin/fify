@@ -134,9 +134,9 @@ export default {
       let first = head(this.devices);
       let second = this.devices[1]
       console.log('.',first, second)
-      if (first) {
-        this.camera = first.deviceId;
-        this.deviceId = first.deviceId;
+      if (second) {
+        this.camera = second.deviceId;
+        this.deviceId = second.deviceId;
       }
     }
   },
