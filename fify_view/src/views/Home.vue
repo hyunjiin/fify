@@ -41,8 +41,9 @@
             <Modal v-if="showModal" @close="showModal = false">
               <div slot="body">
                 <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
-                <button @click="showModal = false" style="margin-right:2.5rem;">취소</button>
-                <button @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
+                <button class="mini_btn" @click="showModal = false"
+                style="margin-right:2.5rem; margin-top:1rem;">취소</button>
+                <button class="mini_btn" @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
 
               </div>
             </Modal>
@@ -57,9 +58,9 @@
       <NutritionModal v-if="showNutritionModal" @close="showNutritionModal = false">
       <div slot="body">
         <div>
-          <b-table striped hover :items="items"></b-table>
+          <b-table striped :items="items" id="NTtable"></b-table>
         </div>
-        <button @click="showNutritionModal = false">확인</button>
+        <button class="mini_btn" @click="showNutritionModal = false">확인</button>
       </div>
     </NutritionModal>
     </div>
@@ -601,6 +602,29 @@ export default {
 	top:1px;
 }
 
+.mini_btn {
+	background-color: #3767FF;
+	border-radius:5px;
+	border:0px solid black;
+	box-shadow: 0 0px 0px rgba(0,79,255,0.3);
+	cursor:pointer;
+	color:white;
+	font-family:Pretendard;
+	font-size:1rem;
+	padding:0px 0.5rem;
+	text-decoration:none;
+	width: 3rem;
+}
+.mini_btn:hover {
+	background-color:#f6f6f6;
+	color: #3767FF;
+}
+.mini_btn:active {
+	position:relative;
+	top:1px;
+}
+
+
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
 
 .container {
@@ -699,4 +723,10 @@ li a:hover{
     background-color: #3767FF;color: white;
     position: absolute;z-index: 1;
 }
+
+#NTtable {
+    background-color: white;
+}
+
+
 </style>

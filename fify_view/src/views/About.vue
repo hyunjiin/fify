@@ -31,7 +31,7 @@
         <div><span class="dot">●</span>둘, 가능한 어깨 주변까지 스마트폰을 가까이 위치하고 스마트폰을 천천히 움직여 매대를 골고루 비춰주세요</div>
         <div><span class="dot">●</span>입력하신 제품이 탐지되면 진동이 울리고 해당 제품 위로 테두리가 그려집니다</div>
         <div><span class="dot">●</span>이때 영양 정보 버튼을 누르시면 해당 제품의 성분을 볼 수 있어요</div>
-        <div style = "margin-bottom:30px;">다른 제품을 찾고 싶으실 땐 검색, 혹은 확인 버튼을 다시 눌러주세요</div>
+        <div style = "margin-bottom:30px;"><span class="dot">●</span>다른 제품을 찾고 싶으실 땐 검색, 혹은 확인 버튼을 다시 눌러주세요</div>
         <span style = "font-weight:900; font-size:1.2rem; box-shadow: inset 0 -10px #3767FF; line-height:21px; margin:0">확인 기능</span>
         <div><span class="dot">●</span>손에 들고 있는, 혹은 앞에 있는 제품이 무엇인지 알려드리는 기능입니다</div>
         <div><span class="dot">●</span>반드시 제품을 하나만 손에 들어주시고, 혹은 깨끗한 책상 위 등에 제품을 올려놓고 카메라를 제품에 가까이 대어 주세요</div>
