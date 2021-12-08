@@ -3,8 +3,8 @@
     <div class="menu">
         <nav class="clearfix">
         <ul class="clearfix">
-            <li><v-btn icon @click="$router.push({name:'Home'})" alt="홈으로 돌아가기"><v-icon color="white">mdi-home</v-icon></v-btn></li>
-            <li><v-btn icon @click="$router.push({path:'about', name:'About'})" alt="정보 페이지"><v-icon color="white">mdi-information</v-icon></v-btn></li>
+            <li style="margin-right:2rem;"><v-btn icon @click="$router.push({name:'Home'})" color="white"><v-icon color="white">mdi-home</v-icon>홈</v-btn></li>
+            <li><v-btn icon @click="$router.push({path:'about', name:'About'})" color="white"><v-icon color="white">mdi-information</v-icon>사용법</v-btn></li>
         </ul>
         </nav>
     </div>
