@@ -363,13 +363,11 @@ export default {
       console.log('product name :', result[0].product_name)
       console.log(result, topic)
 
-      this.product_name = result[0].product_name
 
       if(result[0].message != null){
         let mqttMessage = result[0].message
         this.mqttMessage = mqttMessage
       } else {
-        let mqttMessage = result[0].product_name
         this.mqttMessage = mqttMessage
       }
 
