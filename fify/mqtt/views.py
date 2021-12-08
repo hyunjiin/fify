@@ -69,9 +69,8 @@ def result(request):
 
     print(request_data)
     print(json.dumps(request_data))
-    client.loop_start()
+
     client.publish('common3', json.dumps(request_data), 1)
-    client.loop_stop()
 
     return Response(request_data)
 
@@ -128,9 +127,7 @@ def result2(request):
 
     print(json.dumps(final_data))
 
-    client.loop_start()
     client.publish('common3', json.dumps(final_data), 1)
-    client.loop_stop()
 
     return Response(request_data)
 
@@ -157,3 +154,4 @@ client.on_disconnect = on_disconnect
 client.on_publish = on_publish
 
 client.connect('18.142.131.188', 1883)
+client.loop_forever()
