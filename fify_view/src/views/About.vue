@@ -80,8 +80,7 @@ nav ul{
     margin: 0 auto;
     width: auto;
 }
-nav li{
-}
+
 nav a{
     line-height: 50px;
   height: 50px;

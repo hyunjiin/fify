@@ -75,11 +75,6 @@
     <button type="button"
             class="btn btn-success"
             @click="captureVideo1Time">TEST</button>
-
-
-    
-
-
   </div>
 </div>
 
@@ -266,7 +261,6 @@ export default {
 
     // 클라우드로 인덱스 전송
     async findIndex() {
-      // let index = ''
       // axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
       axios.get(`http://18.142.131.188/nutrition/1`).then((response)=>{
       console.log(response.data, 'index전송, 영양정보 받아오기');
@@ -329,7 +323,7 @@ export default {
           this.message1 = this.nutritionResult.voice1
           this.message2 = this.nutritionResult.voice2
         }
-      }, 1500);
+      }, 15000);
       // 제품 미등록 시 'message'출력
       // 제품 미등록 시 퍼블리시 안하기
       // 이건 mqtt로 온다
@@ -338,7 +332,6 @@ export default {
 
     // 두 번째 기능
     secondFunction() {
-      // this.findIndex()
       this.$mqtt.publish('fify/product', null)
       this.captureVideo()
       
@@ -351,7 +344,7 @@ export default {
           this.message1 = this.nutritionResult.voice1
           this.message2 = this.nutritionResult.voice2
         }
-      }, 6000);
+      }, 15000);
     },
 
     // 제품 이름 또는 메시지
@@ -558,8 +551,6 @@ export default {
       } else {
         console.log('else')
       }
-
-      
     }
   },
   mounted() {
