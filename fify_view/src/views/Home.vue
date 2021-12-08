@@ -14,6 +14,7 @@
             <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
                 {{message1}}
                 <p>{{message2}}</p>
+                {{mqttMessage}}
             </span>
         </div>
 
@@ -102,6 +103,7 @@ export default {
       inputProduct: "",
       message1: "message",
       message2: "message",
+      mqttMessage: "",
       showModal: false,
       showNutritionModal: false,
 
@@ -326,9 +328,9 @@ export default {
       console.log(result, topic)
 
       if(result[0].message != null)
-        let aaa = bbb
+        let mqttMessage = result[0].message
+        this.mqttMessage = mqttMessage
 
-        this.aaa = aaa
       // 변수 - if index is not NULL
       if(result[4].index != null) {
         let index = result[0].index
