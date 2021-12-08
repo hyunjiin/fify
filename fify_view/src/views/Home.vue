@@ -372,6 +372,12 @@ export default {
         var mqttMessage = result[0].message
         this.mqttMessage = mqttMessage
 
+      consol.log(result[0].index)
+      consol.log(result[1].index)
+      consol.log(result[2].index)
+      consol.log(result[3].index)
+      consol.log(result[4].index)
+
       // 변수 - if index is not NULL
       if(result[4].index != null) {
         let index = result[0].index
