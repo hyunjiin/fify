@@ -69,6 +69,9 @@
     <button type="button"
             class="btn btn-danger"
             @click="stopCaptureVideo">stopCaptureVideo</button>
+    <button type="button"
+            class="btn btn-success"
+            @click="captureVideo1Time">TEST</button>
 
 
     
@@ -199,7 +202,6 @@ export default {
       console.log('Start Publish')
     },
 
-
     // 사진 전송 멈추기
     stopCaptureVideo() {
       clearInterval(this.timerId)
@@ -215,6 +217,17 @@ export default {
           bytes[i] = binary_string.charCodeAt(i)
       }
       return bytes
+    },
+
+    captureVideo1Time() {
+        this.img = this.$refs.webcam.capture()
+        let temp = this.img.slice(23)
+        let jpg = this.base64ToArray(temp)
+        this.$mqtt.publish('fify/image', jpg)
+        console.log('이미지 사이즈 : ', this.img.length)
+        
+        this.timerId = setInterval(()=>{this.drawRectangle()},500)
+
     },
 
     // 네모 그리기
