@@ -70,7 +70,9 @@ def result(request):
 
     print(request_data)
     print(json.dumps(request_data))
+    client.loop_start()
     client.publish('common3', json.dumps(request_data), 1)
+    client.loop_stop()
 
     return Response(request_data)
 
@@ -111,7 +113,10 @@ def result2(request):
 
     print(request_data)
     print(json.dumps(request_data))
+
+    client.loop_start()
     client.publish('common3', json.dumps(request_data), 1)
+    client.loop_stop()
 
     return Response(request_data)
 
