@@ -42,6 +42,7 @@
               <div slot="body">
                 <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
                 <button @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
+                <button @click="showModal = false">취소</button>
               </div>
             </Modal>
             <button type='button' class="my_btn"
