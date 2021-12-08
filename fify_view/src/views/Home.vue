@@ -12,9 +12,9 @@
     <div class="container">
         <div style="margin-top:3rem;">
             <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
-                {{message1}}
-                <p>{{message2}}</p>
-                {{mqttMessage}}
+                <span>{{mqttMessage}}</span>
+                <p>{{message1}}</p>
+                <span>{{message2}}</span>
             </span>
         </div>
 
@@ -110,21 +110,21 @@ export default {
       showNutritionModal: false,
 
       items: [
-        {title : 'serving_size', amount : this.serving_size},
-        {title : 'calorie_kJ', amount : this.calorie_kJ},
-        {title : 'calorie_kcal', amount : this.calorie_kcal},
-        {title : 'carbohydrate', amount : this.carbohydrate},
-        {title : 'sugar', amount : this.sugar},
-        {title : 'protein', amount : this.protein},
-        {title : 'fat', amount : this.fat},
-        {title : 'fat_2', amount : this.fat_2},
-        {title : 'fat_3', amount : this.fat_3},
-        {title : 'fat_4', amount : this.fat_4},
-        {title : 'fat_5', amount : this.fat_5},
-        {title : 'cholesterol', amount : this.cholesterol},
-        {title : 'salt', amount : this.salt},
-        {title : 'dietary_fiber', amount : this.dietary_fiber},
-        {title : 'potassium', amount : this.potassium}
+        {title : '내용량', amount : this.serving_size},
+        {title : '칼로리(kJ)', amount : this.calorie_kJ},
+        {title : '칼로리(kcal)', amount : this.calorie_kcal},
+        {title : '탄수화물', amount : this.carbohydrate},
+        {title : '당류', amount : this.sugar},
+        {title : '단배질', amount : this.protein},
+        {title : '지방', amount : this.fat},
+        {title : '포화지방', amount : this.fat_2},
+        {title : '트랜스지방', amount : this.fat_3},
+        {title : '불포화지방', amount : this.fat_4},
+        {title : '다불포화지방', amount : this.fat_5},
+        {title : '콜레스테롤', amount : this.cholesterol},
+        {title : '나트륨', amount : this.salt},
+        {title : '식이섬유', amount : this.dietary_fiber},
+        {title : '칼륨', amount : this.potassium}
       ]
     };
   },
@@ -270,6 +270,19 @@ export default {
       this.items[12].amount = nutritionResult.salt
       this.items[13].amount = nutritionResult.dietary_fiber
       this.items[14].amount = nutritionResult.potassium
+
+      if(nutritionResult.fat_4 == null) {
+        this.items[9].amount = ''
+      }
+      if(nutritionResult.fat_5 == null) {
+        this.items[10].amount = ''
+      }
+      if(nutritionResult.dietary_fiber == null) {
+        this.items[13].amount = ''
+      }
+      if(nutritionResult.fatdietary_fiber_4 == null) {
+        this.items[14].amount = ''
+      }
 
       console.log(this.potassium, '111111');
 
