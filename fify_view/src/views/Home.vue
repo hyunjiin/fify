@@ -11,7 +11,7 @@
 
     <div class="container">
         <div style="margin-top:3rem;">
-            <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
+            <span id="textInfo" class="" style="">
                 <span>{{mqttMessage}}</span>
                 <p>{{message1}}</p>
                 <span>{{message2}}</span>
@@ -41,8 +41,9 @@
             <Modal v-if="showModal" @close="showModal = false">
               <div slot="body">
                 <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
+                <button @click="showModal = false" style="margin-right:2.5rem;">취소</button>
                 <button @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
-                <button @click="showModal = false">취소</button>
+
               </div>
             </Modal>
             <button type='button' class="my_btn"
@@ -52,7 +53,7 @@
     <div style="display: flex; justify-content: center; align-items: center;">
       <button style="margin-bottom:0.5rem; width: 14.5rem;"
               type='button' class="my_btn"
-              @click="showNutritionModal = true">성분표{{salt}}</button>
+              @click="showNutritionModal = true">영양 정보{{salt}}</button>
       <NutritionModal v-if="showNutritionModal" @close="showNutritionModal = false">
       <div slot="body">
         <div>
@@ -116,21 +117,21 @@ export default {
       product_name: null,
 
       items: [
-        {title : '내용량', amount : this.serving_size},
-        {title : '칼로리(kJ)', amount : this.calorie_kJ},
-        {title : '칼로리(kcal)', amount : this.calorie_kcal},
-        {title : '탄수화물', amount : this.carbohydrate},
-        {title : '당류', amount : this.sugar},
-        {title : '단배질', amount : this.protein},
-        {title : '지방', amount : this.fat},
-        {title : '포화지방', amount : this.fat_2},
-        {title : '트랜스지방', amount : this.fat_3},
-        {title : '불포화지방', amount : this.fat_4},
-        {title : '다불포화지방', amount : this.fat_5},
-        {title : '콜레스테롤', amount : this.cholesterol},
-        {title : '나트륨', amount : this.salt},
-        {title : '식이섬유', amount : this.dietary_fiber},
-        {title : '칼륨', amount : this.potassium}
+        {성분 : '내용량', 함량 : this.serving_size},
+        {성분 : '칼로리(kJ)', 함량 : this.calorie_kJ},
+        {성분 : '칼로리(kcal)', 함량 : this.calorie_kcal},
+        {성분 : '탄수화물', 함량 : this.carbohydrate},
+        {성분 : '당류', 함량 : this.sugar},
+        {성분 : '단배질', 함량 : this.protein},
+        {성분 : '지방', 함량 : this.fat},
+        {성분 : '포화지방', 함량 : this.fat_2},
+        {성분 : '트랜스지방', 함량 : this.fat_3},
+        {성분 : '불포화지방', 함량 : this.fat_4},
+        {성분 : '다불포화지방', 함량 : this.fat_5},
+        {성분 : '콜레스테롤', 함량 : this.cholesterol},
+        {성분 : '나트륨', 함량 : this.salt},
+        {성분 : '식이섬유', 함량 : this.dietary_fiber},
+        {성분 : '칼륨', 함량 : this.potassium}
       ]
     };
   },
