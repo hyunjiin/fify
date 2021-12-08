@@ -343,8 +343,6 @@ export default {
       this.captureVideo()
       
       setTimeout(() => {
-        console.log(this.nutritionResult)
-        console.log(this.nutritionResult.voice1)
         if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
           this.message1 = this.product_name
           this.message2 = null
@@ -368,6 +366,7 @@ export default {
       this.index = result[0].index
 
       console.log('message :', result[0].message)
+      console.log('product name :', result[0].product_name)
       console.log(result, topic)
 
       this.product_name = result[0].product_name
