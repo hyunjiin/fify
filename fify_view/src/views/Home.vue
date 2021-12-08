@@ -318,10 +318,8 @@ export default {
         if(this.mqttMessage == null) {
           this.mqttMessage = ""
       } else {
-        setTimeout(() => {
-          console.log("기능 1번 : 제품 찾을 수 없음")
-          this.stopCaptureVideo()}
-        , 6000)
+        console.log("기능 1번 : 제품 찾을 수 없음")
+        this.stopCaptureVideo()
       }
         if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
           this.message1 = this.product_name
@@ -355,7 +353,7 @@ export default {
           this.message1 = this.nutritionResult.voice1
           this.message2 = this.nutritionResult.voice2
         }
-      }, 1200);
+      }, 6000);
     },
 
     // 제품 이름 또는 메시지
