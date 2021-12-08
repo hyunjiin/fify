@@ -92,32 +92,41 @@ def result2(request):
 
     print(len(request.data))
 
-    if len(request.data) > 1:
-        request_data["0"]["message"] = "하나의 제품만 비춰주세요."
-    elif request_data["0"]['exist'] == 'n' or request_data["0"]['detect'] == 'N':
-        request_data["0"]["message"] = "등록되지 않은 제품입니다."
-    elif request_data["0"]['detect'] == 'n' or request_data["0"]['detect'] == 'N':
+    max_index = 0
+    max_sum = 0
+    for index, data in enumerate(request_data):
+        sum = data["w"] + data["h"]
+
+        if max_sum < sum:
+            max_sum = sum
+            max_index = index
+
+    # if len(request.data) > 1:
+    #     request_data["0"]["message"] = "하나의 제품만 비춰주세요."
+    if request_data[max_index]['exist'] == 'n' or request_data[max_index]['detect'] == 'N':
+        request_data[max_index]["message"] = "등록되지 않은 제품입니다."
+    elif request_data[max_index]['detect'] == 'n' or request_data[max_index]['detect'] == 'N':
         count += 1
         if count < 60:
             return Response(str(count))
         else:
-            request_data["0"]["message"] = "매대를 비춰주세요."
+            request_data[max_index]["message"] = "매대를 비춰주세요."
     else:
-        request_data["0"]["message"] = ""
+        request_data[max_index]["message"] = ""
         count = 0
 
-    if request_data["0"]['index'] is None:
-        request_data["0"]['product_name'] = ''
+    if request_data[max_index]['index'] is None:
+        request_data[max_index]['product_name'] = ''
     else:
-        yolo_model = Yolo.objects.get(index=request.data["0"]['index'])
+        yolo_model = Yolo.objects.get(index=request.data[max_index]['index'])
         nutrition = Nutrition.objects.get(class_name=yolo_model.class_name)
-        request_data["0"]['product_name'] = nutrition.product_name
+        request_data[max_index]['product_name'] = nutrition.product_name
 
     print(request_data)
     print(json.dumps(request_data))
 
     client.loop_start()
-    client.publish('common3', json.dumps(request_data), 1)
+    client.publish('common3', json.dumps(request_data[max_index]), 1)
     client.loop_stop()
 
     return Response(request_data)
