@@ -196,7 +196,7 @@ export default {
         console.log('이미지 사이즈 : ', this.img.length)
         this.drawRectangle()
 
-      }, 8000);
+      }, 1000);
       console.log('Start Publish')
     },
 
@@ -323,7 +323,7 @@ export default {
           this.message2 = this.nutritionResult.voice2
           this.mqttMessage = this.nutritionResult.product_name
         }
-      }, 12000);
+      }, 1300);
       // 제품 미등록 시 'message'출력
       // 제품 미등록 시 퍼블리시 안하기
       // 이건 mqtt로 온다
