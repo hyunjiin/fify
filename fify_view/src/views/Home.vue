@@ -311,13 +311,13 @@ export default {
       // this.findIndex()
       this.$mqtt.publish('fify/product', null)
       this.captureVideo()
-      if(this.nutritionResult.voice_1 == null && this.nutritionResult.voice_2 == null) {
+      if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
         this.message1 = this.nutritionResult.product_name
         this.message2 = null
         this.mqttMessage = null
-      } else if(this.nutritionResult.voice_1 != null) {
-        this.message1 = this.nutritionResult.voice_1
-        this.message2 = this.nutritionResult.voice_2
+      } else if(this.nutritionResult.voice1 != null) {
+        this.message1 = this.nutritionResult.voice1
+        this.message2 = this.nutritionResult.voice2
       }
 
     },
