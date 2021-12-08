@@ -302,6 +302,14 @@ export default {
         console.log("기능 1번 : 제품 찾을 수 없음")
         this.stopCaptureVideo()
       }
+        if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
+          this.message1 = this.nutritionResult.product_name
+          this.message2 = null
+          this.mqttMessage = null
+        } else if(this.nutritionResult.voice1 != null) {
+          this.message1 = this.nutritionResult.voice1
+          this.message2 = this.nutritionResult.voice2
+        }
       }, 1500);
       // 제품 미등록 시 'message'출력
       // 제품 미등록 시 퍼블리시 안하기
