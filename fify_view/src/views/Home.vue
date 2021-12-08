@@ -3,8 +3,8 @@
     <div class="menu">
         <nav class="clearfix">
         <ul class="clearfix">
-            <li><v-btn icon @click="$router.push({name:'Home'})"><v-icon color="white">mdi-home</v-icon></v-btn></li>
-            <li><v-btn icon @click="$router.push({path:'about', name:'About'})"><v-icon color="white">mdi-information</v-icon></v-btn></li>
+            <li><v-btn icon @click="$router.push({name:'Home'})" alt="홈으로 돌아가기"><v-icon color="white">mdi-home</v-icon></v-btn></li>
+            <li><v-btn icon @click="$router.push({path:'about', name:'About'})" alt="정보 페이지"><v-icon color="white">mdi-information</v-icon></v-btn></li>
         </ul>
         </nav>
     </div>
@@ -331,7 +331,7 @@ export default {
 
     // 두 번째 기능
     secondFunction() {
-      this.$mqtt.publish('fify/product', null)
+      this.$mqtt.publish('fify/product', 'check')
       this.captureVideo()
       
       setTimeout(() => {
