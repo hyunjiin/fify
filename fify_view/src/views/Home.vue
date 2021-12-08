@@ -323,7 +323,7 @@ export default {
           this.message1 = this.nutritionResult.voice1
           this.message2 = this.nutritionResult.voice2
         }
-      }, 15000);
+      }, 20000);
       // 제품 미등록 시 'message'출력
       // 제품 미등록 시 퍼블리시 안하기
       // 이건 mqtt로 온다
