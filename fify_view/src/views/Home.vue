@@ -322,7 +322,7 @@ export default {
         this.stopCaptureVideo()
       }
         if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
-          this.message1 = this.nutritionResult.product_name
+          this.message1 = this.product_name
           this.message2 = null
           this.mqttMessage = null
         } else if(this.nutritionResult.voice1 != null) {
@@ -346,7 +346,7 @@ export default {
         console.log(this.nutritionResult)
         console.log(this.nutritionResult.voice1)
         if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
-          this.message1 = this.nutritionResult.product_name
+          this.message1 = this.product_name
           this.message2 = null
           this.mqttMessage = null
         } else if(this.nutritionResult.voice1 != null) {
