@@ -66,7 +66,7 @@
     </div>
     
 
-    <button type="button"
+    <!-- <button type="button"
             class="btn btn-success"
             @click="captureVideo">captureVideo</button>
     <button type="button"
@@ -74,7 +74,7 @@
             @click="stopCaptureVideo">stopCaptureVideo</button>
     <button type="button"
             class="btn btn-success"
-            @click="captureVideo1Time">TEST</button>
+            @click="captureVideo1Time">TEST</button> -->
   </div>
 </div>
 
