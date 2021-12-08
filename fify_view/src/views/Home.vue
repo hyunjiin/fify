@@ -196,7 +196,7 @@ export default {
         console.log('이미지 사이즈 : ', this.img.length)
         this.drawRectangle()
 
-      }, 10000);
+      }, 8000);
       console.log('Start Publish')
     },
 
@@ -225,7 +225,6 @@ export default {
         console.log('이미지 사이즈 : ', this.img.length)
         
         this.timerId = setInterval(()=>{this.drawRectangle()},500)
-
     },
 
     // 네모 그리기
@@ -323,7 +322,7 @@ export default {
           this.message1 = this.nutritionResult.voice1
           this.message2 = this.nutritionResult.voice2
         }
-      }, 20000);
+      }, 12000);
       // 제품 미등록 시 'message'출력
       // 제품 미등록 시 퍼블리시 안하기
       // 이건 mqtt로 온다
