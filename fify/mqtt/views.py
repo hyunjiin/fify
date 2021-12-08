@@ -90,6 +90,8 @@ def result2(request):
 
     request_data = request.data
 
+    print(len(request.data))
+
     if len(request.data) > 1:
         request_data["0"]["message"] = "하나의 제품만 비춰주세요."
     elif request_data["0"]['exist'] == 'n' or request_data["0"]['detect'] == 'N':
