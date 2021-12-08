@@ -124,8 +124,12 @@ def result2(request):
     print(request_data)
     print(json.dumps(request_data[max_index]))
 
+    final_data = {"0": request_data[max_index]}
+
+    print(json.dumps(final_data))
+
     client.loop_start()
-    client.publish('common3', json.dumps(request_data[max_index]), 1)
+    client.publish('common3', json.dumps(final_data), 1)
     client.loop_stop()
 
     return Response(request_data)
