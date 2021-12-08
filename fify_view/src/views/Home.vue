@@ -33,7 +33,7 @@
       <canvas id="fifyCanvas"></canvas>
     </div>
 
-    <!-- 1번기능, 2번기능, 영양정보 표시 기능 -->
+    <!-- 1번기능, 2번기능, 영bbbb정보 표시 기능 -->
         <div style="margin-bottom:0.5rem;" id="button_box">
             <button style="margin-right:0.5rem;" name="firstFunction"
                     type='button' class="my_btn"
@@ -53,7 +53,7 @@
               @click="showNutritionModal = true">성분표{{salt}}</button>
     </div>
     <NutritionModal v-if="showNutritionModal" @close="showNutritionModal = false">
-      <div slot="head" v-text="bold">영양정보</div>
+      <div slot="head" v-text="bold">영bbbb정보</div>
       <div slot="body">
         <div>
           <b-table striped hover :items="items"></b-table>
@@ -103,7 +103,7 @@ export default {
       inputProduct: "",
       message1: "message",
       message2: "message",
-      mqttMessage: "",
+      mqttMessage: "mqttMessage",
       showModal: false,
       showNutritionModal: false,
 
@@ -124,21 +124,21 @@ export default {
       potassium: '',
 
       items: [
-        {기준 : 'serving_size', 양 : this.serving_size},
-        {기준 : 'calorie_kJ', 양 : this.calorie_kJ},
-        {기준 : 'calorie_kcal', 양 : this.calorie_kcal},
-        {기준 : 'carbohydrate', 양 : this.carbohydrate},
-        {기준 : 'sugar', 양 : this.sugar},
-        {기준 : 'protein', 양 : this.protein},
-        {기준 : 'fat', 양 : this.fat},
-        {기준 : 'fat_2', 양 : this.fat_2},
-        {기준 : 'fat_3', 양 : this.fat_3},
-        {기준 : 'fat_4', 양 : this.fat_4},
-        {기준 : 'fat_5', 양 : this.fat_5},
-        {기준 : 'cholesterol', 양 : this.cholesterol},
-        {기준 : 'salt', 양 : this.salt},
-        {기준 : 'dietary_fiber', 양 : this.dietary_fiber},
-        {기준 : 'potassium', 양 : this.potassium}
+        {aaaa : 'serving_size', bbbb : this.serving_size},
+        {aaaa : 'calorie_kJ', bbbb : this.calorie_kJ},
+        {aaaa : 'calorie_kcal', bbbb : this.calorie_kcal},
+        {aaaa : 'carbohydrate', bbbb : this.carbohydrate},
+        {aaaa : 'sugar', bbbb : this.sugar},
+        {aaaa : 'protein', bbbb : this.protein},
+        {aaaa : 'fat', bbbb : this.fat},
+        {aaaa : 'fat_2', bbbb : this.fat_2},
+        {aaaa : 'fat_3', bbbb : this.fat_3},
+        {aaaa : 'fat_4', bbbb : this.fat_4},
+        {aaaa : 'fat_5', bbbb : this.fat_5},
+        {aaaa : 'cholesterol', bbbb : this.cholesterol},
+        {aaaa : 'salt', bbbb : this.salt},
+        {aaaa : 'dietary_fiber', bbbb : this.dietary_fiber},
+        {aaaa : 'potassium', bbbb : this.potassium}
       ]
     };
   },
@@ -264,7 +264,7 @@ export default {
       // let index = ''
       // axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
       axios.get(`http://18.142.131.188/nutrition/1`).then((response)=>{
-      console.log(response.data, 'index전송, 영양정보 받아오기');
+      console.log(response.data, 'index전송, 영bbbb정보 받아오기');
 
       let nutritionResult = response.data
       this.nutritionResult = nutritionResult
@@ -307,6 +307,7 @@ export default {
       if(this.nutritionResult.voice_1 == null && this.nutritionResult.voice_2 == null) {
         this.message1 = this.nutritionResult.product_name
         this.message2 = null
+        this.mqttMessage = null
       } else if(this.nutritionResult.voice_1 != null) {
         this.message1 = this.nutritionResult.voice_1
         this.message2 = this.nutritionResult.voice_2
