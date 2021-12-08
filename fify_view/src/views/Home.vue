@@ -201,7 +201,7 @@ export default {
         console.log('이미지 사이즈 : ', this.img.length)
         this.drawRectangle()
 
-      }, 1000);
+      }, 10000);
       console.log('Start Publish')
     },
 
