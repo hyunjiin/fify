@@ -260,9 +260,9 @@ export default {
     },
 
     // 클라우드로 인덱스 전송
-    async findIndex() {
-      // axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
-      axios.get(`http://18.142.131.188/nutrition/1`).then((response)=>{
+    async findIndex(index) {
+      axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
+      // axios.get(`http://18.142.131.188/nutrition/1`).then((response)=>{
       console.log(response.data, 'index전송, 영양정보 받아오기');
 
       let nutritionResult = response.data
