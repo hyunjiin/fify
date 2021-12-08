@@ -47,7 +47,6 @@ def result(request):
     print(type(request.data))
 
     request_data = request.data
-    print(request_data)
 
     if request_data["0"]['exist'] == 'n' or request_data["0"]['exist'] == 'N':
         request_data["0"]["message"] = "등록되지 않은 제품입니다."
@@ -95,7 +94,6 @@ def result2(request):
     max_index = 0
     max_sum = 0
     for index, data in enumerate(request_data):
-        print(request_data[data])
         sum = float(request_data[data]["w"]) + float(request_data[data]["h"])
 
         if max_sum < sum:
@@ -124,7 +122,7 @@ def result2(request):
         request_data[max_index]['product_name'] = nutrition.product_name
 
     print(request_data)
-    print(json.dumps(request_data))
+    print(json.dumps(request_data[max_index]))
 
     client.loop_start()
     client.publish('common3', json.dumps(request_data[max_index]), 1)
