@@ -245,7 +245,7 @@ export default {
       context.clearRect(0, 0, canvas1.width, canvas1.height)
 
       context.beginPath();
-      context.linewidth = "5"
+      context.linewidth = "15"
       context.strokeStyle = "red"
       context.rect(this.recX1, this.recY1, this.recW1, this.recH1)
       context.rect(this.recX2, this.recY2, this.recW2, this.recH2)
