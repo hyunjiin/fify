@@ -372,9 +372,13 @@ export default {
 
       this.product_name = result[0].product_name
 
-      if(result[0].message != null)
+      if(result[0].message != null){
         var mqttMessage = result[0].message
         this.mqttMessage = mqttMessage
+      } else {
+        mqttMessage = result[0].product_name
+        this.mqttMessage = mqttMessage
+      }
 
       // 변수 - if index is not NULL
       if(result[4] != null) {
