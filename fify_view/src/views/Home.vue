@@ -282,24 +282,27 @@ export default {
       this.items[6].amount = nutritionResult.fat
       this.items[7].amount = nutritionResult.fat_2
       this.items[8].amount = nutritionResult.fat_3
-      this.items[9].amount = nutritionResult.fat_4
-      this.items[10].amount = nutritionResult.fat_5
-      this.items[11].amount = nutritionResult.cholesterol
-      this.items[12].amount = nutritionResult.salt
-      this.items[13].amount = nutritionResult.dietary_fiber
-      this.items[14].amount = nutritionResult.potassium
-
       if(nutritionResult.fat_4 == null) {
         this.items[9].amount = '-'
+      } else {
+        this.items[9].amount = nutritionResult.fat_4
       }
       if(nutritionResult.fat_5 == null) {
         this.items[10].amount = '-'
+      } else {
+        this.items[10].amount = nutritionResult.fat_5
       }
+      this.items[11].amount = nutritionResult.cholesterol
+      this.items[12].amount = nutritionResult.salt
       if(nutritionResult.dietary_fiber == null) {
         this.items[13].amount = '-'
+      } else {
+        this.items[13].amount = nutritionResult.dietary_fiber
       }
       if(nutritionResult.fatdietary_fiber_4 == null) {
         this.items[14].amount = '-'
+      } else {
+        this.items[14].amount = nutritionResult.potassium
       }
 
       console.log(this.potassium, '111111');
