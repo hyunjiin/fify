@@ -154,4 +154,3 @@ client.on_disconnect = on_disconnect
 client.on_publish = on_publish
 
 client.connect('18.142.131.188', 1883)
-client.loop_forever()
