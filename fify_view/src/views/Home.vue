@@ -310,10 +310,10 @@ export default {
       setTimeout(() => {
         if(this.mqttMessage == null) {
           this.mqttMessage = ""
-      } else {
-        console.log("기능 1번 : 제품 찾을 수 없음")
-        this.stopCaptureVideo()
-      }
+        } else {
+          console.log("기능 1번 : 제품 찾을 수 없음")
+          this.stopCaptureVideo()
+        }
         if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
           this.message1 = null
           this.message2 = null
@@ -323,7 +323,7 @@ export default {
           this.message2 = this.nutritionResult.voice2
           this.mqttMessage = this.nutritionResult.product_name
         }
-      }, 7000);
+      }, 10000);
       // 제품 미등록 시 'message'출력
       // 제품 미등록 시 퍼블리시 안하기
       // 이건 mqtt로 온다
@@ -345,7 +345,7 @@ export default {
           this.message2 = this.nutritionResult.voice2
           this.mqttMessage = this.nutritionResult.product_name
         }
-      }, 7000);
+      }, 10000);
     },
 
     // 제품 이름 또는 메시지
@@ -556,7 +556,7 @@ export default {
 <style scoped>
 
 #textInfo {
-    font-size: 1.5rem;
+    font-size: 0.9rem;
 }
 
 
