@@ -372,14 +372,8 @@ export default {
         var mqttMessage = result[0].message
         this.mqttMessage = mqttMessage
 
-      console.log(result[0].index)
-      console.log(result[1].index)
-      console.log(result[2].index)
-      console.log(result[3].index)
-      console.log(result[4].index)
-
       // 변수 - if index is not NULL
-      if(result[4].index != null) {
+      if(result[4] != null) {
         let index = result[0].index
 
         let recX1 = result[0]
@@ -433,7 +427,7 @@ export default {
         this.recY5 = recY5
         this.recW5 = recW5
         this.recH5 = recH5
-      } else if(result[3].index != null) {
+      } else if(result[3] != null) {
         console.log('if 1')
 
         let index = result[0].index
@@ -479,7 +473,7 @@ export default {
         this.recY4 = recY4
         this.recW4 = recW4
         this.recH4 = recH4
-      } else if(result[2].index != null) {
+      } else if(result[2] != null) {
         console.log('if 2')
 
         let index = result[0].index
@@ -515,7 +509,7 @@ export default {
         this.recY3 = recY3
         this.recW3 = recW3
         this.recH3 = recH3
-      } else if(result[1].index != null) {
+      } else if(result[1] != null) {
         console.log('if 1')
         let index = result[0].index
 
@@ -540,7 +534,7 @@ export default {
         this.recY2 = recY2
         this.recW2 = recW2
         this.recH2 = recH2
-      } else if(result[0].index != null){
+      } else if(result[0] != null){
         let index = result[0].index
 
         let recX1 = result[0]
