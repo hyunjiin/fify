@@ -325,7 +325,6 @@ export default {
         this.message2 = this.nutritionResult.voice2
       }
       this.captureVideo()
-
     },
 
     // 제품 이름 또는 메시지
