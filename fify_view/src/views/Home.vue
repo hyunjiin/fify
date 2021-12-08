@@ -328,7 +328,7 @@ export default {
       console.log(result, topic)
 
       if(result[0].message != null)
-        let mqttMessage = result[0].message
+        var mqttMessage = result[0].message
         this.mqttMessage = mqttMessage
 
       // 변수 - if index is not NULL
