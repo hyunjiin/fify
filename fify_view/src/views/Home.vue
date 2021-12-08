@@ -274,36 +274,36 @@ export default {
       let nutritionResult = response.data
       this.nutritionResult = nutritionResult
 
-      this.items[0].amount = nutritionResult.serving_size
-      this.items[1].amount = nutritionResult.calorie_kJ
-      this.items[2].amount = nutritionResult.calorie_kcal
-      this.items[3].amount = nutritionResult.carbohydrate
-      this.items[4].amount = nutritionResult.sugar
-      this.items[5].amount = nutritionResult.protein
-      this.items[6].amount = nutritionResult.fat
-      this.items[7].amount = nutritionResult.fat_2
-      this.items[8].amount = nutritionResult.fat_3
+      this.items[0].함량 = nutritionResult.serving_size
+      this.items[1].함량 = nutritionResult.calorie_kJ
+      this.items[2].함량 = nutritionResult.calorie_kcal
+      this.items[3].함량 = nutritionResult.carbohydrate
+      this.items[4].함량 = nutritionResult.sugar
+      this.items[5].함량 = nutritionResult.protein
+      this.items[6].함량 = nutritionResult.fat
+      this.items[7].함량 = nutritionResult.fat_2
+      this.items[8].함량 = nutritionResult.fat_3
       if(nutritionResult.fat_4 == null) {
-        this.items[9].amount = '-'
+        this.items[9].함량 = '-'
       } else {
-        this.items[9].amount = nutritionResult.fat_4
+        this.items[9].함량 = nutritionResult.fat_4
       }
       if(nutritionResult.fat_5 == null) {
-        this.items[10].amount = '-'
+        this.items[10].함량 = '-'
       } else {
-        this.items[10].amount = nutritionResult.fat_5
+        this.items[10].함량 = nutritionResult.fat_5
       }
-      this.items[11].amount = nutritionResult.cholesterol
-      this.items[12].amount = nutritionResult.salt
+      this.items[11].함량 = nutritionResult.cholesterol
+      this.items[12].함량 = nutritionResult.salt
       if(nutritionResult.dietary_fiber == null) {
-        this.items[13].amount = '-'
+        this.items[13].함량 = '-'
       } else {
-        this.items[13].amount = nutritionResult.dietary_fiber
+        this.items[13].함량 = nutritionResult.dietary_fiber
       }
       if(nutritionResult.fatdietary_fiber_4 == null) {
-        this.items[14].amount = '-'
+        this.items[14].함량 = '-'
       } else {
-        this.items[14].amount = nutritionResult.potassium
+        this.items[14].함량 = nutritionResult.potassium
       }
 
       console.log(this.potassium, '111111');
