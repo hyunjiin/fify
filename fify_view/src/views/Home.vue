@@ -269,7 +269,7 @@ export default {
       this.items[11].amount = nutritionResult.cholesterol
       this.items[12].amount = nutritionResult.salt
       this.items[13].amount = nutritionResult.dietary_fiber
-      this.items[14].amount = nutritionResul.potassium
+      this.items[14].amount = nutritionResult.potassium
 
       console.log(this.potassium, '111111');
 
