@@ -3,8 +3,8 @@
     <div class="menu">
         <nav class="clearfix">
         <ul class="clearfix">
-            <li><v-btn icon @click="$router.push({name:'Home'})"><v-icon color="white">mdi-home</v-icon></v-btn></li>
-            <li><v-btn icon @click="$router.push({path:'about', name:'About'})"><v-icon color="white">mdi-information</v-icon></v-btn></li>
+            <li><v-btn icon @click="$router.push({name:'Home'})"><v-icon color="white"></v-icon></v-btn></li>
+            <li><v-btn icon @click="$router.push({path:'about', name:'About'})"><v-icon color="white">info</v-icon></v-btn></li>
         </ul>
         </nav>
     </div>
@@ -313,18 +313,20 @@ export default {
     secondFunction() {
       // this.findIndex()
       this.$mqtt.publish('fify/product', null)
-      
-      console.log(this.nutritionResult)
-      console.log(this.nutritionResult.voice1)
-      if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
-        this.message1 = this.nutritionResult.product_name
-        this.message2 = null
-        this.mqttMessage = null
-      } else if(this.nutritionResult.voice1 != null) {
-        this.message1 = this.nutritionResult.voice1
-        this.message2 = this.nutritionResult.voice2
-      }
       this.captureVideo()
+      
+      setTimeout(() => {
+        console.log(this.nutritionResult)
+        console.log(this.nutritionResult.voice1)
+        if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
+          this.message1 = this.nutritionResult.product_name
+          this.message2 = null
+          this.mqttMessage = null
+        } else if(this.nutritionResult.voice1 != null) {
+          this.message1 = this.nutritionResult.voice1
+          this.message2 = this.nutritionResult.voice2
+        }
+      }, 1200);
     },
 
     // 제품 이름 또는 메시지
