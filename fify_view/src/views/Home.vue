@@ -40,7 +40,7 @@
                     @click="showModal = true">검색</button>
             <Modal v-if="showModal" @close="showModal = false">
               <div slot="body">
-                <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
+                <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요" alt="제품을 이곳에 입력해주세요">
                 <button class="mini_btn" @click="showModal = false"
                 style="margin-right:2.5rem; margin-top:1rem;">취소</button>
                 <button class="mini_btn" @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
@@ -321,6 +321,7 @@ export default {
         } else if(this.nutritionResult.voice1 != null) {
           this.message1 = this.nutritionResult.voice1
           this.message2 = this.nutritionResult.voice2
+          this.mqttMessage = this.nutritionResult.product_name
         }
       }, 12000);
       // 제품 미등록 시 'message'출력
@@ -342,6 +343,7 @@ export default {
         } else if(this.nutritionResult.voice1 != null) {
           this.message1 = this.nutritionResult.voice1
           this.message2 = this.nutritionResult.voice2
+          this.mqttMessage = this.nutritionResult.product_name
         }
       }, 15000);
     },
