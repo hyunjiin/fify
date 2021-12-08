@@ -94,8 +94,9 @@ def result2(request):
 
     max_index = 0
     max_sum = 0
+    print(request.data[0])
     for index, data in enumerate(request_data):
-        print(request_data[index], request_data[data])
+        print(request_data["'" + index +"'"])
         sum = float(request_data[index]["w"]) + float(request_data[request_data]["h"])
 
         if max_sum < sum:
