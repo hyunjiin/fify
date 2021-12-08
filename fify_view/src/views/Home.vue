@@ -336,9 +336,9 @@ export default {
       
       setTimeout(() => {
         if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
-          this.message1 = this.product_name
+          this.message1 = null
           this.message2 = null
-          this.mqttMessage = null
+          this.mqttMessage = product_name
         } else if(this.nutritionResult.voice1 != null) {
           this.message1 = this.nutritionResult.voice1
           this.message2 = this.nutritionResult.voice2
