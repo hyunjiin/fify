@@ -3,8 +3,8 @@
     <div class="menu">
         <nav class="clearfix">
         <ul class="clearfix">
-            <li><v-btn icon @click="$router.push({name:'Home'})"><v-icon color="white"></v-icon></v-btn></li>
-            <li><v-btn icon @click="$router.push({path:'about', name:'About'})"><v-icon color="white">info</v-icon></v-btn></li>
+            <li><v-btn icon @click="$router.push({name:'Home'})"><v-icon color="white">mdi-home</v-icon></v-btn></li>
+            <li><v-btn icon @click="$router.push({path:'about', name:'About'})"><v-icon color="white">mdi-information</v-icon></v-btn></li>
         </ul>
         </nav>
     </div>
