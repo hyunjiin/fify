@@ -103,11 +103,13 @@ export default {
       deviceId: null,
       devices: [],
       inputProduct: "",
-      message1: "message",
-      message2: "message",
-      mqttMessage: "mqttMessage",
+      message1: null,
+      message2: null,
+      mqttMessage: null,
       showModal: false,
       showNutritionModal: false,
+      salt: '',
+      product_name: null,
 
       items: [
         {title : '내용량', amount : this.serving_size},
@@ -197,6 +199,7 @@ export default {
       console.log('Start Publish')
     },
 
+
     // 사진 전송 멈추기
     stopCaptureVideo() {
       clearInterval(this.timerId)
@@ -272,16 +275,16 @@ export default {
       this.items[14].amount = nutritionResult.potassium
 
       if(nutritionResult.fat_4 == null) {
-        this.items[9].amount = ''
+        this.items[9].amount = '-'
       }
       if(nutritionResult.fat_5 == null) {
-        this.items[10].amount = ''
+        this.items[10].amount = '-'
       }
       if(nutritionResult.dietary_fiber == null) {
-        this.items[13].amount = ''
+        this.items[13].amount = '-'
       }
       if(nutritionResult.fatdietary_fiber_4 == null) {
-        this.items[14].amount = ''
+        this.items[14].amount = '-'
       }
 
       console.log(this.potassium, '111111');
@@ -291,12 +294,15 @@ export default {
 
     // 첫 번째 기능
     firstFunction() {
-      if(this.result[0].messsage == null) {
-        this.captureVideo()
+      this.captureVideo()
+      setTimeout(() => {
+        if(this.mqttMessage == null) {
+          this.mqttMessage = ""
       } else {
         console.log("기능 1번 : 제품 찾을 수 없음")
+        this.stopCaptureVideo()
       }
-      
+      }, 1500);
       // 제품 미등록 시 'message'출력
       // 제품 미등록 시 퍼블리시 안하기
       // 이건 mqtt로 온다
@@ -330,12 +336,14 @@ export default {
   mqtt: {
     'common3': function(value, topic) {
       let result = JSON.parse(value)
-      this.result = result
+
       console.log('index : ', result[0].index)
       this.index = result[0].index
 
       console.log('message :', result[0].message)
       console.log(result, topic)
+
+      this.product_name = result[0].product_name
 
       if(result[0].message != null)
         var mqttMessage = result[0].message
