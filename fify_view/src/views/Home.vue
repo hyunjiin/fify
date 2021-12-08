@@ -33,7 +33,7 @@
       <canvas id="fifyCanvas"></canvas>
     </div>
 
-    <!-- 1번기능, 2번기능, 영bbbb정보 표시 기능 -->
+    <!-- 1번기능, 2번기능, 영양정보 표시 기능 -->
         <div style="margin-bottom:0.5rem;" id="button_box">
             <button style="margin-right:0.5rem;" name="firstFunction"
                     type='button' class="my_btn"
@@ -109,38 +109,22 @@ export default {
       showModal: false,
       showNutritionModal: false,
 
-      serving_size: '',
-      calorie_kJ: '',
-      calorie_kcal: '',
-      carbohydrate: '',
-      sugar: '',
-      protein: '',
-      fat: '',
-      fat_2: '',
-      fat_3: '',
-      cholesterol: '',
-      salt: '',
-      fat_4: '',
-      fat_5: '',
-      dietary_fiber: '',
-      potassium: '',
-
       items: [
-        {aaaa : 'serving_size', bbbb : this.serving_size},
-        {aaaa : 'calorie_kJ', bbbb : this.calorie_kJ},
-        {aaaa : 'calorie_kcal', bbbb : this.calorie_kcal},
-        {aaaa : 'carbohydrate', bbbb : this.carbohydrate},
-        {aaaa : 'sugar', bbbb : this.sugar},
-        {aaaa : 'protein', bbbb : this.protein},
-        {aaaa : 'fat', bbbb : this.fat},
-        {aaaa : 'fat_2', bbbb : this.fat_2},
-        {aaaa : 'fat_3', bbbb : this.fat_3},
-        {aaaa : 'fat_4', bbbb : this.fat_4},
-        {aaaa : 'fat_5', bbbb : this.fat_5},
-        {aaaa : 'cholesterol', bbbb : this.cholesterol},
-        {aaaa : 'salt', bbbb : this.salt},
-        {aaaa : 'dietary_fiber', bbbb : this.dietary_fiber},
-        {aaaa : 'potassium', bbbb : this.potassium}
+        {title : 'serving_size', amount : this.serving_size},
+        {title : 'calorie_kJ', amount : this.calorie_kJ},
+        {title : 'calorie_kcal', amount : this.calorie_kcal},
+        {title : 'carbohydrate', amount : this.carbohydrate},
+        {title : 'sugar', amount : this.sugar},
+        {title : 'protein', amount : this.protein},
+        {title : 'fat', amount : this.fat},
+        {title : 'fat_2', amount : this.fat_2},
+        {title : 'fat_3', amount : this.fat_3},
+        {title : 'fat_4', amount : this.fat_4},
+        {title : 'fat_5', amount : this.fat_5},
+        {title : 'cholesterol', amount : this.cholesterol},
+        {title : 'salt', amount : this.salt},
+        {title : 'dietary_fiber', amount : this.dietary_fiber},
+        {title : 'potassium', amount : this.potassium}
       ]
     };
   },
@@ -266,29 +250,26 @@ export default {
       // let index = ''
       // axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
       axios.get(`http://18.142.131.188/nutrition/1`).then((response)=>{
-      console.log(response.data, 'index전송, 영bbbb정보 받아오기');
+      console.log(response.data, 'index전송, 영양정보 받아오기');
 
       let nutritionResult = response.data
       this.nutritionResult = nutritionResult
 
-      this.items[0].bbbb = nutritionResult.serving_size
-      
-      
-      this.serving_size = nutritionResult.serving_size
-      this.calorie_kJ = nutritionResult.calorie_kJ
-      this.calorie_kcal = nutritionResult.calorie_kcal
-      this.carbohydrate = nutritionResult.carbohydrate
-      this.sugar = nutritionResult.sugar
-      this.protein = nutritionResult.protein
-      this.fat = nutritionResult.fat
-      this.fat_2 = nutritionResult.fat_2
-      this.fat_3 = nutritionResult.fat_3
-      this.cholesterol = nutritionResult.cholesterol
-      this.salt = nutritionResult.salt
-      this.fat_4 = nutritionResult.fat_4
-      this.fat_5 = nutritionResult.fat_5
-      this.dietary_fiber = nutritionResult.dietary_fiber
-      this.potassium = nutritionResult.potassium
+      this.items[0].amount = nutritionResult.serving_size
+      this.items[1].amount = nutritionResult.calorie_kJ
+      this.items[2].amount = nutritionResult.calorie_kcal
+      this.items[3].amount = nutritionResult.carbohydrate
+      this.items[4].amount = nutritionResult.sugar
+      this.items[5].amount = nutritionResult.protein
+      this.items[6].amount = nutritionResult.fat
+      this.items[7].amount = nutritionResult.fat_2
+      this.items[8].amount = nutritionResult.fat_3
+      this.items[9].amount = nutritionResult.fat_4
+      this.items[10].amount = nutritionResult.fat_5
+      this.items[11].amount = nutritionResult.cholesterol
+      this.items[12].amount = nutritionResult.salt
+      this.items[13].amount = nutritionResult.dietary_fiber
+      this.items[14].amount = nutritionResul.potassium
 
       console.log(this.potassium, '111111');
 
