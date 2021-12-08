@@ -14,6 +14,7 @@
             <span id="textInfo" class="" style="box-shadow: inset 0 -10px #3767FF; line-height:21px;">
                 {{message1}}
                 <p>{{message2}}</p>
+                {{mqttMessage}}
             </span>
         </div>
 
@@ -32,33 +33,35 @@
       <canvas id="fifyCanvas"></canvas>
     </div>
 
-    <!-- 1번기능, 2번기능, 영양정보 표시 기능 -->
+    <!-- 1번기능, 2번기능, 영bbbb정보 표시 기능 -->
         <div style="margin-bottom:0.5rem;" id="button_box">
             <button style="margin-right:0.5rem;" name="firstFunction"
                     type='button' class="my_btn"
                     @click="showModal = true">검색</button>
+            <Modal v-if="showModal" @close="showModal = false">
+              <div slot="body">
+                <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
+                <button @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
+              </div>
+            </Modal>
             <button type='button' class="my_btn"
                     @click="secondFunction">확인</button>
         </div>
-    <Modal v-if="showModal" @close="showModal = false">
-      <div slot="body">
-        <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
-        <button @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
-      </div>
-    </Modal>
+    
     <div style="display: flex; justify-content: center; align-items: center;">
       <button style="margin-bottom:0.5rem; width: 14.5rem;"
               type='button' class="my_btn"
               @click="showNutritionModal = true">성분표{{salt}}</button>
-    </div>
-    <NutritionModal v-if="showNutritionModal" @close="showNutritionModal = false">
-      <div slot="head" v-text="bold">영양정보</div>
+      <NutritionModal v-if="showNutritionModal" @close="showNutritionModal = false">
       <div slot="body">
         <div>
           <b-table striped hover :items="items"></b-table>
         </div>
+        <button @click="showNutritionModal = false">확인</button>
       </div>
     </NutritionModal>
+    </div>
+    
 
     <button type="button"
             class="btn btn-success"
@@ -102,6 +105,7 @@ export default {
       inputProduct: "",
       message1: "message",
       message2: "message",
+      mqttMessage: "mqttMessage",
       showModal: false,
       showNutritionModal: false,
 
@@ -122,21 +126,21 @@ export default {
       potassium: '',
 
       items: [
-        {기준 : 'serving_size', 양 : this.serving_size},
-        {기준 : 'calorie_kJ', 양 : this.calorie_kJ},
-        {기준 : 'calorie_kcal', 양 : this.calorie_kcal},
-        {기준 : 'carbohydrate', 양 : this.carbohydrate},
-        {기준 : 'sugar', 양 : this.sugar},
-        {기준 : 'protein', 양 : this.protein},
-        {기준 : 'fat', 양 : this.fat},
-        {기준 : 'fat_2', 양 : this.fat_2},
-        {기준 : 'fat_3', 양 : this.fat_3},
-        {기준 : 'fat_4', 양 : this.fat_4},
-        {기준 : 'fat_5', 양 : this.fat_5},
-        {기준 : 'cholesterol', 양 : this.cholesterol},
-        {기준 : 'salt', 양 : this.salt},
-        {기준 : 'dietary_fiber', 양 : this.dietary_fiber},
-        {기준 : 'potassium', 양 : this.potassium}
+        {aaaa : 'serving_size', bbbb : this.serving_size},
+        {aaaa : 'calorie_kJ', bbbb : this.calorie_kJ},
+        {aaaa : 'calorie_kcal', bbbb : this.calorie_kcal},
+        {aaaa : 'carbohydrate', bbbb : this.carbohydrate},
+        {aaaa : 'sugar', bbbb : this.sugar},
+        {aaaa : 'protein', bbbb : this.protein},
+        {aaaa : 'fat', bbbb : this.fat},
+        {aaaa : 'fat_2', bbbb : this.fat_2},
+        {aaaa : 'fat_3', bbbb : this.fat_3},
+        {aaaa : 'fat_4', bbbb : this.fat_4},
+        {aaaa : 'fat_5', bbbb : this.fat_5},
+        {aaaa : 'cholesterol', bbbb : this.cholesterol},
+        {aaaa : 'salt', bbbb : this.salt},
+        {aaaa : 'dietary_fiber', bbbb : this.dietary_fiber},
+        {aaaa : 'potassium', bbbb : this.potassium}
       ]
     };
   },
@@ -195,7 +199,7 @@ export default {
       this.$mqtt.publish('fify/product', this.inputProduct)
     },
 
-    // 1초에 6번 사진 전송
+    // 1초에 1번 사진 전송
     captureVideo() {
       this.timerId = setInterval(()=>{
         this.img = this.$refs.webcam.capture()
@@ -231,6 +235,10 @@ export default {
 
       var canvas1 = document.getElementById("fifyCanvas")
       var context = canvas1.getContext("2d")
+
+      canvas1.width = window.innerWidth
+      canvas1.height = window.innerHeight
+
       console.log("1번째 네모", this.recX1, this.recY1, this.recW1, this.recH1)
       console.log("2번째 네모", this.recX2, this.recY2, this.recW2, this.recH2)
       console.log("3번째 네모", this.recX3, this.recY3, this.recW3, this.recH3)
@@ -245,6 +253,8 @@ export default {
       context.rect(this.recX1, this.recY1, this.recW1, this.recH1)
       context.rect(this.recX2, this.recY2, this.recW2, this.recH2)
       context.rect(this.recX3, this.recY3, this.recW3, this.recH3)
+      context.rect(this.recX4, this.recY4, this.recW4, this.recH4)
+      context.rect(this.recX5, this.recY5, this.recW5, this.recH5)
       // context.rect(180, 50, 80, 70)
       context.stroke();
 
@@ -256,7 +266,7 @@ export default {
       // let index = ''
       // axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
       axios.get(`http://18.142.131.188/nutrition/1`).then((response)=>{
-      console.log(response.data, 'index전송, 영양정보 받아오기');
+      console.log(response.data, 'index전송, 영bbbb정보 받아오기');
 
       let nutritionResult = response.data
       this.nutritionResult = nutritionResult
@@ -282,13 +292,17 @@ export default {
       })
     },
 
-    open_inputProduct_Modal() {
-      this.is_show = !this.is_show
-    },
-
     // 첫 번째 기능
     firstFunction() {
-      this.captureVideo()
+      if(this.result[0].messsage == null) {
+        this.captureVideo()
+      } else {
+        console.log("기능 1번 : 제품 찾을 수 없음")
+      }
+      
+      // 제품 미등록 시 'message'출력
+      // 제품 미등록 시 퍼블리시 안하기
+      // 이건 mqtt로 온다
     },
 
 
@@ -297,18 +311,14 @@ export default {
       // this.findIndex()
       this.$mqtt.publish('fify/product', null)
       this.captureVideo()
-      if(this.nutritionResult.voice_1 == null && this.nutritionResult.voice_2 == null) {
+      if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
         this.message1 = this.nutritionResult.product_name
         this.message2 = null
-      } else if(this.nutritionResult.voice_1 != null) {
-        this.message1 = this.nutritionResult.voice_1
-        this.message2 = this.nutritionResult.voice_2
+        this.mqttMessage = null
+      } else if(this.nutritionResult.voice1 != null) {
+        this.message1 = this.nutritionResult.voice1
+        this.message2 = this.nutritionResult.voice2
       }
-
-    },
-
-    // 영양정보
-    info() {
 
     },
 
@@ -319,37 +329,45 @@ export default {
   mqtt: {
     'common3': function(value, topic) {
       let result = JSON.parse(value)
+      this.result = result
       console.log('index : ', result[0].index)
       this.index = result[0].index
-      // this.findIndex(this.index)
-      
-      console.log('exist', result.exist)
-      console.log('detact', result.detact)
-      console.log('coord', result.coord)
-      console.log('center', result.center)
-      console.log('product_name', result.product_name)
+
+      console.log('message :', result[0].message)
       console.log(result, topic)
 
-      
-      // 변수 - if index is not NULL
-      if(result.index.first != null && result.index.second != null && result.index.third != null) {
-        console.log('if 1')
-        let index = result.index
+      if(result[0].message != null)
+        var mqttMessage = result[0].message
+        this.mqttMessage = mqttMessage
 
-        let recX1 = result.coord.first[0]
-        let recY1 = result.coord.first[1]
-        let recW1 = result.coord.first[2]
-        let recH1 = result.coord.first[3]
+      // 변수 - if index is not NULL
+      if(result[4].index != null) {
+        let index = result[0].index
+
+        let recX1 = result[0]
+        let recY1 = result[0]
+        let recW1 = result[0]
+        let recH1 = result[0]
         
-        let recX2 = result.coord.second[0]
-        let recY2 = result.coord.second[1]
-        let recW2 = result.coord.second[2]
-        let recH2 = result.coord.second[3]
+        let recX2 = result[1]
+        let recY2 = result[1]
+        let recW2 = result[1]
+        let recH2 = result[1]
         
-        let recX3 = result.coord.third[0]
-        let recY3 = result.coord.third[1]
-        let recW3 = result.coord.third[2]
-        let recH3 = result.coord.third[3]
+        let recX3 = result[2]
+        let recY3 = result[2]
+        let recW3 = result[2]
+        let recH3 = result[2]
+
+        let recX4 = result[3]
+        let recY4 = result[3]
+        let recW4 = result[3]
+        let recH4 = result[3]
+
+        let recX5 = result[4]
+        let recY5 = result[4]
+        let recW5 = result[4]
+        let recH5 = result[4]
 
         this.index = index
 
@@ -368,29 +386,82 @@ export default {
         this.recW3 = recW3
         this.recH3 = recH3
 
-      } else if(result.index.first != null && result.index.second != null) {
+        this.recX4 = recX4
+        this.recY4 = recY4
+        this.recW4 = recW4
+        this.recH4 = recH4
+
+        this.recX5 = recX5
+        this.recY5 = recY5
+        this.recW5 = recW5
+        this.recH5 = recH5
+      } else if(result[3].index != null) {
+        console.log('if 1')
+
+        let index = result[0].index
+
+        let recX1 = result[0]
+        let recY1 = result[0]
+        let recW1 = result[0]
+        let recH1 = result[0]
+        
+        let recX2 = result[1]
+        let recY2 = result[1]
+        let recW2 = result[1]
+        let recH2 = result[1]
+        
+        let recX3 = result[2]
+        let recY3 = result[2]
+        let recW3 = result[2]
+        let recH3 = result[2]
+
+        let recX4 = result[3]
+        let recY4 = result[3]
+        let recW4 = result[3]
+        let recH4 = result[3]
+
+        this.index = index
+
+        this.recX1 = recX1
+        this.recY1 = recY1
+        this.recW1 = recW1
+        this.recH1 = recH1
+        
+        this.recX2 = recX2
+        this.recY2 = recY2
+        this.recW2 = recW2
+        this.recH2 = recH2
+        
+        this.recX3 = recX3
+        this.recY3 = recY3
+        this.recW3 = recW3
+        this.recH3 = recH3
+
+        this.recX4 = recX4
+        this.recY4 = recY4
+        this.recW4 = recW4
+        this.recH4 = recH4
+      } else if(result[2].index != null) {
         console.log('if 2')
-        let index1 = result.index.first
-        let index2 = result.index.second
 
-        let recX1 = result.coord.first[0]
-        let recY1 = result.coord.first[1]
-        let recW1 = result.coord.first[2]
-        let recH1 = result.coord.first[3]
-        
-        let recX2 = result.coord.second[0]
-        let recY2 = result.coord.second[1]
-        let recW2 = result.coord.second[2]
-        let recH2 = result.coord.second[3]
-        
-        let recX3 = ''
-        let recY3 = ''
-        let recW3 = ''
-        let recH3 = ''
+        let index = result[0].index
 
-        this.index[0] = index1
-        this.index[1] = index2
-        this.index[2] = ''
+        let recX1 = result[0]
+        let recY1 = result[0]
+        let recW1 = result[0]
+        let recH1 = result[0]
+        
+        let recX2 = result[1]
+        let recY2 = result[1]
+        let recW2 = result[1]
+        let recH2 = result[1]
+        
+        let recX3 = result[2]
+        let recY3 = result[2]
+        let recW3 = result[2]
+        let recH3 = result[2]
+
+        this.index = index
 
         this.recX1 = recX1
         this.recY1 = recY1
@@ -406,31 +477,21 @@ export default {
         this.recY3 = recY3
         this.recW3 = recW3
         this.recH3 = recH3
+      } else if(result[1].index != null) {
+        console.log('if 1')
+        let index = result[0].index
 
-      } else if(result.index.first != null) {
-        console.log('if 3')
-        console.log(result.coord.first[0])
-
-        let index1 = result.index.first
-
-        let recX1 = result.coord.first[0]
-        let recY1 = result.coord.first[1]
-        let recW1 = result.coord.first[2]
-        let recH1 = result.coord.first[3]
+        let recX1 = result[0]
+        let recY1 = result[0]
+        let recW1 = result[0]
+        let recH1 = result[0]
         
-        let recX2 = ''
-        let recY2 = ''
-        let recW2 = ''
-        let recH2 = ''
-        
-        let recX3 = ''
-        let recY3 = ''
-        let recW3 = ''
-        let recH3 = ''
+        let recX2 = result[1]
+        let recY2 = result[1]
+        let recW2 = result[1]
+        let recH2 = result[1]
 
-        this.index1 = index1
-        this.index2 = ''
-        this.index3 = ''
+        this.index = index
 
         this.recX1 = recX1
         this.recY1 = recY1
@@ -441,14 +502,22 @@ export default {
         this.recY2 = recY2
         this.recW2 = recW2
         this.recH2 = recH2
-        
-        this.recX3 = recX3
-        this.recY3 = recY3
-        this.recW3 = recW3
-        this.recH3 = recH3
+      } else if(result[0].index != null){
+        let index = result[0].index
+
+        let recX1 = result[0]
+        let recY1 = result[0]
+        let recW1 = result[0]
+        let recH1 = result[0]
+
+        this.index = index
+
+        this.recX1 = recX1
+        this.recY1 = recY1
+        this.recW1 = recW1
+        this.recH1 = recH1
       } else {
         console.log('else')
-        // console.log(result.index.first, result.index.second, result.index.third)
       }
 
       

@@ -58,6 +58,7 @@ def result(request):
         else:
             request_data["0"]["message"] = "매대를 비춰주세요."
     else:
+        request_data["0"]["message"] = ""
         count = 0
 
     if request_data["0"]['index'] is None:
@@ -98,6 +99,7 @@ def result2(request):
         else:
             request_data["0"]["message"] = "매대를 비춰주세요."
     else:
+        request_data["0"]["message"] = ""
         count = 0
 
     if request_data["0"]['index'] is None:
