@@ -318,8 +318,10 @@ export default {
         if(this.mqttMessage == null) {
           this.mqttMessage = ""
       } else {
-        console.log("기능 1번 : 제품 찾을 수 없음")
-        this.stopCaptureVideo()
+        setTimeout(() => {
+          console.log("기능 1번 : 제품 찾을 수 없음")
+          this.stopCaptureVideo()}
+        , 6000)
       }
         if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
           this.message1 = this.product_name
@@ -373,10 +375,10 @@ export default {
       this.product_name = result[0].product_name
 
       if(result[0].message != null){
-        var mqttMessage = result[0].message
+        let mqttMessage = result[0].message
         this.mqttMessage = mqttMessage
       } else {
-        mqttMessage = result[0].product_name
+        let mqttMessage = result[0].product_name
         this.mqttMessage = mqttMessage
       }
 
