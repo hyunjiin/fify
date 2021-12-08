@@ -38,28 +38,30 @@
             <button style="margin-right:0.5rem;" name="firstFunction"
                     type='button' class="my_btn"
                     @click="showModal = true">검색</button>
+            <Modal v-if="showModal" @close="showModal = false">
+              <div slot="body">
+                <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
+                <button @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
+              </div>
+            </Modal>
             <button type='button' class="my_btn"
                     @click="secondFunction">확인</button>
         </div>
-    <Modal v-if="showModal" @close="showModal = false">
-      <div slot="body">
-        <input id="inputProduct" type='text' v-model="inputProduct" placeholder="제품을 입력하세요">
-        <button @click="[onProductPub(), showModal = false, firstFunction()]">전송</button>
-      </div>
-    </Modal>
+    
     <div style="display: flex; justify-content: center; align-items: center;">
       <button style="margin-bottom:0.5rem; width: 14.5rem;"
               type='button' class="my_btn"
               @click="showNutritionModal = true">성분표{{salt}}</button>
-    </div>
-    <NutritionModal v-if="showNutritionModal" @close="showNutritionModal = false">
-      <div slot="head" v-text="bold">영bbbb정보</div>
+      <NutritionModal v-if="showNutritionModal" @close="showNutritionModal = false">
       <div slot="body">
         <div>
           <b-table striped hover :items="items"></b-table>
         </div>
+        <button @click="showNutritionModal = false">확인</button>
       </div>
     </NutritionModal>
+    </div>
+    
 
     <button type="button"
             class="btn btn-success"
@@ -292,7 +294,12 @@ export default {
 
     // 첫 번째 기능
     firstFunction() {
-      this.captureVideo()
+      if(this.result[0].messsage == null) {
+        this.captureVideo()
+      } else {
+        console.log("기능 1번 : 제품 찾을 수 없음")
+      }
+      
       // 제품 미등록 시 'message'출력
       // 제품 미등록 시 퍼블리시 안하기
       // 이건 mqtt로 온다
@@ -322,6 +329,7 @@ export default {
   mqtt: {
     'common3': function(value, topic) {
       let result = JSON.parse(value)
+      this.result = result
       console.log('index : ', result[0].index)
       this.index = result[0].index
 
