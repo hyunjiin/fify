@@ -565,8 +565,7 @@ export default {
 <style scoped>
 
 #textInfo {
-    font-size: 20px;
-    box-shadow: inset 0 -10px #3767FF; line-height:21px;
+    font-size: 1.5rem;
 }
 
 
