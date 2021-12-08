@@ -95,7 +95,7 @@ def result2(request):
     max_index = 0
     max_sum = 0
     for index, data in enumerate(request_data):
-        sum = data["w"] + data["h"]
+        sum = float(data["w"]) + float(data["h"])
 
         if max_sum < sum:
             max_sum = sum
