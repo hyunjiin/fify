@@ -311,6 +311,7 @@ export default {
       // this.findIndex()
       this.$mqtt.publish('fify/product', null)
       this.captureVideo()
+      console.log(this.nutritionResult.voice1)
       if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
         this.message1 = this.nutritionResult.product_name
         this.message2 = null
