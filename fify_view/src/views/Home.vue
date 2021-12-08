@@ -556,7 +556,7 @@ export default {
 <style scoped>
 
 #textInfo {
-    font-size: 1.5rem;
+    font-size: 0.9rem;
 }
 
 
