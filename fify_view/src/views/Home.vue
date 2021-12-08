@@ -264,10 +264,10 @@ export default {
     },
 
     // 클라우드로 인덱스 전송
-    async findIndex() {
+    async findIndex(index) {
       // let index = ''
-      // axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
-      axios.get(`http://18.142.131.188/nutrition/1`).then((response)=>{
+      axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
+      // axios.get(`http://18.142.131.188/nutrition/1`).then((response)=>{
       console.log(response.data, 'index전송, 영양정보 받아오기');
 
       let nutritionResult = response.data
@@ -376,30 +376,30 @@ export default {
       if(result[4] != null) {
         let index = result[0].index
 
-        let recX1 = result[0]
-        let recY1 = result[0]
-        let recW1 = result[0]
-        let recH1 = result[0]
+        let recX1 = result[0].x
+        let recY1 = result[0].y
+        let recW1 = result[0].w
+        let recH1 = result[0].h
         
-        let recX2 = result[1]
-        let recY2 = result[1]
-        let recW2 = result[1]
-        let recH2 = result[1]
+        let recX2 = result[1].x
+        let recY2 = result[1].y
+        let recW2 = result[1].w
+        let recH2 = result[1].h
         
-        let recX3 = result[2]
-        let recY3 = result[2]
-        let recW3 = result[2]
-        let recH3 = result[2]
+        let recX3 = result[2].x
+        let recY3 = result[2].y
+        let recW3 = result[2].w
+        let recH3 = result[2].h
 
-        let recX4 = result[3]
-        let recY4 = result[3]
-        let recW4 = result[3]
-        let recH4 = result[3]
+        let recX4 = result[3].x
+        let recY4 = result[3].y
+        let recW4 = result[3].w
+        let recH4 = result[3].h
 
-        let recX5 = result[4]
-        let recY5 = result[4]
-        let recW5 = result[4]
-        let recH5 = result[4]
+        let recX5 = result[4].x
+        let recY5 = result[4].y
+        let recW5 = result[4].w
+        let recH5 = result[4].h
 
         this.index = index
 
@@ -432,25 +432,25 @@ export default {
 
         let index = result[0].index
 
-        let recX1 = result[0]
-        let recY1 = result[0]
-        let recW1 = result[0]
-        let recH1 = result[0]
+        let recX1 = result[0].x
+        let recY1 = result[0].y
+        let recW1 = result[0].w
+        let recH1 = result[0].h
         
-        let recX2 = result[1]
-        let recY2 = result[1]
-        let recW2 = result[1]
-        let recH2 = result[1]
+        let recX2 = result[1].x
+        let recY2 = result[1].y
+        let recW2 = result[1].w
+        let recH2 = result[1].h
         
-        let recX3 = result[2]
-        let recY3 = result[2]
-        let recW3 = result[2]
-        let recH3 = result[2]
+        let recX3 = result[2].x
+        let recY3 = result[2].y
+        let recW3 = result[2].w
+        let recH3 = result[2].h
 
-        let recX4 = result[3]
-        let recY4 = result[3]
-        let recW4 = result[3]
-        let recH4 = result[3]
+        let recX4 = result[3].x
+        let recY4 = result[3].y
+        let recW4 = result[3].w
+        let recH4 = result[3].h
 
         this.index = index
 
@@ -478,20 +478,20 @@ export default {
 
         let index = result[0].index
 
-        let recX1 = result[0]
-        let recY1 = result[0]
-        let recW1 = result[0]
-        let recH1 = result[0]
+        let recX1 = result[0].x
+        let recY1 = result[0].y
+        let recW1 = result[0].w
+        let recH1 = result[0].h
         
-        let recX2 = result[1]
-        let recY2 = result[1]
-        let recW2 = result[1]
-        let recH2 = result[1]
+        let recX2 = result[1].x
+        let recY2 = result[1].y
+        let recW2 = result[1].w
+        let recH2 = result[1].h
         
-        let recX3 = result[2]
-        let recY3 = result[2]
-        let recW3 = result[2]
-        let recH3 = result[2]
+        let recX3 = result[2].x
+        let recY3 = result[2].y
+        let recW3 = result[2].w
+        let recH3 = result[2].h
 
         this.index = index
 
@@ -513,15 +513,15 @@ export default {
         console.log('if 1')
         let index = result[0].index
 
-        let recX1 = result[0]
-        let recY1 = result[0]
-        let recW1 = result[0]
-        let recH1 = result[0]
+        let recX1 = result[0].x
+        let recY1 = result[0].y
+        let recW1 = result[0].w
+        let recH1 = result[0].h
         
-        let recX2 = result[1]
-        let recY2 = result[1]
-        let recW2 = result[1]
-        let recH2 = result[1]
+        let recX2 = result[1].x
+        let recY2 = result[1].y
+        let recW2 = result[1].w
+        let recH2 = result[1].h
 
         this.index = index
 
@@ -537,10 +537,10 @@ export default {
       } else if(result[0] != null){
         let index = result[0].index
 
-        let recX1 = result[0]
-        let recY1 = result[0]
-        let recW1 = result[0]
-        let recH1 = result[0]
+        let recX1 = result[0].x
+        let recY1 = result[0].y
+        let recW1 = result[0].w
+        let recH1 = result[0].h
 
         this.index = index
 
