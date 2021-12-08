@@ -271,6 +271,9 @@ export default {
       let nutritionResult = response.data
       this.nutritionResult = nutritionResult
 
+      this.items[0].bbbb = nutritionResult.serving_size
+      
+      
       this.serving_size = nutritionResult.serving_size
       this.calorie_kJ = nutritionResult.calorie_kJ
       this.calorie_kcal = nutritionResult.calorie_kcal
@@ -310,7 +313,8 @@ export default {
     secondFunction() {
       // this.findIndex()
       this.$mqtt.publish('fify/product', null)
-      this.captureVideo()
+      
+      console.log(this.nutritionResult)
       console.log(this.nutritionResult.voice1)
       if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
         this.message1 = this.nutritionResult.product_name
@@ -320,6 +324,7 @@ export default {
         this.message1 = this.nutritionResult.voice1
         this.message2 = this.nutritionResult.voice2
       }
+      this.captureVideo()
 
     },
 
