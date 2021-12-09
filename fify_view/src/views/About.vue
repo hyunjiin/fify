@@ -1,4 +1,5 @@
 <template>
+<html lang="ko">
 <div style="width=100%;">
     <div class="menu">
         <nav class="clearfix">
@@ -43,6 +44,7 @@
         </div>
     </div>
 </div>
+</html>
 </template>
 
 <style>

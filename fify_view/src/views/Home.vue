@@ -1,4 +1,5 @@
 <template>
+<html lang="ko">
 <div>
     <div class="menu">
         <nav class="clearfix">
@@ -77,8 +78,7 @@
             @click="captureVideo1Time">TEST</button> -->
   </div>
 </div>
-
-
+</html>
 </template>
 
 <script>
