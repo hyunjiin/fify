@@ -20,7 +20,7 @@
 
         <div class="about" style="padding-top:30px; h=100%;">
         <div id="title">
-        <img src="@/logo.png" height="120">
+        <img src="@/logo.png" height="120" alt="피피 로고"> 
         <div style = "font-weight:900; font-size:1.5rem; margin:0px;">Find It For You : 대신 찾고, 알려드릴게요</div>
         <div style = "font-weight:900; font-size:1.5rem; margin-bottom:2rem; padding-top:-10px;">저시력자를 위한 제품 안내 서비스</div>
 
