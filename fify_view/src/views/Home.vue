@@ -107,6 +107,7 @@ export default {
       message1: null,
       message2: null,
       mqttMessage: null,
+      mqttMessageSub: null,
       showModal: false,
       showNutritionModal: false,
       salt: '',
@@ -259,6 +260,7 @@ export default {
     },
 
     // 클라우드로 인덱스 전송
+    // 영양정보 받기
     async findIndex(index) {
       axios.get(`http://18.142.131.188/nutrition/${index}`).then((response)=>{
       // axios.get(`http://18.142.131.188/nutrition/1`).then((response)=>{
@@ -307,18 +309,20 @@ export default {
     // 첫 번째 기능
     firstFunction() {
       this.captureVideo()
+      console.log('1번 기능')
+      
+      // console.log('voice1',this.nutritionResult.voice1)
+      // console.log('voice2',this.nutritionResult.voice2)
       setTimeout(() => {
-        if(this.mqttMessage == null) {
-          this.mqttMessage = ""
-        } else {
-          console.log("기능 1번 : 제품 찾을 수 없음")
-          this.stopCaptureVideo()
-        }
-        if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
+        console.log('message1',this.message1)
+        console.log('message2',this.message2)
+        if(this.message1 === null && this.message2 === null) {
+          console.log('1번기능 첫 번째 if실행')
           this.message1 = null
           this.message2 = null
-          this.mqttMessage = this.nutritionResult.product_name
+          this.mqttMessage = this.mqttMessageSub
         } else if(this.nutritionResult.voice1 != null) {
+          console.log('1번기능 두 번째 if실행')
           this.message1 = this.nutritionResult.voice1
           this.message2 = this.nutritionResult.voice2
           this.mqttMessage = this.nutritionResult.product_name
@@ -332,15 +336,21 @@ export default {
 
     // 두 번째 기능
     secondFunction() {
+      console.log('2번 기능')
+      console.log(this.nutritionResult.voice1)
+      console.log(this.nutritionResult.voice2)
+      console.log('2번 기능')
       this.$mqtt.publish('fify/product', 'check')
       this.captureVideo()
       
       setTimeout(() => {
         if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
+          console('2번기능 첫 번째 if실행')
           this.message1 = null
           this.message2 = null
-          this.mqttMessage = this.nutritionResult.product_name
+          this.mqttMessage = this.mqttMessageSub
         } else if(this.nutritionResult.voice1 != null) {
+          console('2번기능 두 번째 if실행')
           this.message1 = this.nutritionResult.voice1
           this.message2 = this.nutritionResult.voice2
           this.mqttMessage = this.nutritionResult.product_name
@@ -358,11 +368,14 @@ export default {
 
       console.log('index : ', result[0].index)
       this.index = result[0].index
-
+      
       console.log('message :', result[0].message)
       console.log('product name :', result[0].product_name)
       console.log(result, topic)
-
+      
+      if(result[0].message != "") {
+        this.mqttMessageSub = result[0].message
+      }
 
       // 변수 - if index is not NULL
       if(result[4] != null) {
