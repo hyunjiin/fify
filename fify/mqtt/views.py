@@ -52,7 +52,7 @@ def result(request):
         request_data["0"]["message"] = "등록되지 않은 제품입니다."
     elif request_data["0"]['detect'] == 'n' or request_data["0"]['detect'] == 'N':
         count += 1
-        if count < 60:
+        if count < 3:
             return Response(str(count))
         else:
             request_data["0"]["message"] = "매대를 비춰주세요."
@@ -105,7 +105,7 @@ def result2(request):
         request_data[max_index]["message"] = "등록되지 않은 제품입니다."
     elif request_data[max_index]['detect'] == 'n' or request_data[max_index]['detect'] == 'N':
         count += 1
-        if count < 60:
+        if count < 3:
             return Response(str(count))
         else:
             request_data[max_index]["message"] = "매대를 비춰주세요."
