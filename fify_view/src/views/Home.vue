@@ -337,14 +337,14 @@ export default {
     // 두 번째 기능
     secondFunction() {
       console.log('2번 기능')
-      console.log(this.nutritionResult.voice1)
-      console.log(this.nutritionResult.voice2)
+      // console.log(this.nutritionResult.voice1)
+      // console.log(this.nutritionResult.voice2)
       console.log('2번 기능')
       this.$mqtt.publish('fify/product', 'check')
       this.captureVideo()
       
       setTimeout(() => {
-        if(this.nutritionResult.voice1 == null && this.nutritionResult.voice2 == null) {
+        if(this.message1 === null && this.message2 === null){
           console('2번기능 첫 번째 if실행')
           this.message1 = null
           this.message2 = null
