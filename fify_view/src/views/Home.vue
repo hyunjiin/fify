@@ -256,6 +256,7 @@ export default {
       // context.rect(180, 50, 80, 70)
       context.stroke();
 
+      console.log('네모그리기 index: ', this.index)
       this.findIndex(this.index)
     },
 
@@ -326,6 +327,8 @@ export default {
           this.message1 = this.nutritionResult.voice1
           this.message2 = this.nutritionResult.voice2
           this.mqttMessage = this.nutritionResult.product_name
+        } else {
+          console.log('1번기능 esle')
         }
       }, 10000);
       // 제품 미등록 시 'message'출력
@@ -345,15 +348,17 @@ export default {
       
       setTimeout(() => {
         if(this.message1 === null && this.message2 === null){
-          console('2번기능 첫 번째 if실행')
+          consol.log('2번기능 첫 번째 if실행')
           this.message1 = null
           this.message2 = null
           this.mqttMessage = this.mqttMessageSub
         } else if(this.nutritionResult.voice1 != null) {
-          console('2번기능 두 번째 if실행')
+          console.log('2번기능 두 번째 if실행')
           this.message1 = this.nutritionResult.voice1
           this.message2 = this.nutritionResult.voice2
           this.mqttMessage = this.nutritionResult.product_name
+        } else {
+          console.log('2번기능 esle')
         }
       }, 10000);
     },
