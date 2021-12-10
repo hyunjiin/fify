@@ -92,12 +92,14 @@ def result2(request):
 
     max_index = 0
     max_sum = 0
-    for index, data in enumerate(request_data):
-        sum = float(request_data[data]["w"]) + float(request_data[data]["h"])
 
-        if max_sum < sum:
-            max_sum = sum
-            max_index = data
+    if request_data[max_index]['exist'] != 'n' and request_data[max_index]['detect'] != 'N':
+        for index, data in enumerate(request_data):
+            sum = float(request_data[data]["w"]) + float(request_data[data]["h"])
+
+            if max_sum < sum:
+                max_sum = sum
+                max_index = data
 
     # if len(request.data) > 1:
     #     request_data["0"]["message"] = "하나의 제품만 비춰주세요."
