@@ -348,7 +348,7 @@ export default {
       
       setTimeout(() => {
         if(this.message1 === null && this.message2 === null){
-          consol.log('2번기능 첫 번째 if실행')
+          console.log('2번기능 첫 번째 if실행')
           this.message1 = null
           this.message2 = null
           this.mqttMessage = this.mqttMessageSub
